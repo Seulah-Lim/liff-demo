@@ -16,6 +16,7 @@ export default function Login_mobile() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("UserAgent:", navigator.userAgent);
     const initialBid = getBidFromLocation();
 
     liff
@@ -203,6 +204,20 @@ export default function Login_mobile() {
                 임시 페이지들로 이동
               </button>
             </div>
+            <section style={{ marginTop: 16 }}>
+              <h2>UserAgent</h2>
+              <pre
+                style={{
+                  fontSize: "12px",
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "break-all",
+                  padding: "8px",
+                  borderRadius: "4px",
+                }}
+              >
+                {navigator.userAgent}
+              </pre>
+            </section>
           </>
         )}
       </main>

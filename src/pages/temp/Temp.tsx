@@ -54,7 +54,6 @@ export default function Temp() {
             신고/고객지원 화면
           </button>
         </main>
-        <div className="footer">LIFF UX Mock • navigate()로 라우팅</div>
       </div>
     </div>
   );
