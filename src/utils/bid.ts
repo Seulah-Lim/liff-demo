@@ -1,4 +1,3 @@
-// src/utils/bid.ts
 export function getBidFromLocation(): string | null {
   // 1) 일반 쿼리에서 먼저 시도
   const url = new URL(window.location.href);

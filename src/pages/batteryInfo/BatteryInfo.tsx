@@ -1,13 +1,12 @@
 // src/pages/Battery.tsx
-import { useMemo } from "react";
-import { useLocation, Link } from "react-router";
+
+import { Link } from "react-router";
+import { useBidStore } from "../../app/store/bidStore";
 
 const LIFF_ID = "2008002745-KgmzwRd4";
 
 export default function BatteryInfo() {
-  const { search } = useLocation();
-  const bid = useMemo(() => new URLSearchParams(search).get("bid"), [search]);
-
+  const bid = useBidStore((s) => s.bid);
   const sampleStateLink = `https://liff.line.me/${LIFF_ID}?liff.state=${encodeURIComponent(
     "?bid=yourBatteryId"
   )}`;

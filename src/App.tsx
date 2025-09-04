@@ -1,26 +1,20 @@
-// import { useEffect } from "react";
-
+// App.tsx
+import { Outlet, useLocation } from "react-router";
 import { useEffect } from "react";
-import { Outlet } from "react-router";
+import { useBidStore } from "./app/store/bidStore";
 
-import { useNavigate } from "react-router";
-
-function App() {
-  const navigate = useNavigate();
+export default function App() {
+  const loc = useLocation();
+  const initFromUrlOnce = useBidStore((s) => s.initFromUrlOnce);
 
   useEffect(() => {
-    navigate({
-      pathname: "/login",
-      search: location.search, //쿼리
-      hash: location.hash, //해쉬
-      //쿼리 해시 유지한상태로 이동
-    });
-  }, [navigate]);
+    // 앱 진입 시 현재 URL의 ?bid=를 읽어 전역 저장(한 번만 동작)
+    initFromUrlOnce(loc.search);
+  }, [initFromUrlOnce, loc.search]);
+
   return (
     <div style={{ display: "flex" }}>
       <Outlet />
     </div>
   );
 }
-
-export default App;

@@ -16,7 +16,6 @@ export default function Login_mobile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("UserAgent:", navigator.userAgent);
     const initialBid = getBidFromLocation();
 
     liff
@@ -78,6 +77,11 @@ export default function Login_mobile() {
   const goTempPage = () => {
     // /battery로 이동하면서 bid 쿼리를 붙여줌
     navigate(buildUrlWithBid("/temp", bid), { replace: false });
+  };
+
+  const goCurrentLocationPage = () => {
+    // /battery로 이동하면서 bid 쿼리를 붙여줌
+    navigate(buildUrlWithBid("/currentLocation", bid), { replace: false });
   };
 
   return (
@@ -202,6 +206,21 @@ export default function Login_mobile() {
                 }}
               >
                 임시 페이지들로 이동
+              </button>
+            </div>
+            <div style={{ marginTop: 16 }}>
+              <button
+                onClick={goCurrentLocationPage}
+                style={{
+                  padding: "10px 16px",
+                  backgroundColor: "black",
+                  color: "white",
+                  border: "none",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                }}
+              >
+                위치 조회 페이지로 이동
               </button>
             </div>
             <section style={{ marginTop: 16 }}>
