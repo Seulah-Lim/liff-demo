@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ensureLiffInit, liff } from "../../utils/liffClient";
+import { liff } from "../../utils/liffClient";
 import type { Profile } from "@liff/get-profile";
 type LiffState = {
   ready: boolean;
@@ -7,56 +7,97 @@ type LiffState = {
   profile: Profile | null;
   idToken: string | null;
   error?: string;
+  debugLogs: string[];
 };
 type LiffActions = {
   init: () => Promise<void>;
   login: () => void;
   logout: () => void;
   refreshProfile: () => Promise<void>;
+  appendLog: (msg: string) => void;
 };
+function now() {
+  return new Date().toLocaleTimeString();
+}
 
-export const useLiffStore = create<LiffState & LiffActions>((set) => ({
+export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
   ready: false,
   isLoggedIn: false,
   profile: null,
   idToken: null,
+  debugLogs: [],
 
+  appendLog: (msg: string) =>
+    set((s) => ({ debugLogs: [...s.debugLogs, `[${now()}] ${msg}`] })),
   init: async () => {
+    const log = get().appendLog;
+
+    // 전역 오류 로그 수집
+    window.addEventListener("error", (e) => log(`window.error: ${e.message}`));
+    window.addEventListener("unhandledrejection", (e) =>
+      log(`unhandledrejection: ${String((e as PromiseRejectionEvent).reason)}`)
+    );
+
     try {
-      await ensureLiffInit();
+      log("init:start");
+      const liffId: string = import.meta.env.VITE_LIFF_ID;
+      if (!liffId) throw new Error("VITE_LIFF_ID is empty");
+      const initOnce = () =>
+        new Promise<void>((resolve, reject) => {
+          try {
+            liff.init(
+              { liffId, withLoginOnExternalBrowser: false },
+              () => {
+                log("init:success callback");
+                resolve();
+              },
+              (err) => {
+                log(`init:error callback ${String(err)}`);
+                reject(err);
+              }
+            );
+          } catch (e) {
+            reject(e);
+          }
+        });
+
+      // 타임아웃 제거: 그냥 initOnce만 기다림
+      await initOnce();
+
+      log("ensureLiffInit done");
+
       const logged = liff.isLoggedIn();
+      log(`isLoggedIn: ${logged}`);
+
       let profile: Profile | null = null;
+      let idToken: string | null = null;
       if (logged) {
-        const p: Profile = await liff.getProfile();
+        log("getProfile begin");
+        const p = await liff.getProfile();
         profile = {
           displayName: p.displayName,
           userId: p.userId,
           pictureUrl: p.pictureUrl,
         };
+
+        idToken = liff.getIDToken();
+
+        log("getProfile done");
       }
 
-      const idToken = logged ? liff.getIDToken() ?? null : null; // 로그인시로 바꿀예정
       set({
         ready: true,
         isLoggedIn: logged,
         profile,
         idToken,
-        error: undefined,
       });
-    } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : String(e);
-      set({
-        ready: true,
-        isLoggedIn: false,
-        profile: null,
-        idToken: null,
-        error: message ?? "LIFF 초기화 실패",
-      });
+      log("state set: ready=true");
+    } catch (e) {
+      log(`init:error:${String(e)}`);
     }
   },
 
   login: async () => {
-    await ensureLiffInit();
     liff.login();
   },
 

@@ -1,52 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useLiffStore } from "../app/store/liffStore";
-
-const card: React.CSSProperties = {
-  border: "1px solid #e5e7eb",
-  borderRadius: 12,
-  padding: 16,
-};
+const LIFF_DEEPLINK = "https://liff.line.me/2008002745-KgmzwRd4";
+declare const __BUILD_TIME__: string;
 
 export default function HomeHub() {
-  const { ready, isLoggedIn, profile, init, login, logout, error } =
-    useLiffStore();
+  const {
+    ready,
+    isLoggedIn,
+    profile,
+    debugLogs,
+    init,
+    login,
+    logout,
+    appendLog,
+  } = useLiffStore();
   const [busy, setBusy] = useState<null | "login" | "logout">(null);
-  const [logs, setLogs] = useState<string[]>([]);
-  const [initCalledAt, setInitCalledAt] = useState<number | null>(null);
-
   useEffect(() => {
-    setLogs((l) => [
-      ...l,
-      `[${new Date().toLocaleTimeString()}] HomeHub mounted`,
-    ]);
-    setInitCalledAt(Date.now());
-    setLogs((l) => [
-      ...l,
-      `[${new Date().toLocaleTimeString()}] init() called`,
-    ]);
+    appendLog("HomeHub mounted");
+    appendLog("init() called from HomeHub");
     init();
-  }, [init]);
-
+  }, [appendLog, init]);
   useEffect(() => {
-    setLogs((l) => [
-      ...l,
-      `[${new Date().toLocaleTimeString()}] ready: ${ready}`,
-    ]);
-  }, [ready]);
+    appendLog(`ready: ${ready}`);
+  }, [ready, appendLog]);
   useEffect(() => {
-    setLogs((l) => [
-      ...l,
-      `[${new Date().toLocaleTimeString()}] isLoggedIn: ${isLoggedIn}`,
-    ]);
-  }, [isLoggedIn]);
-  useEffect(() => {
-    if (error)
-      setLogs((l) => [
-        ...l,
-        `[${new Date().toLocaleTimeString()}] error: ${error}`,
-      ]);
-  }, [error]);
+    appendLog(`isLoggedIn: ${isLoggedIn}`);
+  }, [isLoggedIn, appendLog]);
 
   const handleLogin = () => {
     setBusy("login");
@@ -57,7 +37,11 @@ export default function HomeHub() {
     logout();
   };
 
-  //   if (!ready) return <h2>초기화 중 ...</h2>;
+  const openInLINE = () => {
+    // 필요 시 현재 쿼리/해시를 붙이고 싶으면 아래처럼:
+    // location.href = `${LIFF_DEEPLINK}${location.search}${location.hash}`;
+    location.href = LIFF_DEEPLINK;
+  };
 
   return (
     <div style={container}>
@@ -107,19 +91,26 @@ export default function HomeHub() {
                 {busy === "login" ? "로그인 중…" : "로그인"}
               </button>
             )}
+            <button style={btnGhost} onClick={openInLINE}>
+              LIFF로 열기
+            </button>
           </div>
         </>
       </section>{" "}
       <section style={debugCard}>
         <h2 style={h2}>Debug</h2>{" "}
+        {
+          <div>
+            <span style={label}>
+              {import.meta.env.PROD ? "build" : "dev server start"}
+            </span>
+            <span style={value}>
+              {new Date(__BUILD_TIME__).toLocaleString()}
+            </span>
+          </div>
+        }
         <div>
           {" "}
-          <div>
-            <span style={label}>init called at</span>
-            <span style={value}>
-              {initCalledAt ? new Date(initCalledAt).toLocaleString() : "-"}
-            </span>
-          </div>{" "}
           <div>
             <span style={label}>ready</span>
             <span style={value}>{String(ready)}</span>
@@ -127,10 +118,6 @@ export default function HomeHub() {
           <div>
             <span style={label}>isLoggedIn</span>
             <span style={value}>{String(isLoggedIn)}</span>
-          </div>{" "}
-          <div>
-            <span style={label}>error</span>
-            <span style={value}>{error ?? "-"}</span>
           </div>{" "}
           <div>
             <span style={label}>location</span>
@@ -158,7 +145,11 @@ export default function HomeHub() {
         </div>{" "}
         <div style={{ marginTop: 10 }}>
           <div style={label}>events</div>{" "}
-          <pre style={logBox}>{logs.join("\n") || "-"}</pre>{" "}
+          <pre style={logBox}>
+            {Array.isArray(debugLogs) && debugLogs.length > 0
+              ? debugLogs.join("\n")
+              : "-"}
+          </pre>
         </div>{" "}
       </section>
       {/* 탐색 */}{" "}
@@ -208,6 +199,11 @@ export default function HomeHub() {
                 신고하기
               </Link>
             </li>{" "}
+            <li>
+              <a style={navItem} href={LIFF_DEEPLINK}>
+                LINE 앱(LIFF)으로 열기
+              </a>
+            </li>{" "}
           </ul>{" "}
         </nav>{" "}
       </section>
@@ -216,6 +212,12 @@ export default function HomeHub() {
 }
 
 /* --- styles --- */
+const card: React.CSSProperties = {
+  border: "1px solid #e5e7eb",
+  borderRadius: 12,
+  padding: 16,
+};
+
 const container: React.CSSProperties = {
   maxWidth: 640,
   margin: "24px auto 48px",

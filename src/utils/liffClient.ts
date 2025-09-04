@@ -13,6 +13,7 @@ export function ensureLiffInit() {
       withLoginOnExternalBrowser: false,
     });
     await liff.ready;
+    //liff.isInClient(); liff 브라우저에서 실행되는지 여부
   })();
   return initPromise;
 }
