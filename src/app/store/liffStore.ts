@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { liff } from "../../utils/liffClient";
 import type { Profile } from "@liff/get-profile";
+import LIFFInspectorPlugin from "@line/liff-inspector";
+
 type LiffState = {
   ready: boolean;
   isLoggedIn: boolean;
@@ -9,6 +11,7 @@ type LiffState = {
   error?: string;
   debugLogs: string[];
 };
+
 type LiffActions = {
   init: () => Promise<void>;
   login: () => void;
@@ -16,6 +19,7 @@ type LiffActions = {
   refreshProfile: () => Promise<void>;
   appendLog: (msg: string) => void;
 };
+
 function now() {
   return new Date().toLocaleTimeString();
 }
@@ -33,15 +37,16 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
     const log = get().appendLog;
 
     // 전역 오류 로그 수집
-    window.addEventListener("error", (e) => log(`window.error: ${e.message}`));
-    window.addEventListener("unhandledrejection", (e) =>
-      log(`unhandledrejection: ${String((e as PromiseRejectionEvent).reason)}`)
-    );
+    // window.addEventListener("error", (e) => log(`window.error: ${e.message}`));
+    // window.addEventListener("unhandledrejection", (e) =>
+    //   log(`unhandledrejection: ${String((e as PromiseRejectionEvent).reason)}`)
+    // );
 
     try {
       log("init:start");
       const liffId: string = import.meta.env.VITE_LIFF_ID;
       if (!liffId) throw new Error("VITE_LIFF_ID is empty");
+      liff.use(new LIFFInspectorPlugin());
       const initOnce = () =>
         new Promise<void>((resolve, reject) => {
           try {
@@ -61,7 +66,6 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
           }
         });
 
-      // 타임아웃 제거: 그냥 initOnce만 기다림
       await initOnce();
 
       log("ensureLiffInit done");
