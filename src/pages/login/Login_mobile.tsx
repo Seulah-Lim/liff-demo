@@ -74,10 +74,7 @@ export default function Login_mobile() {
     navigate(buildUrlWithBid("/scan", bid), { replace: false });
   };
 
-  const goTempPage = () => {
-    // /battery로 이동하면서 bid 쿼리를 붙여줌
-    navigate(buildUrlWithBid("/temp", bid), { replace: false });
-  };
+  const goTempPage = () => {};
 
   const goCurrentLocationPage = () => {
     // /battery로 이동하면서 bid 쿼리를 붙여줌
