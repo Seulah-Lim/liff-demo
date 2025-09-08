@@ -22,7 +22,7 @@ if (import.meta.env.MODE === "development") {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/liff-demo/">
       <Routes>
         <Route path="/" element={<App />}>
           {/* index = 홈 */}

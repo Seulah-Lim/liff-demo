@@ -8,6 +8,7 @@ const buildTime = new Date().toISOString();
 
 export default defineConfig({
   plugins: [react(), vanillaExtractPlugin()],
+  base: "/liff-demo/",
   define: {
     __BUILD_TIME__: JSON.stringify(buildTime),
   },
