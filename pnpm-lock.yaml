@@ -11,6 +11,9 @@ importers:
       '@liff/get-profile':
         specifier: ^2.27.1
         version: 2.27.1(tslib@2.8.1)
+      '@liff/store':
+        specifier: ^2.27.2
+        version: 2.27.2(tslib@2.8.1)
       '@line/liff':
         specifier: ^2.27.1
         version: 2.27.1
@@ -440,6 +443,11 @@ packages:
     peerDependencies:
       tslib: ^2.3.0
 
+  '@liff/consts@2.27.2':
+    resolution: {integrity: sha512-2pgXC56YFSzbCuHk9pI1Cvyet/ACach/uvcsMIxK+N7R4jTdPAZIiA6XKWLxgPRmXIh0lNm4pRa0vb0tBtcvdQ==}
+    peerDependencies:
+      tslib: ^2.3.0
+
   '@liff/core@2.27.1':
     resolution: {integrity: sha512-Zy/HxrRsXej5NKaT900uEJ7HcdTSXiayED151tca+E5u5kJjloQg74Epf5wN5PECV02XG6myPq2+svpSa51nMw==}
     peerDependencies:
@@ -503,6 +511,11 @@ packages:
     peerDependencies:
       tslib: ^2.3.0
 
+  '@liff/hooks@2.27.2':
+    resolution: {integrity: sha512-6o7D+Y1EmfRp2Tc26CNEpiRsjKWUV1ILuXpzN1AYW4wQXu5hk7DAm4tA9rarR7dHxjpKEmMvqle/LrIEq1CDvA==}
+    peerDependencies:
+      tslib: ^2.3.0
+
   '@liff/i18n@2.27.1':
     resolution: {integrity: sha512-nGo3EloEacS4vj2ZbT0V8Nfwscd1ARN2LRJtxfGnqPqaN6AcfX+6XQrC0//+3Ik2cY4hQlIhVxfxFzodtniD0A==}
     peerDependencies:
@@ -528,6 +541,11 @@ packages:
     peerDependencies:
       tslib: ^2.3.0
 
+  '@liff/is-in-client@2.27.2':
+    resolution: {integrity: sha512-KJ16of9tgULZUGC/bfKxJ7focgLTUEfyuxH7eElKwXcEmkrASn8j7P2HTJ8w+vAhRRKlDCQgkbNwVWQyzV7sNw==}
+    peerDependencies:
+      tslib: ^2.3.0
+
   '@liff/is-logged-in@2.27.1':
     resolution: {integrity: sha512-vm4w/6DXTOJFNlYwn3IYykYsSj86le19ez5uny+V1PHtK7hdzrDNfUcMRR/7hOkyh6U4tvxRgOFODyV/BpJDnA==}
     peerDependencies:
@@ -545,6 +563,11 @@ packages:
 
   '@liff/logger@2.27.1':
     resolution: {integrity: sha512-4z+zQWNtzPLiB3PQedLwQSy5zpLJVA4d6Hs8+MkUO3hJGd2tKYpSGhO3Xj5e7p04yg47iY0emZKWdwZWDA/3Jw==}
+    peerDependencies:
+      tslib: ^2.3.0
+
+  '@liff/logger@2.27.2':
+    resolution: {integrity: sha512-3CiHI+Jfeb0oFIxaHzMKIGDwNAu1WwS1joGhqXs6X6TN5gIsJcXxiyXrDjaonl67+qHqv91ylinnmpffR57dbA==}
     peerDependencies:
       tslib: ^2.3.0
 
@@ -618,6 +641,11 @@ packages:
     peerDependencies:
       tslib: ^2.3.0
 
+  '@liff/store@2.27.2':
+    resolution: {integrity: sha512-uRxe8Z1gqU/E2M3kz1w3WobqSKQ8X+Wc91FxlmTAyDVPjSf7A47lfLk3A/Uvg0QfBrxBcWZmKRFXfw6cQAbvqg==}
+    peerDependencies:
+      tslib: ^2.3.0
+
   '@liff/sub-window@2.27.1':
     resolution: {integrity: sha512-+iMLg92i9Qy1Zcxqs6F1A0BDURUF//hYwstu5uPK190KwBduXZhDEolV2bakfValt4xUCgYe9mdLcrF4Jk3k0w==}
     peerDependencies:
@@ -626,13 +654,26 @@ packages:
   '@liff/types@2.27.1':
     resolution: {integrity: sha512-gWgjZtsFD5BFAtMLwnoPqZHD3AbQeXaihVkABfPZwQ0i40w1v0/cQ/CRwYJq7RiJ4yYKzEmKkEAuW/cYxqtuyQ==}
 
+  '@liff/types@2.27.2':
+    resolution: {integrity: sha512-5vqPTFn3nKe2lXlGglM7e6MpCLpna7PdgwkCr8N2vBDvie1W9R9xZLvFqE4YogVWxHSONpKQ4r82LHeLVafTOA==}
+
   '@liff/use@2.27.1':
     resolution: {integrity: sha512-2DRHozshQm5Ho1Sic8Il38R9575tNRPQ4ACJpfILuIw+wYJFCyR90agBXFwYVMSKmXsdV8WzGDpXfDKbZoc9Nw==}
     peerDependencies:
       tslib: ^2.3.0
 
+  '@liff/use@2.27.2':
+    resolution: {integrity: sha512-AkXxL9cYeWPMw1+B/JBoYpppeAaMUIX6+yIxRZGIHw+i2K4Jr0S3Z3xu3yTvjAFRrGbRpArpv7V7NZEc1oqFNA==}
+    peerDependencies:
+      tslib: ^2.3.0
+
   '@liff/util@2.27.1':
     resolution: {integrity: sha512-yl4NHlI42UaLxW8b3XI9SobZoQ8WCnWWx2SDgf78N3hMmk4fKMkHE+t9YVFjHIu+c4o40k+ZCxRazS+azjb2XA==}
+    peerDependencies:
+      tslib: ^2.3.0
+
+  '@liff/util@2.27.2':
+    resolution: {integrity: sha512-ibYBscxGjNazouZ//cxp+oIBJLVOmKxI9/5glUISJY2z3nrz1J6bQF0jfZIsSwl3VMQZnO2xeK5P1f7McpF5yg==}
     peerDependencies:
       tslib: ^2.3.0
 
@@ -2718,6 +2759,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@liff/consts@2.27.2(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
   '@liff/core@2.27.1(tslib@2.8.1)':
     dependencies:
       '@liff/get-version': 2.27.1(tslib@2.8.1)
@@ -2815,6 +2860,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@liff/hooks@2.27.2(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
   '@liff/i18n@2.27.1(tslib@2.8.1)':
     dependencies:
       '@liff/consts': 2.27.1(tslib@2.8.1)
@@ -2880,6 +2929,13 @@ snapshots:
       '@liff/util': 2.27.1(tslib@2.8.1)
       tslib: 2.8.1
 
+  '@liff/is-in-client@2.27.2(tslib@2.8.1)':
+    dependencies:
+      '@liff/consts': 2.27.2(tslib@2.8.1)
+      '@liff/use': 2.27.2(tslib@2.8.1)
+      '@liff/util': 2.27.2(tslib@2.8.1)
+      tslib: 2.8.1
+
   '@liff/is-logged-in@2.27.1(tslib@2.8.1)':
     dependencies:
       '@liff/store': 2.27.1(tslib@2.8.1)
@@ -2933,6 +2989,10 @@ snapshots:
       - debug
 
   '@liff/logger@2.27.1(tslib@2.8.1)':
+    dependencies:
+      tslib: 2.8.1
+
+  '@liff/logger@2.27.2(tslib@2.8.1)':
     dependencies:
       tslib: 2.8.1
 
@@ -3077,6 +3137,15 @@ snapshots:
       '@liff/util': 2.27.1(tslib@2.8.1)
       tslib: 2.8.1
 
+  '@liff/store@2.27.2(tslib@2.8.1)':
+    dependencies:
+      '@liff/consts': 2.27.2(tslib@2.8.1)
+      '@liff/is-in-client': 2.27.2(tslib@2.8.1)
+      '@liff/types': 2.27.2
+      '@liff/use': 2.27.2(tslib@2.8.1)
+      '@liff/util': 2.27.2(tslib@2.8.1)
+      tslib: 2.8.1
+
   '@liff/sub-window@2.27.1(tslib@2.8.1)':
     dependencies:
       '@liff/close-window': 2.27.1(tslib@2.8.1)
@@ -3095,16 +3164,30 @@ snapshots:
 
   '@liff/types@2.27.1': {}
 
+  '@liff/types@2.27.2': {}
+
   '@liff/use@2.27.1(tslib@2.8.1)':
     dependencies:
       '@liff/hooks': 2.27.1(tslib@2.8.1)
       '@liff/logger': 2.27.1(tslib@2.8.1)
       tslib: 2.8.1
 
+  '@liff/use@2.27.2(tslib@2.8.1)':
+    dependencies:
+      '@liff/hooks': 2.27.2(tslib@2.8.1)
+      '@liff/logger': 2.27.2(tslib@2.8.1)
+      tslib: 2.8.1
+
   '@liff/util@2.27.1(tslib@2.8.1)':
     dependencies:
       '@liff/consts': 2.27.1(tslib@2.8.1)
       '@liff/logger': 2.27.1(tslib@2.8.1)
+      tslib: 2.8.1
+
+  '@liff/util@2.27.2(tslib@2.8.1)':
+    dependencies:
+      '@liff/consts': 2.27.2(tslib@2.8.1)
+      '@liff/logger': 2.27.2(tslib@2.8.1)
       tslib: 2.8.1
 
   '@liff/window-postmessage@2.27.1(tslib@2.8.1)':

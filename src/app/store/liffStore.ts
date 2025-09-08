@@ -1,42 +1,20 @@
 import { create } from "zustand";
 import { liff } from "../../utils/liffClient";
 import type { Profile } from "@liff/get-profile";
+import type { Context } from "@liff/store";
 import LIFFInspectorPlugin from "@line/liff-inspector";
+import type {
+  LiffActions,
+  LiffJWTPayload,
+  LiffState,
+  LiffErrorLike,
+} from "../../shared/types/liff_types";
 //import LiffMockPlugin from "@line/liff-mock";
-type LiffJWTPayload = {
-  sub: string;
-  name?: string;
-  picture?: string;
-  email?: string;
-  iss?: string;
-  aud?: string;
-  exp?: number;
-  iat?: number;
-};
-type LiffState = {
-  ready: boolean;
-  isLoggedIn: boolean;
-  profile: Profile | null;
-  idToken: string | null;
-  decodedIdToken: LiffJWTPayload | null;
-  error?: string;
-  debugLogs: string[];
-};
-
-type LiffActions = {
-  init: () => Promise<void>;
-  login: () => void;
-  logout: () => void;
-  refreshProfile: () => Promise<void>;
-  appendLog: (msg: string) => void;
-};
+export type LiffContext = NonNullable<ReturnType<typeof liff.getContext>>;
 
 function now() {
   return new Date().toLocaleTimeString();
 }
-type LiffErrorLike =
-  | { code?: string; message?: string; cause?: unknown }
-  | unknown;
 
 const isLiffError = (
   e: LiffErrorLike
@@ -85,6 +63,8 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
   idToken: null,
   debugLogs: [],
   decodedIdToken: null,
+  grantedScopes: [],
+  scopes: [],
 
   appendLog: (msg: string) =>
     set((s) => ({ debugLogs: [...s.debugLogs, `[${now()}] ${msg}`] })),
@@ -108,7 +88,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
             liff.init(
               {
                 liffId,
-                withLoginOnExternalBrowser: false,
+                withLoginOnExternalBrowser: true,
                 //mock: true
               },
               () => resolve(),
@@ -151,7 +131,19 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
       const idToken = liff.getIDToken();
       const decodedIdToken = liff.getDecodedIDToken() as LiffJWTPayload | null;
 
-      set({ ready: true, isLoggedIn: true, profile, idToken, decodedIdToken });
+      const grantedScopes = await liff.permission.getGrantedAll();
+
+      const c: Context | null = liff.getContext();
+      const scopes = c?.scope;
+      set({
+        ready: true,
+        isLoggedIn: true,
+        profile,
+        idToken,
+        decodedIdToken,
+        grantedScopes,
+        scopes,
+      });
       log("getProfile:done; state set (logged in)");
     } catch (e) {
       const info = toErrInfo(e);

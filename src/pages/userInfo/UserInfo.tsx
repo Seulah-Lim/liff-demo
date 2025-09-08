@@ -3,8 +3,16 @@ import { useLiffStore } from "../../app/store/liffStore";
 import { useBidStore } from "../../app/store/bidStore";
 
 export default function UserInfo() {
-  const { ready, isLoggedIn, profile, idToken, decodedIdToken, login } =
-    useLiffStore();
+  const {
+    ready,
+    isLoggedIn,
+    profile,
+    idToken,
+    decodedIdToken,
+    grantedScopes,
+    scopes,
+    login,
+  } = useLiffStore();
   const ua = navigator.userAgent;
   const bid = useBidStore((s) => s.bid);
 
@@ -44,6 +52,14 @@ export default function UserInfo() {
                 </div>
               </div>
             )}
+            <div style={row}>
+              <span style={label}>Granted Permission</span>
+              <code style={codeBox}>{grantedScopes}</code>
+            </div>
+            <div style={row}>
+              <span style={label}>Scopes</span>
+              <code style={codeBox}>{scopes}</code>
+            </div>
             <div style={row}>
               <span style={label}>UserAgent</span>
               <code style={codeBox}>{ua}</code>
