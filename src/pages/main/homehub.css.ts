@@ -19,7 +19,6 @@ export const container = style({
 export const h2 = style({
   margin: "0 0 8px",
   fontSize: 18,
-  color: "#111",
 });
 
 export const btn = style({
@@ -165,4 +164,36 @@ export const logBox = style({
   maxHeight: 160,
   overflow: "auto",
   lineHeight: 1.4,
+});
+
+export const badge = style({
+  display: "inline-block",
+  padding: "2px 8px",
+  fontSize: "12px",
+  lineHeight: 1.6,
+  borderRadius: "9999px",
+  backgroundColor: "rgba(0,0,0,0.08)",
+  color: "#222",
+  marginLeft: "8px",
+  verticalAlign: "middle",
+});
+
+export const badgeOutline = style({
+  display: "inline-block",
+  padding: "2px 8px",
+  fontSize: "12px",
+  lineHeight: 1.6,
+  borderRadius: "9999px",
+  border: "1px solid rgba(0,0,0,0.2)",
+  color: "#222",
+  marginLeft: "8px",
+  verticalAlign: "middle",
+  background: "#fff",
+});
+
+export const mutedNote = style({
+  display: "block",
+  marginTop: "2px",
+  fontSize: "12px",
+  color: "#666",
 });

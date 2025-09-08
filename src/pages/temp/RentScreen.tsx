@@ -1,8 +1,10 @@
+import { useBidStore } from "../../app/store/bidStore.ts";
 import * as s from "./rentScreen.css.ts";
 
 export default function RentScreen() {
   const IMAGE_URL =
     "https://www.okamura.com/wp-content/uploads/2025/04/OC_Image_1.webp";
+  const bid = useBidStore((s) => s.bid);
 
   return (
     <div className={s.container}>
@@ -25,7 +27,7 @@ export default function RentScreen() {
 
               <div className={s.k}>배터리ID</div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span>#12345</span>
+                <span>{bid ?? "-"}</span>
                 <span className={`${s.pill} ${s.pillGreen}`}>
                   <span className={s.dot} /> Available
                 </span>

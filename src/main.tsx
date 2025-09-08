@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { BrowserRouter, Route, Routes } from "react-router";
-import BatteryInfo from "./pages/batteryInfo/BatteryInfo.tsx";
 
 import ScanResult from "./pages/scan/ScanResult.tsx";
 import RentScreen from "./pages/temp/RentScreen.tsx";
@@ -23,7 +22,7 @@ if (import.meta.env.MODE === "development") {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/liff-demo/">
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
           {/* index = 홈 */}
@@ -32,7 +31,6 @@ createRoot(document.getElementById("root")!).render(
           {/* 일반 페이지 */}
           <Route path="login" element={<Login />} />
           <Route path="userInfo" element={<UserInfo />} />
-          <Route path="batteryInfo" element={<BatteryInfo />} />
           <Route path="scan" element={<ScanResult />} />
           <Route path="support" element={<SupportScreen />} />
           <Route path="currentLocation" element={<CurrentLocation />} />

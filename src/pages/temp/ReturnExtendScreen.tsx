@@ -1,7 +1,9 @@
+import { useBidStore } from "../../app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
 
 export default function ReturnExtendScreen() {
   const IMAGE_URL = "https://i.postimg.cc/rpkz8RHV/OC-Image-1-1536x1025.webp";
+  const bid = useBidStore((s) => s.bid);
 
   return (
     <div className={s.container}>
@@ -26,7 +28,7 @@ export default function ReturnExtendScreen() {
 
               <div className={s.k}>배터리ID</div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span>#12345</span>
+                <span>{bid ?? "-"}</span>
                 <span className={s.pill}>
                   <span className={s.dot} /> In use
                 </span>

@@ -14,6 +14,9 @@ importers:
       '@line/liff':
         specifier: ^2.27.1
         version: 2.27.1
+      '@line/liff-mock':
+        specifier: ^1.0.3
+        version: 1.0.3(@line/liff@2.27.1)
       '@tanstack/react-query':
         specifier: ^5.85.9
         version: 5.85.9(react@19.1.1)
@@ -655,6 +658,11 @@ packages:
   '@line/liff-inspector@1.0.2':
     resolution: {integrity: sha512-+rBA3EtZtAsaGSbPJkAdTfj930JvHaFo/OeEG7ee9tie+3mCajQ6lqeQ5ZKdxlfKBrA0VmHc79frbqzBnjRSDQ==}
     hasBin: true
+
+  '@line/liff-mock@1.0.3':
+    resolution: {integrity: sha512-9js4YXheVV4rTXvvLIMVSqC6ikmD7mRrpbFqFZBemqCmSu3YSfljQs1fzKVy9LVUCREmsESLwWqa57jS3LY45g==}
+    peerDependencies:
+      '@line/liff': '>= 2.19.0'
 
   '@line/liff@2.27.1':
     resolution: {integrity: sha512-8rBGOFQa+CPZkiVjddBnrzKhg6wGhty989n1d5juX47JmDAyTudHv1Br6EAoI7EncSxPcdPgYhLMXOm1yamF5Q==}
@@ -3154,6 +3162,10 @@ snapshots:
       - utf-8-validate
       - webpack-bundle-analyzer
       - webpack-dev-server
+
+  '@line/liff-mock@1.0.3(@line/liff@2.27.1)':
+    dependencies:
+      '@line/liff': 2.27.1
 
   '@line/liff@2.27.1':
     dependencies:

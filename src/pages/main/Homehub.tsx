@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { useLiffStore } from "../../app/store/liffStore";
 import {
@@ -6,6 +6,7 @@ import {
   actionsRow,
   avatarFallback,
   avatarXL,
+  badgeOutline,
   banner,
   btnGhost,
   btnPrimary,
@@ -16,6 +17,7 @@ import {
   h2,
   label,
   logBox,
+  mutedNote,
   nameText,
   navItem,
   navList,
@@ -39,6 +41,7 @@ export default function HomeHub() {
     appendLog,
   } = useLiffStore();
   const [busy, setBusy] = useState<null | "login" | "logout">(null);
+  const [debugOpen, setDebugOpen] = useState(false);
   useEffect(() => {
     appendLog("HomeHub mounted");
     appendLog("init() called from HomeHub");
@@ -50,6 +53,20 @@ export default function HomeHub() {
   useEffect(() => {
     appendLog(`isLoggedIn: ${isLoggedIn}`);
   }, [isLoggedIn, appendLog]);
+
+  const codeStatePresence = useMemo(() => {
+    const q = new URLSearchParams(location.search);
+    return (
+      ["code", "state", "liffClientId", "liffRedirectUri"]
+        .filter((k) => q.has(k))
+        .join(", ") || "none"
+    );
+  }, []);
+
+  const liffState = useMemo(() => {
+    const q = new URLSearchParams(location.search);
+    return q.get("liff.state") ?? "-";
+  }, []);
 
   const handleLogin = () => {
     setBusy("login");
@@ -69,7 +86,7 @@ export default function HomeHub() {
   return (
     <div className={container}>
       {!ready && <div className={banner}>초기화 중… (waiting LIFF ready)</div>}
-      <h1 style={{ margin: 0 }}>LIFF 샘플 홈2</h1>
+      <h1 style={{ margin: 0 }}>LIFF 홈</h1>
       {/* 계정 */}
       <section className={accountCard}>
         <h2 className={h2}>Account</h2>
@@ -121,266 +138,125 @@ export default function HomeHub() {
         </>
       </section>{" "}
       <section className={debugCard}>
-        <h2 className={h2}>Debug</h2>{" "}
-        {
-          <div>
-            <span className={label}>
-              {import.meta.env.PROD ? "build" : "dev server start"}
-            </span>
-            <span className={value}>
-              {new Date(__BUILD_TIME__).toLocaleString()}
-            </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <h2 className={h2} style={{ margin: 0, color: "#111" }}>
+            {import.meta.env.PROD ? "PROD " : "BUILD"}
+          </h2>
+          <button
+            className={btnGhost}
+            onClick={() => setDebugOpen((v) => !v)}
+            aria-expanded={debugOpen}
+            aria-controls="debug-panel"
+            title={debugOpen ? "접기" : "펼치기"}
+            style={{ padding: "2px 6px", fontSize: "14px", lineHeight: 1 }}
+          >
+            {debugOpen ? "▲" : "▼"}
+          </button>
+          <span className={badgeOutline}>
+            logs {Array.isArray(debugLogs) ? debugLogs.length : 0}
+          </span>
+        </div>
+        <span className={value}>
+          {new Date(__BUILD_TIME__).toLocaleString()}
+        </span>
+        {debugOpen && (
+          <div id="debug-panel" style={{ marginTop: 12 }}>
+            <div>
+              <div>
+                <span className={label}>ready</span>
+                <span className={value}>{String(ready)}</span>
+              </div>
+              <div>
+                <span className={label}>isLoggedIn</span>
+                <span className={value}>{String(isLoggedIn)}</span>
+              </div>
+              <div>
+                <span className={label}>location</span>
+                <code className={codeBoxSmall}>{location.href}</code>
+              </div>
+              <div>
+                <span className={label}>liff.state</span>
+                <code className={codeBoxSmall}>{liffState}</code>
+              </div>
+              <div>
+                <span className={label}>code/state present</span>
+                <span className={value}>{codeStatePresence}</span>
+              </div>
+              <div>
+                <span className={label}>BASE_URL</span>
+                <code className={codeBoxSmall}>{import.meta.env.BASE_URL}</code>
+              </div>
+            </div>
+
+            <div style={{ marginTop: 10 }}>
+              <div className={label}>events</div>
+              <pre className={logBox}>
+                {Array.isArray(debugLogs) && debugLogs.length > 0
+                  ? debugLogs.join("\n")
+                  : "-"}
+              </pre>
+            </div>
           </div>
-        }
-        <div>
-          {" "}
-          <div>
-            <span className={label}>ready</span>
-            <span className={value}>{String(ready)}</span>
-          </div>{" "}
-          <div>
-            <span className={label}>isLoggedIn</span>
-            <span className={value}>{String(isLoggedIn)}</span>
-          </div>{" "}
-          <div>
-            <span className={label}>location</span>
-            <code className={codeBoxSmall}>{location.href}</code>
-          </div>{" "}
-          <div>
-            <span className={label}>liff.state</span>
-            <code className={codeBoxSmall}>
-              {new URLSearchParams(location.search).get("liff.state") ?? "-"}
-            </code>
-          </div>{" "}
-          <div>
-            <span className={label}>code/state present</span>
-            <span className={value}>
-              {" "}
-              {["code", "state", "liffClientId", "liffRedirectUri"]
-                .filter((k) => new URLSearchParams(location.search).has(k))
-                .join(", ") || "none"}{" "}
-            </span>
-          </div>{" "}
-          <div>
-            <span className={label}>BASE_URL</span>
-            <code className={codeBoxSmall}>{import.meta.env.BASE_URL}</code>
-          </div>{" "}
-        </div>{" "}
-        <div style={{ marginTop: 10 }}>
-          <div className={label}>events</div>{" "}
-          <pre className={logBox}>
-            {Array.isArray(debugLogs) && debugLogs.length > 0
-              ? debugLogs.join("\n")
-              : "-"}
-          </pre>
-        </div>{" "}
+        )}
       </section>
-      {/* 탐색 */}{" "}
       <section className={card}>
-        <h2 className={h2}>Navigation</h2>{" "}
+        <h2 className={h2}>Navigation</h2>
         <nav>
-          {" "}
-          <ul className={navList}>
-            {" "}
-            <li>
-              <Link className={navItem} to="/userInfo">
-                UserInfo
-              </Link>
-            </li>{" "}
-            <li>
-              <Link className={navItem} to="/scan">
-                Scan
-              </Link>
-            </li>{" "}
-            <li>
-              <Link className={navItem} to="/batteryInfo">
-                배터리 정보
-              </Link>
-            </li>{" "}
-            <li>
-              <Link className={navItem} to="/flows/rent">
-                대여 시작
-              </Link>
-            </li>{" "}
-            <li>
-              <Link className={navItem} to="/flows/borrowed">
-                사용 중(타인 대여 중)
-              </Link>
-            </li>{" "}
-            <li>
-              <Link className={navItem} to="/flows/return?a=1">
-                반납 안내
-              </Link>
-            </li>{" "}
-            <li>
-              <Link className={navItem} to="/flows/return?b=1">
-                반납/연장하기
-              </Link>
-            </li>{" "}
-            <li>
-              <Link className={navItem} to="/flows/support">
-                신고하기
-              </Link>
-            </li>{" "}
-            <li>
-              <a className={navItem} href={LIFF_DEEPLINK}>
-                LINE 앱(LIFF)으로 열기
-              </a>
-            </li>{" "}
-          </ul>{" "}
-        </nav>{" "}
+          {/* 예시 화면 그룹 */}
+          {/* 실제 동작 그룹 */}
+          <div>
+            <div className={mutedNote}>실제 동작 항목</div>
+            <ul className={navList}>
+              <li>
+                <Link className={navItem} to="/userInfo">
+                  UserInfo
+                </Link>
+              </li>
+              <li>
+                <a className={navItem} href={LIFF_DEEPLINK}>
+                  LINE 앱(LIFF)으로 열기
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <div className={mutedNote}>UI 데모 화면</div>
+
+            <ul className={navList}>
+              <li>
+                <Link className={navItem} to="/flows/rent">
+                  대여 화면
+                </Link>
+              </li>
+              <li>
+                <Link className={navItem} to="/flows/borrowed">
+                  대여 화면 (타인 사용중)
+                </Link>
+              </li>
+              <li>
+                <Link className={navItem} to="/flows/return?a=1">
+                  반납 안내
+                </Link>
+              </li>
+              <li>
+                <Link className={navItem} to="/flows/return?b=1">
+                  반납/연장하기
+                </Link>
+              </li>
+              <li>
+                <Link className={navItem} to="/flows/support">
+                  신고하기
+                </Link>
+              </li>
+              <li>
+                <Link className={navItem} to="/scan" aria-disabled>
+                  Scan QR 화면
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </section>
     </div>
   );
 }
-
-// const card: React.CSSProperties = {
-//   border: "1px solid #e5e7eb",
-//   borderRadius: 12,
-//   padding: 16,
-// };
-
-// const container: React.CSSProperties = {
-//   maxWidth: 640,
-//   margin: "24px auto 48px",
-//   padding: 16,
-//   fontFamily:
-//     "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple SD Gothic Neo, Noto Sans KR, sans-serif",
-//   display: "grid",
-//   gap: 16,
-// };
-
-// const h2: React.CSSProperties = {
-//   margin: "0 0 8px",
-//   fontSize: 18,
-//   color: "#111",
-// };
-
-// const btn: React.CSSProperties = {
-//   padding: "10px 14px",
-//   border: "1px solid #d1d5db",
-//   borderRadius: 10,
-//   cursor: "pointer",
-//   appearance: "none",
-//   background: "#f3f4f6",
-//   color: "#111",
-// };
-
-// const navList: React.CSSProperties = {
-//   listclassName: "none",
-//   padding: 0,
-//   margin: 0,
-//   display: "grid",
-//   gap: 8,
-// };
-// const navItem: React.CSSProperties = {
-//   display: "block",
-//   padding: "10px 12px",
-//   borderRadius: 10,
-//   textDecoration: "none",
-// };
-
-// // 보조 텍스트/프로필
-// const muted = className({ color: "#6b7280", fontSize: 13 });
-
-// const accountCard: React.CSSProperties = {
-//   ...card,
-//   padding: 20,
-
-//   boxShadow: "0 1px 3px rgba(0,0,0,.06)",
-// };
-
-// const profileRow: React.CSSProperties = {
-//   display: "flex",
-//   alignItems: "center",
-//   gap: 12,
-// };
-
-// const avatarXL: React.CSSProperties = {
-//   width: 56,
-//   height: 56,
-//   borderRadius: "50%",
-//   objectFit: "cover",
-//   border: "1px solid #e5e7eb",
-// };
-
-// const avatarFallback: React.CSSProperties = {
-//   width: 56,
-//   height: 56,
-//   borderRadius: "50%",
-//   display: "grid",
-//   placeItems: "center",
-//   background: "#f3f4f6",
-//   color: "#6b7280",
-//   fontWeight: 600,
-//   border: "1px solid #e5e7eb",
-// };
-
-// const nameText: React.CSSProperties = { fontSize: 16 };
-// const subText: React.CSSProperties = { ...muted, marginTop: 4 };
-
-// const actionsRow: React.CSSProperties = {
-//   display: "flex",
-//   gap: 8,
-//   marginTop: 12,
-// };
-
-// const btnPrimary: React.CSSProperties = {
-//   ...btn,
-
-//   border: "1px solid #111",
-// };
-
-// const btnGhost: React.CSSProperties = {
-//   ...btn,
-// };
-
-// const debugCard: React.CSSProperties = {
-//   ...card,
-//   padding: 16,
-//   background: "#fff",
-//   boxShadow: "inset 0 0 0 1px #eef2f7",
-// };
-
-// const banner: React.CSSProperties = {
-//   padding: "8px 12px",
-//   background: "#fff7ed",
-
-//   border: "1px solid #fed7aa",
-//   borderRadius: 8,
-//   color: "#7c2d12",
-//   marginBottom: 12,
-//   fontSize: 13,
-// };
-
-// const label: React.CSSProperties = {
-//   color: "#6b7280",
-//   fontSize: 12,
-//   marginRight: 8,
-// };
-// const value: React.CSSProperties = {
-//   fontSize: 13,
-//   color: "#111",
-// };
-// const codeBoxSmall: React.CSSProperties = {
-//   display: "inline-block",
-//   padding: "4px 6px",
-//   background: "#f9fafb",
-//   color: "#111",
-//   border: "1px solid #e5e7eb",
-//   borderRadius: 6,
-//   fontFamily: "monospace",
-//   fontSize: 12,
-//   wordBreak: "break-all",
-// };
-// const logBox: React.CSSProperties = {
-//   margin: 0,
-//   padding: 8,
-//   background: "#0b1020",
-//   color: "#e5e7eb",
-//   borderRadius: 8,
-//   fontSize: 12,
-//   maxHeight: 160,
-//   overflow: "auto",
-//   lineHeight: 1.4,
-// };

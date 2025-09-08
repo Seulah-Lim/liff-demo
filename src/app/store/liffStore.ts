@@ -2,12 +2,23 @@ import { create } from "zustand";
 import { liff } from "../../utils/liffClient";
 import type { Profile } from "@liff/get-profile";
 import LIFFInspectorPlugin from "@line/liff-inspector";
-
+//import LiffMockPlugin from "@line/liff-mock";
+type LiffJWTPayload = {
+  sub: string;
+  name?: string;
+  picture?: string;
+  email?: string;
+  iss?: string;
+  aud?: string;
+  exp?: number;
+  iat?: number;
+};
 type LiffState = {
   ready: boolean;
   isLoggedIn: boolean;
   profile: Profile | null;
   idToken: string | null;
+  decodedIdToken: LiffJWTPayload | null;
   error?: string;
   debugLogs: string[];
 };
@@ -73,9 +84,11 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
   profile: null,
   idToken: null,
   debugLogs: [],
+  decodedIdToken: null,
 
   appendLog: (msg: string) =>
     set((s) => ({ debugLogs: [...s.debugLogs, `[${now()}] ${msg}`] })),
+
   init: async () => {
     const log = get().appendLog;
     try {
@@ -84,13 +97,20 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
       const liffId: string = import.meta.env.VITE_LIFF_ID!;
       if (!liffId) throw new Error("VITE_LIFF_ID is empty");
 
-      liff.use(new LIFFInspectorPlugin());
-
+      //liff.use(new LiffMockPlugin());
+      if (window.location.search.includes("li.origin")) {
+        liff.use(new LIFFInspectorPlugin());
+        log("init:use LIFFInspectorPlugin");
+      }
       const initOnce = () =>
         new Promise<void>((resolve, reject) => {
           try {
             liff.init(
-              { liffId, withLoginOnExternalBrowser: false },
+              {
+                liffId,
+                withLoginOnExternalBrowser: false,
+                //mock: true
+              },
               () => resolve(),
               (err) => reject(err)
             );
@@ -129,8 +149,9 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
         pictureUrl: p.pictureUrl,
       };
       const idToken = liff.getIDToken();
+      const decodedIdToken = liff.getDecodedIDToken() as LiffJWTPayload | null;
 
-      set({ ready: true, isLoggedIn: true, profile, idToken });
+      set({ ready: true, isLoggedIn: true, profile, idToken, decodedIdToken });
       log("getProfile:done; state set (logged in)");
     } catch (e) {
       const info = toErrInfo(e);

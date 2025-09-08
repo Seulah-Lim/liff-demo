@@ -1,9 +1,12 @@
 import React from "react";
 import { useLiffStore } from "../../app/store/liffStore";
+import { useBidStore } from "../../app/store/bidStore";
 
 export default function UserInfo() {
-  const { ready, isLoggedIn, profile, idToken, login } = useLiffStore();
+  const { ready, isLoggedIn, profile, idToken, decodedIdToken, login } =
+    useLiffStore();
   const ua = navigator.userAgent;
+  const bid = useBidStore((s) => s.bid);
 
   if (!ready) return <div style={muted}>초기화 중…</div>;
 
@@ -15,6 +18,10 @@ export default function UserInfo() {
         {isLoggedIn ? (
           <div style={kv}>
             <div style={row}>
+              <span style={label}>batteryId</span>
+              <code style={codeBox}>{bid ?? "-"}</code>
+            </div>
+            <div style={row}>
               <span style={label}>userId</span>
               <code style={codeBox}>{profile?.userId ?? "-"}</code>
             </div>
@@ -22,6 +29,21 @@ export default function UserInfo() {
               <span style={label}>idToken</span>
               <code style={codeBox}>{idToken ?? "-"}</code>
             </div>
+            {decodedIdToken && (
+              <div style={row}>
+                <span style={label}>decodedIdToken</span>
+                <div style={{ display: "grid", gap: 4 }}>
+                  {Object.entries(decodedIdToken).map(([k, v]) => (
+                    <div key={k} style={{ display: "grid", gap: 2 }}>
+                      <span style={label}>{k}</span>
+                      <code style={codeBox}>
+                        {typeof v === "object" ? JSON.stringify(v) : String(v)}
+                      </code>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             <div style={row}>
               <span style={label}>UserAgent</span>
               <code style={codeBox}>{ua}</code>
