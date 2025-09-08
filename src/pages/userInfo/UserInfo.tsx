@@ -53,12 +53,16 @@ export default function UserInfo() {
               </div>
             )}
             <div style={row}>
-              <span style={label}>Granted Permission</span>
-              <code style={codeBox}>{grantedScopes}</code>
+              <span style={label}>Granted Scopes</span>
+              <code style={codeBox}>
+                {grantedScopes.length > 0 ? grantedScopes.join(", ") : "-"}
+              </code>
             </div>
             <div style={row}>
-              <span style={label}>Scopes</span>
-              <code style={codeBox}>{scopes}</code>
+              <span style={label}>Required Scopes</span>
+              <code style={codeBox}>
+                {scopes.length > 0 ? scopes.join(", ") : "-"}
+              </code>
             </div>
             <div style={row}>
               <span style={label}>UserAgent</span>

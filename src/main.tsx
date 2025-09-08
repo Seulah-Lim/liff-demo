@@ -15,9 +15,9 @@ import HomeHub from "./pages/main/Homehub.tsx";
 import UserInfo from "./pages/userInfo/UserInfo.tsx";
 
 if (import.meta.env.MODE === "development") {
-  document.title = "Liff Demo (Dev)";
+  document.title = "M Demo (Dev)";
 } else {
-  document.title = "Liff Demo";
+  document.title = "M Demo";
 }
 
 createRoot(document.getElementById("root")!).render(

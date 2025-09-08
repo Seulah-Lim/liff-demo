@@ -86,7 +86,7 @@ export default function HomeHub() {
   return (
     <div className={container}>
       {!ready && <div className={banner}>초기화 중… (waiting LIFF ready)</div>}
-      <h1 style={{ margin: 0 }}>LIFF 홈</h1>
+      <h1 style={{ margin: 0 }}>홈</h1>
       {/* 계정 */}
       <section className={accountCard}>
         <h2 className={h2}>Account</h2>
