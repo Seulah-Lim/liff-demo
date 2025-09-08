@@ -5,8 +5,6 @@ import liff from "@line/liff";
 import type { Profile } from "@liff/get-profile";
 import { buildUrlWithBid, getBidFromLocation } from "../../utils/bid";
 
-const LIFF_ID = "2008002745-KgmzwRd4";
-
 export default function Login_mobile() {
   const [ready, setReady] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -19,7 +17,7 @@ export default function Login_mobile() {
     const initialBid = getBidFromLocation();
 
     liff
-      .init({ liffId: LIFF_ID })
+      .init({ liffId: import.meta.env.LIFF_ID })
       .then(async () => {
         const isIn = liff.isLoggedIn();
         setLoggedIn(isIn);
