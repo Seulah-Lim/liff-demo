@@ -5,6 +5,11 @@ import liff from "@line/liff";
 import type { Profile } from "@liff/get-profile";
 import { buildUrlWithBid, getBidFromLocation } from "../../utils/bid";
 
+<<<<<<< Updated upstream
+=======
+const LIFF_ID = "2008073307-WzV16bo0";
+
+>>>>>>> Stashed changes
 export default function Login_mobile() {
   const [ready, setReady] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
