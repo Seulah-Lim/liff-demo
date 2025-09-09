@@ -5,11 +5,12 @@ import "./index.css";
 import { BrowserRouter } from "react-router";
 
 import AppRoutes from "./routes.tsx";
+declare const __BUILD_TIME__: string;
 
 if (import.meta.env.MODE === "development") {
-  document.title = "M Demo (Dev)";
+  document.title = `Dev ${new Date(__BUILD_TIME__).toLocaleString()}`;
 } else {
-  document.title = "M Demo";
+  document.title = `${new Date(__BUILD_TIME__).toLocaleString()}`;
 }
 
 createRoot(document.getElementById("root")!).render(

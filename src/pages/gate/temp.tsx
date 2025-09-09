@@ -16,7 +16,7 @@ type InitPhase = "idle" | "loading" | "success" | "error";
 export default function StartupGate() {
   const loc = useLocation();
   const navigate = useNavigate();
-  const initFromUrlOnce = useBidStore((s) => s.initFromUrlOnce);
+  const initFromUrlOnce = useBidStore((s) => s.ensureBidOnce);
 
   const [phase, setPhase] = useState<InitPhase>("idle");
   const [error, setError] = useState<{
@@ -52,8 +52,8 @@ export default function StartupGate() {
         // 2) 앱 진입 시 한 번만 URL 파싱 → 전역 저장
         initFromUrlOnce(search);
 
-        // 3) LIFF Init (실제 값으로 교체)
-        // NOTE: 실제로는 window.liff.init({ liffId: "...", withLoginOnExternalBrowser: true }) 등 사용
+        // 3) LIFF Init
+
         try {
           await init();
         } catch {

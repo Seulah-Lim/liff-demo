@@ -73,6 +73,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
     const log = get().appendLog;
     try {
       log("init:start");
+      console.warn("[liffStore] init");
 
       const liffId: string = import.meta.env.VITE_LIFF_ID!;
       if (!liffId) throw new Error("VITE_LIFF_ID is empty");
@@ -88,7 +89,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
             liff.init(
               {
                 liffId,
-                withLoginOnExternalBrowser: true,
+                withLoginOnExternalBrowser: false,
                 //mock: true
               },
               () => resolve(),
@@ -112,6 +113,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
     try {
       const logged = liff.isLoggedIn();
       log(`isLoggedIn:${logged}`);
+      console.log(`[liffStore] ${logged}`);
 
       if (!logged) {
         set({ ready: true, isLoggedIn: false, profile: null, idToken: null });
@@ -164,7 +166,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
   },
 
   login: async () => {
-    liff.login();
+    liff.login({ redirectUri: location.href });
   },
 
   logout: async () => {

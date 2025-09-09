@@ -18,29 +18,6 @@ export function getBidFromLocation(): string | null {
   return null;
 }
 
-/** URL 정리: liff.state 제거 + 항상 ?bid=…를 표면화 (선택) */
-export function normalizeBidInUrl(finalBid: string | null) {
-  const u = new URL(window.location.href);
-  let changed = false;
-
-  if (finalBid && !u.searchParams.get("bid")) {
-    u.searchParams.set("bid", finalBid);
-    changed = true;
-  }
-  if (u.searchParams.has("liff.state")) {
-    u.searchParams.delete("liff.state");
-    changed = true;
-  }
-
-  // LIFF 해시 토큰은 liff.init() 후 보통 사라지지만, 남아있으면 정리해도 무방
-  if (u.hash && u.hash.startsWith("#access_token")) {
-    u.hash = "";
-    changed = true;
-  }
-
-  if (changed) history.replaceState(null, "", u.toString());
-}
-
 /** 경로 이동 시 현재 bid를 보존해서 URL 생성 */
 export function buildUrlWithBid(pathname: string, bid: string | null) {
   const u = new URL(pathname, window.location.origin);

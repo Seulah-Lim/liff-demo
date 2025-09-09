@@ -196,7 +196,7 @@ export default function HomeHub() {
             <div className={mutedNote}>실제 동작 항목</div>
             <ul className={navList}>
               <li>
-                <Link className={navItem} to="/userInfo">
+                <Link className={navItem} to="home/userInfo">
                   UserInfo
                 </Link>
               </li>

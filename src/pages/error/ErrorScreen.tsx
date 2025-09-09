@@ -1,5 +1,6 @@
 import React from "react";
 import * as s from "./errorScrren.css";
+import { useLiffStore } from "../../app/store/liffStore";
 
 export type ErrorKind =
   | "NOT_LIFF"
@@ -93,6 +94,7 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   const _primaryLabel = primaryLabel ?? cfg.primaryLabel;
   const _secondaryLabel = secondaryLabel ?? cfg.secondaryLabel;
   const _retryLabel = retryLabel ?? cfg.retryLabel;
+  const { login } = useLiffStore();
 
   const defaultHandlers = {
     NOT_LIFF: {
@@ -106,7 +108,9 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
       onRetry: () => window.location.reload(),
     },
     NO_USER: {
-      onPrimary: () => alert("로그인 플로우 연결"),
+      onPrimary: () => {
+        login();
+      },
       onSecondary: () => alert("회원가입 플로우 연결"),
       onRetry: () => window.location.reload(),
     },

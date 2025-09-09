@@ -2,51 +2,56 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 type BidStore = {
-  bid: string | null; // bid를 없을 수도 있게 관리하는 게 안전함
+  bid: string | null;
   setBid: (b: string | null) => void;
 
-  // 첫 진입 1회만 URL에서 bid 파싱
-  initFromUrlOnce: (search?: string) => void;
-  _initialized: boolean; // 중복 초기화 방지 플래그
+  ensureBidOnce: (search?: string) => void;
+  _initialized: boolean;
 };
 
-//  스토어 생성 + persist로 감싸기
 export const useBidStore = create<BidStore>()(
   persist(
     (set, get) => ({
-      // 초기 상태
       bid: null,
       _initialized: false,
 
       setBid: (b) => set({ bid: b }),
 
-      // URL에서 bid를 한 번만 파싱해 저장
-      initFromUrlOnce: (search) => {
-        if (get()._initialized) return; // 이미 했다면 스킵
+      ensureBidOnce: (search) => {
+        if (get()._initialized) return;
 
-        // search가 넘겨지면 그걸 쓰고, 아니면 window.location.search 사용
-        const sp = new URLSearchParams(search ?? window.location.search);
-        const incoming = sp.get("bid");
+        const curSearch = search ?? window.location.search;
+        const sp = new URLSearchParams(curSearch);
 
-        if (incoming && incoming !== get().bid) {
-          set({ bid: incoming });
+        // 1) ?bid=1234 우선
+        let found = sp.get("bid");
+
+        // 2) liff.state=?bid=1234 또는 liff.state=/?bid=1234
+        if (!found) {
+          const state = sp.get("liff.state");
+          if (state) {
+            try {
+              const url = new URL(state, "https://dummy.local");
+              found = url.searchParams.get("bid") || null;
+            } catch {
+              /* noop */
+            }
+          }
         }
+
+        // 3) 찾았으면 세션에 저장
+        if (found && found !== get().bid) {
+          set({ bid: found });
+        }
+
+        // 4) 초기화 완료 플래그 켜고 종료
         set({ _initialized: true });
       },
     }),
     {
-      // 저장소 키 이름(개발자 도구 Application 탭 > Storage에서 확인 가능)
       name: "bid-store",
-
-      // sessionStorage(탭 닫으면 소멸), localStorage(영구 보관)
-      storage: createJSONStorage(() => sessionStorage),
-
-      // 저장할 필드만 선택적으로 저장(여기서는 bid만 보존)
-      partialize: (state) => ({ bid: state.bid }),
-
-      // ( 버전/마이그레이션도 가능:
-      // version: 1,
-      // migrate: (persistedState, version) => persistedState as BidStore,
+      storage: createJSONStorage(() => sessionStorage), // 탭 생명주기 동안 유지
+      partialize: (s) => ({ bid: s.bid }),
     }
   )
 );
