@@ -7,6 +7,7 @@ import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 const buildTime = new Date().toISOString();
 
 export default defineConfig({
+  base: "/liff-demo/",
   plugins: [react(), vanillaExtractPlugin()],
   define: {
     __BUILD_TIME__: JSON.stringify(buildTime),
