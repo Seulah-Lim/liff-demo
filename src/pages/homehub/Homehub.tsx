@@ -30,23 +30,11 @@ const LIFF_DEEPLINK = "https://liff.line.me/2008002745-KgmzwRd4";
 declare const __BUILD_TIME__: string;
 
 export default function HomeHub() {
-  const {
-    ready,
-    isLoggedIn,
-    profile,
-    debugLogs,
-    init,
-    login,
-    logout,
-    appendLog,
-  } = useLiffStore();
+  const { ready, isLoggedIn, profile, debugLogs, login, logout, appendLog } =
+    useLiffStore();
   const [busy, setBusy] = useState<null | "login" | "logout">(null);
   const [debugOpen, setDebugOpen] = useState(false);
-  useEffect(() => {
-    appendLog("HomeHub mounted");
-    appendLog("init() called from HomeHub");
-    init();
-  }, [appendLog, init]);
+
   useEffect(() => {
     appendLog(`ready: ${ready}`);
   }, [ready, appendLog]);
@@ -224,32 +212,32 @@ export default function HomeHub() {
 
             <ul className={navList}>
               <li>
-                <Link className={navItem} to="/flows/rent">
+                <Link className={navItem} to="/home/rent">
                   대여 화면
                 </Link>
               </li>
               <li>
-                <Link className={navItem} to="/flows/borrowed">
+                <Link className={navItem} to="/home/borrowed">
                   대여 화면 (타인 사용중)
                 </Link>
               </li>
               <li>
-                <Link className={navItem} to="/flows/return?a=1">
+                <Link className={navItem} to="/home/return?a=1">
                   반납 안내
                 </Link>
               </li>
               <li>
-                <Link className={navItem} to="/flows/return?b=1">
+                <Link className={navItem} to="/home/return?b=1">
                   반납/연장하기
                 </Link>
               </li>
               <li>
-                <Link className={navItem} to="/flows/support">
+                <Link className={navItem} to="/support">
                   신고하기
                 </Link>
               </li>
               <li>
-                <Link className={navItem} to="/scan" aria-disabled>
+                <Link className={navItem} to="home/scan" aria-disabled>
                   Scan QR 화면
                 </Link>
               </li>
