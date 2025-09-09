@@ -55,13 +55,13 @@ export default function UserInfo() {
             <div style={row}>
               <span style={label}>Granted Scopes</span>
               <code style={codeBox}>
-                {grantedScopes.length > 0 ? grantedScopes.join(", ") : "-"}
+                {grantedScopes?.length > 0 ? grantedScopes.join(", ") : "-"}
               </code>
             </div>
             <div style={row}>
               <span style={label}>Required Scopes</span>
               <code style={codeBox}>
-                {scopes.length > 0 ? scopes.join(", ") : "-"}
+                {scopes?.length > 0 ? scopes.join(", ") : "-"}
               </code>
             </div>
             <div style={row}>

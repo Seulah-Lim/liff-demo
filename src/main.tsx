@@ -3,8 +3,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 
 import { BrowserRouter } from "react-router";
+import App from "./App";
 
-import AppRoutes from "./routes.tsx";
 declare const __BUILD_TIME__: string;
 
 if (import.meta.env.MODE === "development") {
@@ -16,7 +16,7 @@ if (import.meta.env.MODE === "development") {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter basename="/liff-demo/">
-      <AppRoutes />
+      <App />
     </BrowserRouter>
   </StrictMode>
 );

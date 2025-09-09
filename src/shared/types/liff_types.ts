@@ -12,14 +12,6 @@ export type LiffState = {
   debugLogs: string[];
 };
 
-export type LiffActions = {
-  init: () => Promise<void>;
-  login: () => void;
-  logout: () => void;
-  refreshProfile: () => Promise<void>;
-  appendLog: (msg: string) => void;
-};
-
 export type LiffJWTPayload = {
   sub: string;
   name?: string;
@@ -30,7 +22,3 @@ export type LiffJWTPayload = {
   exp?: number;
   iat?: number;
 };
-
-export type LiffErrorLike =
-  | { code?: string; message?: string; cause?: unknown }
-  | unknown;
