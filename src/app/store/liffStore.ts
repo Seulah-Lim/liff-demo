@@ -171,6 +171,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
     liff.logout();
     set({ isLoggedIn: false, profile: null, idToken: null, error: undefined });
   },
+
   refreshIdToken: () => set({ idToken: liff.getIDToken() ?? null }),
 
   refreshProfile: async () => {
