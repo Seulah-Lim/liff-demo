@@ -25,6 +25,7 @@ import {
   subText,
   value,
 } from "./homehub.css";
+import { buildMainPermanentLink } from "../../app/lib/liff/buildLinks";
 
 const LIFF_DEEPLINK = "https://liff.line.me/2008002745-KgmzwRd4";
 declare const __BUILD_TIME__: string;
@@ -65,10 +66,10 @@ export default function HomeHub() {
     logout();
   };
 
-  const openInLINE = () => {
-    // 필요 시 현재 쿼리/해시를 붙이고 싶으면 아래처럼:
-    // location.href = `${LIFF_DEEPLINK}${location.search}${location.hash}`;
-    location.href = LIFF_DEEPLINK;
+  const openInLINE = async () => {
+    const deep = await buildMainPermanentLink();
+
+    location.href = deep;
   };
 
   return (

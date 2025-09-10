@@ -1,4 +1,4 @@
-import { style, globalStyle } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
 const height = 64; // 네비 높이(px)
 
@@ -87,9 +87,4 @@ export const label = style({
 // 컨텐츠가 네비에 가리지 않도록 하단 여백용
 export const spacer = style({
   height: `calc(${height}px + env(safe-area-inset-bottom))`,
-});
-
-// 모바일에만 표시하고 싶다면 (옵션):
-globalStyle("@media (min-width: 768px) { body .bottom-nav-hide-desktop }", {
-  display: "none",
 });

@@ -4,10 +4,12 @@ import type { Profile } from "@liff/get-profile";
 import type { Context } from "@liff/store";
 
 import type { LiffJWTPayload, LiffState } from "../../shared/types/liff_types";
-import { isTokenExpiredLike, now, toErrInfo } from "../lib/errors";
-import { installPlugins } from "../lib/installPlugins";
-import { seedMockLogin } from "../lib/seedMockLogin";
-import { initOnce } from "../lib/initOnce";
+import { isTokenExpiredLike, now, toErrInfo } from "../lib/liff/errors";
+
+import { seedMockLogin } from "../lib/liff/seedMockLogin";
+import { initOnce } from "../lib/liff/initOnce";
+import { installPlugins } from "../lib/liff/installPlugins";
+import { buildRedirectLink } from "../lib/liff/buildLinks";
 
 export type LiffActions = {
   init: () => Promise<void>;
@@ -36,8 +38,6 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
     const log = get().appendLog;
 
     try {
-      log("init:start");
-
       const liffId: string = import.meta.env.VITE_LIFF_ID!;
       if (!liffId) throw new Error("VITE_LIFF_ID is empty");
 
@@ -60,11 +60,10 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
 
     try {
       const logged = liff.isLoggedIn();
-      log(`isLoggedIn:${logged}`);
 
       if (!logged) {
         set({ ready: true, isLoggedIn: false, profile: null, idToken: null });
-        log("state set (not logged in)");
+
         return;
       }
 
@@ -81,7 +80,6 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
 
       const c: Context | null = liff.getContext();
       const scopes = c?.scope ?? [];
-
       set({
         ready: true,
         isLoggedIn: true,
@@ -108,7 +106,12 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
   },
 
   login: async () => {
-    liff.login({ redirectUri: location.href });
+    try {
+      const redirect = await buildRedirectLink();
+      liff.login({ redirectUri: redirect });
+    } catch (e) {
+      console.log(`login failed : ${e?.toString()}`);
+    }
   },
 
   logout: async () => {

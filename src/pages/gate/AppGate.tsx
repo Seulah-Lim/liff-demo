@@ -21,6 +21,10 @@ function useEnsureSession() {
   const ensureBidOnce = useBidStore((s) => s.ensureBidOnce);
 
   const { ready, isLoggedIn, init } = useLiffStore();
+  useEffect(() => {
+    const href = `${location.pathname}${location.search}${location.hash}`;
+    console.log("[ROUTE]", href, location);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
