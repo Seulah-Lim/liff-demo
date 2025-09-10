@@ -7,9 +7,10 @@ import LoadingScreen from "./Loading";
 type Phase = "idle" | "loading" | "ok" | "error";
 export type EnsureError =
   | { kind: "NOT_LIFF"; detail?: string }
+  | { kind: "MISSING_BID"; detail?: string }
   | { kind: "NO_USER"; detail?: string }
-  | { kind: "UNKNOWN"; detail?: string }
-  | { kind: "MISSING_BID"; detail?: string };
+  | { kind: "BATTERY_FETCH_FAILED"; detail?: string }
+  | { kind: "UNKNOWN"; detail?: string };
 
 function useEnsureSession() {
   const [phase, setPhase] = useState<Phase>("idle");

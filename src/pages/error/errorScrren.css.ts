@@ -16,10 +16,6 @@ export const main = style({
 export const card = style({
   width: "100%",
   maxWidth: 420,
-  background: "var(--card)",
-  border: "1px solid var(--border)",
-  borderRadius: 16,
-  boxShadow: "0 8px 24px rgba(16, 24, 40, 0.06)",
   padding: 24,
   boxSizing: "border-box",
 });

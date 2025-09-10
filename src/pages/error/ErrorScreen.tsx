@@ -1,12 +1,14 @@
 import React from "react";
 import * as s from "./errorScrren.css";
 import { useLiffStore } from "../../app/store/liffStore";
+import Lottie from "lottie-react";
+import errorData from "../../shared/assets/lottie/error.json";
 
 export type ErrorKind =
   | "NOT_LIFF"
   | "MISSING_BID"
-  | "BATTERY_FETCH_FAILED"
   | "NO_USER"
+  | "BATTERY_FETCH_FAILED"
   | "UNKNOWN";
 
 export interface ErrorScreenProps {
@@ -34,12 +36,9 @@ function getDefaultConfig(kind: ErrorKind) {
       };
     case "BATTERY_FETCH_FAILED":
       return {
-        title: "배터리 정보를 불러올 수 없습니다",
-        message:
-          "네트워크 상태를 확인하시거나 잠시 후 다시 시도해주세요. 문제가 계속되면 고객센터로 문의해주세요.",
-        primaryLabel: "상태 새로고침",
-        secondaryLabel: "도움말",
-        retryLabel: "다시 시도",
+        title: "서비스 이용에 문제가 발생했습니다",
+        message: "문제가 계속되면 고객센터로 문의해 주시기 바랍니다.",
+        secondaryLabel: "다시 시도",
       };
     case "NO_USER":
       return {
@@ -51,8 +50,7 @@ function getDefaultConfig(kind: ErrorKind) {
     case "MISSING_BID":
       return {
         title: "잘못된 QR 코드입니다",
-        message:
-          "인식된 배터리 정보가 없거나 유효하지 않은 QR 코드입니다.\n올바른 QR 코드를 다시 스캔해 주세요.",
+        message: "인식된 배터리 정보가 없거나 유효하지 않은 QR 코드입니다.",
       };
 
     case "UNKNOWN":
@@ -67,23 +65,6 @@ function getDefaultConfig(kind: ErrorKind) {
       };
   }
 }
-
-const IconAlert: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    className={className}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M12 9v4m0 4h.01M10.29 3.859c.86-1.488 2.56-1.488 3.42 0l7.2 12.46c.86 1.488-.215 3.181-1.71 3.181H4.8c-1.495 0-2.57-1.693-1.71-3.18l7.2-12.461Z"
-    />
-  </svg>
-);
 
 export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   kind,
@@ -110,7 +91,7 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
     },
     BATTERY_FETCH_FAILED: {
       onPrimary: () => window.location.reload(),
-      onSecondary: () => alert("도움말 페이지 이동"),
+      onSecondary: () => window.location.reload(),
       onRetry: () => window.location.reload(),
     },
     NO_USER: {
@@ -137,10 +118,17 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   return (
     <main className={s.main}>
       <section className={s.card}>
+        <Lottie
+          animationData={errorData}
+          loop={true}
+          autoplay={true}
+          style={{
+            width: "100%",
+            maxWidth: "250px", // 모바일 기준 최대 200px
+            height: "auto",
+          }}
+        />
         <div className={s.head}>
-          <div className={s.icon}>
-            <IconAlert className={s.iconSvg} />
-          </div>
           <div className={s.headText}>
             <h1 className={s.title}>{cfg.title}</h1>
             <p className={s.message}>{cfg.message}</p>

@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import loadingData from "../../shared/assets/animations/loading.json";
+import loadingData from "../../shared/assets/lottie/loading.json";
 
 export default function LoadingScreen() {
   return (
