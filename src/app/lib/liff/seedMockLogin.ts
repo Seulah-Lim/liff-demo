@@ -18,7 +18,7 @@ export function seedMockLogin() {
       statusMessage: "local mock",
     },
     getContext: {
-      type: "external", // 브라우저 개발환경이면 external이 자연스러움
+      type: "external",
       viewType: "full",
       endpointUrl: "https://seulah-lim.github.io/liff-demo/",
       groupId: "",

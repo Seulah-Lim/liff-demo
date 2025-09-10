@@ -14,7 +14,7 @@ export const root = style({
   display: "flex",
   alignItems: "center",
   padding: "0 12px",
-  backgroundColor: "rgba(255, 255, 255, 0.10)",
+  backgroundColor: " rgba(var(--fg-rgb), 0.1)",
   backdropFilter: "blur(10px)",
   zIndex: 10,
 });
@@ -61,7 +61,7 @@ export const icon = style({
   width: "20px",
   height: "20px",
   display: "block",
-  fill: "currentColor",
+  fill: "var(--fg)",
 });
 
 export const iconBtn = style({
@@ -70,14 +70,6 @@ export const iconBtn = style({
   border: "none",
   background: "transparent",
   cursor: "pointer",
-  selectors: {
-    "&:hover": { background: "rgba(0,0,0,0.05)" },
-    "&:active": { background: "rgba(0,0,0,0.10)" },
-    "&:focus-visible": {
-      outline: "2px solid rgba(0,0,0,0.35)",
-      outlineOffset: "2px",
-    },
-  },
 });
 
 export const menu = style({
@@ -116,5 +108,5 @@ export const menuIcon = style({
   width: "16px",
   height: "16px",
   display: "block",
-  fill: "currentColor",
+  fill: "white",
 });

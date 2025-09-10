@@ -15,4 +15,9 @@ export default defineConfig({
   server: {
     allowedHosts: ["johnston-prospect-croatia-loaded.trycloudflare.com"],
   },
+  resolve: {
+    alias: {
+      "lottie-web": "lottie-web/build/player/lottie_light", // or lottie_light.min
+    },
+  },
 });

@@ -4,7 +4,7 @@ import { style } from "@vanilla-extract/css";
 export const main = style({
   minHeight: "100vh",
   width: "100%",
-  background: "#f9fafb",
+  background: "var(--bg)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -16,8 +16,8 @@ export const main = style({
 export const card = style({
   width: "100%",
   maxWidth: 420,
-  background: "#fff",
-  border: "1px solid #f1f5f9",
+  background: "var(--card)",
+  border: "1px solid var(--border)",
   borderRadius: 16,
   boxShadow: "0 8px 24px rgba(16, 24, 40, 0.06)",
   padding: 24,
@@ -48,8 +48,8 @@ export const headText = style({
 export const title = style({
   fontSize: 20,
   fontWeight: 600,
-  color: "#0f172a",
-  margin: "0 0 4px",
+
+  margin: "0 0 8px",
 });
 
 export const message = style({
@@ -57,6 +57,7 @@ export const message = style({
   color: "#475569",
   lineHeight: 1.6,
   margin: 0,
+  whiteSpace: "pre-line",
 });
 
 export const detail = style({
@@ -74,14 +75,14 @@ export const support = style({
 
 // 버튼 영역
 export const actions = style({
-  marginTop: 24,
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  //gap: 12,
 });
 
 export const btn = style({
   width: "100%",
+  marginTop: "14px",
   minHeight: 44,
   borderRadius: 12,
   border: "none",

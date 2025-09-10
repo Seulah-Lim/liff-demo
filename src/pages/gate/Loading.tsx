@@ -1,26 +1,28 @@
+import Lottie from "lottie-react";
+import loadingData from "../../shared/assets/animations/loading.json";
+
 export default function LoadingScreen() {
   return (
     <div
       style={{
-        minHeight: "100vh",
-        display: "grid",
-        placeItems: "center",
-        background: "#f9fafb",
+        width: "100vw",
+        height: "100vh",
+        background: "var(--bg)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <div
+      <Lottie
+        animationData={loadingData}
+        loop={true}
+        autoplay={true}
         style={{
-          background: "#fff",
-          border: "1px solid #f1f5f9",
-          borderRadius: 12,
-          padding: 20,
-          boxShadow: "0 8px 24px rgba(16, 24, 40, 0.06)",
-          fontSize: 14,
-          color: "#111827",
+          width: "50%",
+          maxWidth: "250px", // 모바일 기준 최대 200px
+          height: "auto",
         }}
-      >
-        초기화 중입니다…
-      </div>
+      />
     </div>
   );
 }

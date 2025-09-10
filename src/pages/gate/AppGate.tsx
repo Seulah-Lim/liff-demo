@@ -71,12 +71,7 @@ function useEnsureSession() {
 
   const redirectToError = (e: EnsureError) => {
     const q = new URLSearchParams({
-      kind:
-        e.kind === "NO_USER"
-          ? "NO_USER"
-          : e.kind === "NOT_LIFF"
-          ? "NOT_LIFF"
-          : "UNKNOWN",
+      kind: e.kind,
       ...(e.detail ? { detail: e.detail } : {}),
       supportId: makeSupportId(e.kind),
     });

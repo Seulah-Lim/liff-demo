@@ -4,6 +4,7 @@ import { useLiffStore } from "../../app/store/liffStore";
 
 export type ErrorKind =
   | "NOT_LIFF"
+  | "MISSING_BID"
   | "BATTERY_FETCH_FAILED"
   | "NO_USER"
   | "UNKNOWN";
@@ -45,9 +46,15 @@ function getDefaultConfig(kind: ErrorKind) {
         title: "사용자 정보가 없습니다",
         message: "로그인이 필요합니다. 로그인 후 다시 이용해주세요.",
         primaryLabel: "로그인",
-        secondaryLabel: "회원가입",
-        retryLabel: "다시 시도",
+        secondaryLabel: "다시 시도",
       };
+    case "MISSING_BID":
+      return {
+        title: "잘못된 QR 코드입니다",
+        message:
+          "인식된 배터리 정보가 없거나 유효하지 않은 QR 코드입니다.\n올바른 QR 코드를 다시 스캔해 주세요.",
+      };
+
     case "UNKNOWN":
     default:
       return {
@@ -80,8 +87,7 @@ const IconAlert: React.FC<{ className?: string }> = ({ className }) => (
 
 export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   kind,
-  detail,
-  supportId,
+
   primaryLabel,
   onPrimary,
   secondaryLabel,
@@ -111,7 +117,12 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
       onPrimary: () => {
         login();
       },
-      onSecondary: () => alert("회원가입 플로우 연결"),
+      onSecondary: () => window.location.reload(),
+      onRetry: () => window.location.reload(),
+    },
+    MISSING_BID: {
+      onPrimary: () => {},
+      onSecondary: () => {},
       onRetry: () => window.location.reload(),
     },
     UNKNOWN: {
@@ -133,43 +144,38 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
           <div className={s.headText}>
             <h1 className={s.title}>{cfg.title}</h1>
             <p className={s.message}>{cfg.message}</p>
-            {detail && <p className={s.detail}>{detail}</p>}
-            {supportId && <p className={s.support}>지원 코드: {supportId}</p>}
           </div>
         </div>
 
         <div className={s.actions}>
-          <button
-            type="button"
-            onClick={onPrimary ?? handlers.onPrimary}
-            className={s.btnPrimary}
-          >
-            {_primaryLabel}
-          </button>
+          {cfg.primaryLabel && (
+            <button
+              type="button"
+              onClick={onPrimary ?? handlers.onPrimary}
+              className={s.btnPrimary}
+            >
+              {_primaryLabel}
+            </button>
+          )}
 
-          <button
-            type="button"
-            onClick={onSecondary ?? handlers.onSecondary}
-            className={s.btnSecondary}
-          >
-            {_secondaryLabel}
-          </button>
-
-          <button
-            type="button"
-            onClick={onRetry ?? handlers.onRetry}
-            className={s.btnGhost}
-          >
-            {_retryLabel}
-          </button>
-        </div>
-
-        <div className={s.footer}>
-          <ul className={s.help}>
-            <li>네트워크 연결 상태를 확인해주세요.</li>
-            <li>브라우저를 닫고 다시 시도해보세요.</li>
-            <li>문제가 계속되면 고객센터로 문의해주세요.</li>
-          </ul>
+          {cfg.secondaryLabel && (
+            <button
+              type="button"
+              onClick={onSecondary ?? handlers.onSecondary}
+              className={s.btnSecondary}
+            >
+              {_secondaryLabel}
+            </button>
+          )}
+          {cfg.retryLabel && (
+            <button
+              type="button"
+              onClick={onRetry ?? handlers.onRetry}
+              className={s.btnGhost}
+            >
+              {_retryLabel}
+            </button>
+          )}
         </div>
       </section>
     </main>
