@@ -32,17 +32,17 @@ function useEnsureSession() {
     (async () => {
       setPhase("loading");
 
-      // A) 초회 한 번만 URL에서 bid 파싱 → 세션 저장
+      // 1) 처음 한 번만 URL에서 bid 파싱 → 세션 저장
       ensureBidOnce(search);
 
-      // B) 이후엔 스토어 값만 신뢰
+      // 2) 이후엔 스토어 값만 신뢰
       if (!useBidStore.getState().bid) {
         setErr({ kind: "MISSING_BID", detail: "필수 파라미터 'bid' 누락" });
         setPhase("error");
         return;
       }
 
-      // C) liff.init (전역 1회)
+      // 3) liff.init (전역 1회)
       try {
         if (!ready) {
           await init();
@@ -53,12 +53,13 @@ function useEnsureSession() {
         return;
       }
 
-      // D) 로그인 확인
+      // 4) 로그인 확인
       if (ready && !isLoggedIn) {
         setErr({ kind: "NO_USER", detail: "로그인이 필요합니다" });
         setPhase("error");
         return;
       }
+      //추후에는 view로 판별하지 않고 bid잇고 로그인 상태면 서버 요청 보내서 온 응답으로 판별
 
       if (!cancelled) setPhase("ok");
     })();

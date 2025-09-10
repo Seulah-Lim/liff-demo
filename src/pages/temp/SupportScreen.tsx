@@ -4,12 +4,8 @@ export default function SupportScreen() {
   return (
     <div className={s.container}>
       <div className={s.app}>
-        <div className={s.appbar}>신고/고객지원</div>
-
         <main className={s.content}>
           <section className={s.card}>
-            <h3>신고/고객지원</h3>
-
             <div className={s.label}>사유</div>
             <textarea
               className={s.textarea}

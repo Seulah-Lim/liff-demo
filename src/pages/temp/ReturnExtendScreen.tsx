@@ -8,8 +8,6 @@ export default function ReturnExtendScreen() {
   return (
     <div className={s.container}>
       <div className={s.app}>
-        <div className={s.appbar}>반납/연장</div>
-
         <main className={s.content}>
           {/* 1) 배터리 정보 */}
           <section className={s.card}>

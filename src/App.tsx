@@ -1,4 +1,4 @@
-import { Routes, Route, useSearchParams, Navigate } from "react-router";
+import { Routes, Route, useSearchParams } from "react-router";
 import MainLayout from "./app/ui/MainLayout";
 import {
   parseHomeView,
@@ -9,11 +9,12 @@ import { useEffect } from "react";
 import { ErrorScreen, type ErrorKind } from "./pages/error/ErrorScreen";
 import HomeHub from "./pages/homehub/Homehub";
 import RentScreen from "./pages/temp/RentScreen";
-import ReturnExtendSwitch from "./pages/temp/ReturnExtendSwitch";
 import InUseNoticeScreen from "./pages/temp/InUseNoticeScreen";
 import AppGate from "./pages/gate/AppGate";
 import SupportScreen from "./pages/temp/SupportScreen";
 import UserInfo from "./pages/userInfo/UserInfo";
+import ReturnExtendScreen from "./pages/temp/ReturnExtendScreen";
+import ReturnGuideScreen from "./pages/temp/ReturnGuideScreen";
 
 function ErrorRoute() {
   const [sp] = useSearchParams();
@@ -44,7 +45,7 @@ function HomeSwitcher() {
 
   if (view === "rent") return <RentScreen />;
   if (view === "borrowed") return <InUseNoticeScreen />;
-  if (view === "return") return <ReturnExtendSwitch />;
+  if (view === "return") return <ReturnExtendScreen />;
   return <HomeHub />;
 }
 
@@ -58,12 +59,13 @@ export default function App() {
 
           {/* 서포트 */}
           <Route path="support" element={<SupportScreen />} />
+          <Route path="return-guide" element={<ReturnGuideScreen />} />
 
           {/* (임시) 마이페이지 */}
           <Route path="me" element={<UserInfo />} />
 
           {/* 레거시 경로 호환 리다이렉트 */}
-          <Route
+          {/* <Route
             path="home/rent"
             element={<Navigate to="/home?view=rent" replace />}
           />
@@ -74,12 +76,7 @@ export default function App() {
           <Route
             path="home/return"
             element={<Navigate to="/home?view=return" replace />}
-          />
-          <Route
-            path="home/support"
-            element={<Navigate to="/support" replace />}
-          />
-          <Route path="home/userInfo" element={<Navigate to="/me" replace />} />
+          /> */}
         </Route>
       </Route>
       <Route path="/error" element={<ErrorRoute />} />

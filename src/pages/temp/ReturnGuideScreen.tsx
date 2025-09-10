@@ -4,7 +4,6 @@ export default function ReturnGuideScreen() {
   return (
     <div className={s.container}>
       <div className={s.app}>
-        <div className={s.appbar}>반납 안내</div>
         <main className={s.content}>
           <section className={s.card}>
             <h3>반납 방법 안내</h3>

@@ -9,8 +9,6 @@ export default function InUseNoticeScreen() {
   return (
     <div className={s.container}>
       <div className={s.app}>
-        <div className={s.appbar}>대여 불가</div>
-
         <main className={s.content}>
           {/* 1) 대여 불가 안내 + 배터리 정보 */}
           <section className={s.card}>

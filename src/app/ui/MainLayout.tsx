@@ -1,15 +1,26 @@
-// app/layouts/MainLayout.tsx
+// export default function MainLayout() {
+//   return (
+//     <div className="app-shell">
+//       <main>
+//         <Outlet />
+//         <BottomNavSpacer />
+//       </main>
+//       <BottomNav />
+//     </div>
+//   );
+// }
+
 import { Outlet } from "react-router";
-import { BottomNav, BottomNavSpacer } from "./BottomNavi";
+import AppBar, { AppBarSpacer } from "./AppBar";
 
 export default function MainLayout() {
   return (
-    <div className="app-shell">
+    <div>
+      <AppBar />
       <main>
+        <AppBarSpacer />
         <Outlet />
-        <BottomNavSpacer />
       </main>
-      <BottomNav />
     </div>
   );
 }

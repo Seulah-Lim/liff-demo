@@ -13,7 +13,6 @@ export async function buildRedirectLink(
 ) {
   const base = new URL(ENDPOINT);
   const qs = keptParams(keepKeys);
-
   base.search = qs;
   console.log("[buildRedirectLink] result:", base.toString());
 

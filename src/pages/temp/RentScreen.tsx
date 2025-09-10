@@ -9,8 +9,6 @@ export default function RentScreen() {
   return (
     <div className={s.container}>
       <div className={s.app}>
-        <div className={s.appbar}>대여</div>
-
         <main className={s.content}>
           <section className={s.card}>
             <h3>배터리 정보</h3>
