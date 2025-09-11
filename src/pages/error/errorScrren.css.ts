@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 // 전체 배경
 export const main = style({
   minHeight: "100vh",
-  width: "100wh",
+  width: "100vw",
   background: "var(--bg)",
   display: "flex",
   alignItems: "center",
@@ -14,10 +14,12 @@ export const main = style({
 
 // 카드
 export const card = style({
-  width: "100%",
+  width: "100vw",
   maxWidth: 420,
   padding: 24,
   boxSizing: "border-box",
+  display: "flex",
+  flexDirection: "column",
 });
 
 // 헤더 영역
@@ -25,16 +27,6 @@ export const head = style({
   display: "flex",
   alignItems: "flex-start",
   gap: 12,
-});
-
-export const icon = style({
-  color: "#ca8a04", // yellow-600
-  flexShrink: 0,
-});
-
-export const iconSvg = style({
-  width: 32,
-  height: 32,
 });
 
 export const headText = style({

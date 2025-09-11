@@ -6,12 +6,16 @@ import { useLiffStore } from "@app/store/liffStore";
 import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
 import { parseHomeView, useHomeViewStore } from "@app/store/homeStore";
 import liff from "@line/liff";
+import { useModalByQuery } from "@shared/hooks/useModalByQuery";
+import Modal from "@shared/ui/modal/Modal";
 
 export default function AppBar() {
   const { pathname } = useLocation();
   const [sp] = useSearchParams();
   const { lastView } = useHomeViewStore();
   const [showInfoButton, setShowInfoButton] = useState(false);
+  const { isOpen, open, close } = useModalByQuery("open-line");
+
   useEffect(() => {
     setShowInfoButton(!liff.isInClient());
   }, []);
@@ -43,19 +47,36 @@ export default function AppBar() {
   return (
     <header className={s.root} role="banner">
       {showInfoButton && (
-        <button
-          type="button"
-          className={s.iconBtn}
-          aria-label="Information"
-          onClick={async () => {
-            // TODO: 안내 모달/공지 페이지 등 열기
-            const deep = await buildMainPermanentLink();
-
-            location.href = deep;
-          }}
-        >
-          <img src={lineLogo} alt="" width={24} />
-        </button>
+        <>
+          <button
+            type="button"
+            className={s.iconBtn}
+            aria-label="Information"
+            onClick={open}
+          >
+            <img src={lineLogo} alt="" width={24} />
+          </button>
+          <Modal
+            open={isOpen}
+            onOpenChange={(v) => (v ? open() : close())}
+            title="LINE 앱으로 이동하시겠습니까?"
+            actions={[
+              { label: "취소", variant: "secondary", onClick: close },
+              {
+                label: "이동",
+                variant: "primary",
+                onClick: async () => {
+                  const deep = await buildMainPermanentLink();
+                  location.href = deep;
+                  close();
+                },
+              },
+            ]}
+            children={
+              "LINE 앱에서 실행하면 더 빠르고 편리하게 이용하실 수 있습니다."
+            }
+          ></Modal>
+        </>
       )}
 
       <div className={s.title} aria-live="polite">
@@ -73,36 +94,33 @@ export function AppBarSpacer() {
 function QuickMenuButton() {
   const { logout } = useLiffStore();
 
-  const [open, setOpen] = useState(false);
-
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { isOpen, open, close } = useModalByQuery("logout");
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
       if (!ref.current) return;
-      if (!ref.current.contains(e.target as Node)) setOpen(false);
+      if (!ref.current.contains(e.target as Node)) setMenuOpen(false);
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  const handleLogout = () => {
-    logout();
-  };
   return (
     <div className={s.actions} ref={ref}>
       <button
         className={s.iconBtn}
         aria-haspopup="menu"
-        aria-expanded={open}
+        aria-expanded={menuOpen}
         aria-label="Quick Menu"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setMenuOpen((v) => !v)}
       >
         <svg viewBox="0 0 24 24" className={s.icon}>
           <path d="M12 7a2 2 0 110-4 2 2 0 010 4zm0 7a2 2 0 110-4 2 2 0 010 4zm0 7a2 2 0 110-4 2 2 0 010 4z" />
         </svg>
       </button>
 
-      {open && (
+      {menuOpen && (
         <div className={s.menu} role="menu" aria-label="Quick actions">
           <Link to="/return-guide" role="menuitem" className={s.menuItem}>
             반납 안내
@@ -113,13 +131,31 @@ function QuickMenuButton() {
           <div
             role="menuitem"
             className={s.menuItem}
-            onClick={handleLogout}
+            onClick={open}
             aria-label="로그아웃"
           >
             로그아웃
           </div>
         </div>
       )}
+
+      <Modal
+        open={isOpen}
+        onOpenChange={(v) => (v ? open() : close())}
+        title=" 로그아웃 하시겠습니까?"
+        actions={[
+          { label: "취소", variant: "secondary", onClick: close },
+          {
+            label: "로그아웃",
+            variant: "primary",
+            onClick: () => {
+              logout();
+              close();
+            },
+          },
+        ]}
+        children={"현재 계정에서 로그아웃합니다."}
+      ></Modal>
     </div>
   );
 }

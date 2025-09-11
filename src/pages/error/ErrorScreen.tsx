@@ -1,9 +1,12 @@
-import React from "react";
 import * as s from "./errorScrren.css";
 import { useLiffStore } from "@app/store/liffStore";
 import Lottie from "lottie-react";
-import errorData from "@shared/assets/lottie/error.json";
+import errorLottie from "@shared/assets/lottie/error.json";
+import noUserLottie from "@shared/assets/lottie/ghost.json";
+import noDataLottie from "@shared/assets/lottie/no_user.json";
+
 import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
+import liff from "@line/liff";
 
 export type ErrorKind =
   | "NOT_LIFF"
@@ -23,8 +26,11 @@ export interface ErrorScreenProps {
   retryLabel?: string;
   onRetry?: () => void;
 }
+type Env = { inClient: boolean };
 
-function getDefaultConfig(kind: ErrorKind) {
+function getDefaultConfig(kind: ErrorKind, env: Env) {
+  const { inClient } = env;
+
   switch (kind) {
     case "NOT_LIFF":
       return {
@@ -35,25 +41,32 @@ function getDefaultConfig(kind: ErrorKind) {
         secondaryLabel: "링크 복사",
         retryLabel: "다시 시도",
       };
+
     case "BATTERY_FETCH_FAILED":
       return {
         title: "서비스 이용에 문제가 발생했습니다",
         message: "문제가 계속되면 고객센터로 문의해 주시기 바랍니다.",
         secondaryLabel: "다시 시도",
+        animation: errorLottie,
       };
+
     case "NO_USER":
       return {
         title: "로그인이 필요합니다.",
-        message:
-          "LINE 앱에서 실행하면 더 빠르고 편리하게 이용하실 수 있습니다.",
+        message: inClient
+          ? "서비스 사용을 위해 로그인 해주세요."
+          : "LINE 앱에서 실행하면 더 빠르고 편리하게 이용하실 수 있습니다.",
         primaryLabel: "로그인",
-        secondaryLabel: "LINE앱에서 사용",
+        secondaryLabel: inClient ? undefined : "LINE앱에서 사용",
         retryLabel: "다시 시도",
+        animation: noUserLottie,
       };
+
     case "MISSING_BID":
       return {
         title: "잘못된 QR 코드입니다",
         message: "인식된 배터리 정보가 없거나 유효하지 않은 QR 코드입니다.",
+        animation: noDataLottie,
       };
 
     case "UNKNOWN":
@@ -79,7 +92,12 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   retryLabel,
   onRetry,
 }) => {
-  const cfg = getDefaultConfig(kind);
+  const inClient =
+    typeof liff !== "undefined" && typeof liff.isInClient === "function"
+      ? liff.isInClient()
+      : false;
+
+  const cfg = getDefaultConfig(kind, { inClient });
 
   const _primaryLabel = primaryLabel ?? cfg.primaryLabel;
   const _secondaryLabel = secondaryLabel ?? cfg.secondaryLabel;
@@ -125,16 +143,20 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   return (
     <main className={s.main}>
       <section className={s.card}>
-        <Lottie
-          animationData={errorData}
-          loop={true}
-          autoplay={true}
-          style={{
-            width: "100%",
-            maxWidth: "250px",
-            height: "auto",
-          }}
-        />
+        {cfg.animation && (
+          <Lottie
+            animationData={cfg.animation}
+            loop={true}
+            autoplay={true}
+            style={{
+              width: "100%",
+              maxWidth: "250px",
+              height: "auto",
+              alignSelf: "center",
+            }}
+          />
+        )}
+
         <div className={s.head}>
           <div className={s.headText}>
             <h1 className={s.title}>{cfg.title}</h1>
