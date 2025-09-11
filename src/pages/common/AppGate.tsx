@@ -1,7 +1,18 @@
+// pages/gate/AppGate.tsx
 import { useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router";
-import { useBidStore } from "../../app/store/bidStore";
-import { useLiffStore } from "../../app/store/liffStore";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router";
+import { useBidStore } from "@app/store/bidStore";
+import { useLiffStore } from "@app/store/liffStore";
+import {
+  useHomeViewStore,
+  parseHomeView,
+  type HomeView,
+} from "@app/store/homeStore";
 import LoadingScreen from "./Loading";
 
 type Phase = "idle" | "loading" | "ok" | "error";
@@ -12,16 +23,29 @@ export type EnsureError =
   | { kind: "BATTERY_FETCH_FAILED"; detail?: string }
   | { kind: "UNKNOWN"; detail?: string };
 
+// TODO: 서버 연동 시 실제 호출로 교체
+async function fetchHomeStatus(): Promise<HomeView | null> {
+  //  const res = await fetch("/api/home/status");
+  // if (!res.ok) throw new Error("status fetch failed");
+  // const data = await res.json();
+  // return data.view as HomeView; // "rent" | "borrowed" | "return" | "home"
+  return null; // 서버 미구현 상태에선 null 반환
+}
+
 function useEnsureSession() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [err, setErr] = useState<EnsureError | null>(null);
 
   const { search } = useLocation();
   const navigate = useNavigate();
+  const [sp, setSp] = useSearchParams();
 
   const ensureBidOnce = useBidStore((s) => s.ensureBidOnce);
 
   const { ready, isLoggedIn, init } = useLiffStore();
+
+  const { lastView, setView } = useHomeViewStore();
+
   useEffect(() => {
     const href = `${location.pathname}${location.search}${location.hash}`;
     console.log("[ROUTE]", href, location);
@@ -49,7 +73,7 @@ function useEnsureSession() {
           await init();
         }
       } catch {
-        setErr({ kind: "UNKNOWN", detail: "LIFF 초기화 실패" });
+        setErr({ kind: "UNKNOWN", detail: "LIFF 초기화 실패" }); //TODO detail수정
         setPhase("error");
         return;
       }
@@ -60,7 +84,49 @@ function useEnsureSession() {
         setPhase("error");
         return;
       }
-      //추후에는 view로 판별하지 않고 bid잇고 로그인 상태면 서버 요청 보내서 온 응답으로 판별
+
+      // 5) 홈 상태 결정 (서버 → 쿼리 → 스토어 fallback) + 동기화
+      try {
+        let next: HomeView | null = null;
+
+        // 5-1) 서버 조회 (미구현이면 null)
+        try {
+          const serverView = await fetchHomeStatus();
+          if (serverView) next = serverView;
+        } catch {
+          // 서버 오류는 다음 단계로 넘겨서 fallback 처리
+        }
+
+        // 5-2) 쿼리 fallback
+        if (!next) {
+          const fromQuery = parseHomeView(sp.get("view"));
+          if (fromQuery) {
+            next = fromQuery;
+          } else {
+            setErr({
+              kind: "BATTERY_FETCH_FAILED",
+              detail: "view 누락",
+            });
+            setPhase("error");
+            return;
+          }
+        }
+
+        // 5-3) 스토어 fallback
+        if (!next) {
+          next = lastView;
+        }
+
+        // 스토어 반영
+        setView(next);
+      } catch (e) {
+        setErr({
+          kind: "BATTERY_FETCH_FAILED",
+          detail: e instanceof Error ? e.message : "unknown",
+        });
+        setPhase("error");
+        return;
+      }
 
       if (!cancelled) setPhase("ok");
     })();
@@ -68,7 +134,17 @@ function useEnsureSession() {
     return () => {
       cancelled = true;
     };
-  }, [ensureBidOnce, search, ready, init, isLoggedIn]);
+  }, [
+    ensureBidOnce,
+    search,
+    ready,
+    init,
+    isLoggedIn,
+    lastView,
+    setView,
+    sp,
+    setSp,
+  ]);
 
   const redirectToError = (e: EnsureError) => {
     const q = new URLSearchParams({

@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 // 전체 배경
 export const main = style({
   minHeight: "100vh",
-  width: "100%",
+  width: "100wh",
   background: "var(--bg)",
   display: "flex",
   alignItems: "center",

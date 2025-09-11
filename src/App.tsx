@@ -1,20 +1,21 @@
 import { Routes, Route, useSearchParams } from "react-router";
-import MainLayout from "./app/ui/MainLayout";
+import MainLayout from "@app/ui/MainLayout";
 import {
   parseHomeView,
   useHomeViewStore,
   type HomeView,
-} from "./app/store/homeStore";
+} from "@app/store/homeStore";
 import { useEffect } from "react";
-import { ErrorScreen, type ErrorKind } from "./pages/error/ErrorScreen";
-import HomeHub from "./pages/homehub/Homehub";
-import RentScreen from "./pages/temp/RentScreen";
-import InUseNoticeScreen from "./pages/temp/InUseNoticeScreen";
-import AppGate from "./pages/gate/AppGate";
-import SupportScreen from "./pages/temp/SupportScreen";
-import UserInfo from "./pages/userInfo/UserInfo";
-import ReturnExtendScreen from "./pages/temp/ReturnExtendScreen";
-import ReturnGuideScreen from "./pages/temp/ReturnGuideScreen";
+import { ErrorScreen, type ErrorKind } from "@pages/error/ErrorScreen";
+import HomeHub from "@pages/homehub/Homehub";
+import RentScreen from "@pages/temp/RentScreen";
+import InUseNoticeScreen from "@pages/temp/InUseNoticeScreen";
+import SupportScreen from "@pages/temp/SupportScreen";
+import UserInfo from "@pages/userInfo/UserInfo";
+import ReturnExtendScreen from "@pages/temp/ReturnExtendScreen";
+import ReturnGuideScreen from "@pages/temp/ReturnGuideScreen";
+import ProtectedRoute from "@app/routes/ProtectedRoute";
+import ViewGuard from "@app/routes/ViewGuard";
 
 function ErrorRoute() {
   const [sp] = useSearchParams();
@@ -48,38 +49,26 @@ function HomeSwitcher() {
   if (view === "return") return <ReturnExtendScreen />;
   return <HomeHub />;
 }
-
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<AppGate />}>
+      {/* 전역 보호: 로그인/ bid */}
+      <Route element={<ProtectedRoute />}>
         <Route element={<MainLayout />}>
-          {/* 홈: 상황별 화면 스위치 (기본 HomeHub) */}
-          <Route index element={<HomeSwitcher />} />
+          {/* 홈 전용 보호: view */}
+          <Route path="/" element={<ViewGuard />}>
+            {/* 실제 비즈니스 레이아웃 */}
+            <Route index element={<HomeSwitcher />} />
+            <Route path="me" element={<UserInfo />} />
+          </Route>
 
-          {/* 서포트 */}
+          {/* 전역 보호만 필요(뷰 불필요)한 페이지들 */}
           <Route path="support" element={<SupportScreen />} />
           <Route path="return-guide" element={<ReturnGuideScreen />} />
-
-          {/* (임시) 마이페이지 */}
-          <Route path="me" element={<UserInfo />} />
-
-          {/* 레거시 경로 호환 리다이렉트 */}
-          {/* <Route
-            path="home/rent"
-            element={<Navigate to="/home?view=rent" replace />}
-          />
-          <Route
-            path="home/borrowed"
-            element={<Navigate to="/home?view=borrowed" replace />}
-          />
-          <Route
-            path="home/return"
-            element={<Navigate to="/home?view=return" replace />}
-          /> */}
         </Route>
       </Route>
-      <Route path="/error" element={<ErrorRoute />} />
+      {/* 에러는 예외 */}
+      <Route path="error" element={<ErrorRoute />} />
     </Routes>
   );
 }

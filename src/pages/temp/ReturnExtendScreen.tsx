@@ -1,4 +1,4 @@
-import { useBidStore } from "../../app/store/bidStore";
+import { useBidStore } from "@app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
 
 export default function ReturnExtendScreen() {

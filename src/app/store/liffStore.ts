@@ -3,13 +3,13 @@ import liff from "@line/liff";
 import type { Profile } from "@liff/get-profile";
 import type { Context } from "@liff/store";
 
-import type { LiffJWTPayload, LiffState } from "../../shared/types/liff_types";
 import { isTokenExpiredLike, now, toErrInfo } from "../lib/liff/errors";
 
 import { seedMockLogin } from "../lib/liff/seedMockLogin";
 import { initOnce } from "../lib/liff/initOnce";
 import { installPlugins } from "../lib/liff/installPlugins";
 import { buildRedirectLink } from "../lib/liff/buildLinks";
+import type { LiffJWTPayload, LiffState } from "@shared/types/liff_types";
 
 export type LiffActions = {
   init: () => Promise<void>;

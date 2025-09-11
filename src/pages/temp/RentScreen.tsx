@@ -1,4 +1,4 @@
-import { useBidStore } from "../../app/store/bidStore.ts";
+import { useBidStore } from "@app/store/bidStore.ts";
 import * as s from "./rentScreen.css.ts";
 
 export default function RentScreen() {

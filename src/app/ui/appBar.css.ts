@@ -14,7 +14,7 @@ export const root = style({
   display: "flex",
   alignItems: "center",
   padding: "0 12px",
-  backgroundColor: " rgba(var(--fg-rgb), 0.1)",
+  backgroundColor: " rgba(var(--bg-rgb), 0.1)",
   backdropFilter: "blur(10px)",
   zIndex: 10,
 });
@@ -77,11 +77,12 @@ export const menu = style({
   top: APP_BAR_HEIGHT,
   right: 0,
   borderRadius: "12px",
-  backgroundColor: "rgba(0, 0, 0, 0.8)",
+  backgroundColor: " rgba(var(--bg-rgb), 0.8)",
   backdropFilter: "blur(20px)",
   boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-  border: "1px solid rgba(0,0,0,0.08)",
+
   padding: "4px 40px 4px 8px",
+  marginRight: "12px",
   zIndex: 20,
 });
 

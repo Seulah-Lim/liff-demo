@@ -3,17 +3,18 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const buildTime = new Date().toISOString();
 
 export default defineConfig({
   base: "/liff-demo/",
-  plugins: [react(), vanillaExtractPlugin()],
+  plugins: [react(), vanillaExtractPlugin(), tsconfigPaths()],
   define: {
     __BUILD_TIME__: JSON.stringify(buildTime),
   },
   server: {
-    allowedHosts: ["johnston-prospect-croatia-loaded.trycloudflare.com"],
+    allowedHosts: ["successfully-scotia-fortune-stupid.trycloudflare.com"],
   },
   resolve: {
     alias: {

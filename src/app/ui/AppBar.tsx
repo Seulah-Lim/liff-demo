@@ -1,5 +1,6 @@
 import { Link, useLocation, useSearchParams } from "react-router";
 import * as s from "./appBar.css";
+import lineLogo from "@shared/assets/img/line_logo.png";
 
 export default function AppBar() {
   const { pathname } = useLocation();
@@ -16,7 +17,6 @@ export default function AppBar() {
       switch (view) {
         case "rent":
           return "Available Battery"; // 배터리 대여 가능
-
         case "borrowed":
           return "Unavailable Battery"; // 타인 사용 중 → 대여 불가
         case "return":
@@ -51,8 +51,11 @@ import { useState, useRef, useEffect } from "react";
 import { parseHomeView, useHomeViewStore } from "../store/homeStore";
 import liff from "@line/liff";
 import { buildMainPermanentLink } from "../lib/liff/buildLinks";
+import { useLiffStore } from "../store/liffStore";
 
 function QuickMenuButton() {
+  const { logout } = useLiffStore();
+
   const [open, setOpen] = useState(false);
 
   const [showInfoButton, setShowInfoButton] = useState(false);
@@ -70,6 +73,10 @@ function QuickMenuButton() {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
+  const handleLogout = () => {
+    console.log("dd");
+    logout();
+  };
   return (
     <div className={s.actions} ref={ref}>
       {showInfoButton && (
@@ -84,17 +91,7 @@ function QuickMenuButton() {
             location.href = deep;
           }}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-            className={s.icon}
-          >
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-          </svg>
+          <img src={lineLogo} alt="" width={24} height={24} />
         </button>
       )}
 
@@ -113,17 +110,19 @@ function QuickMenuButton() {
       {open && (
         <div className={s.menu} role="menu" aria-label="Quick actions">
           <Link to="/return-guide" role="menuitem" className={s.menuItem}>
-            <svg viewBox="0 0 24 24" className={s.menuIcon}>
-              <path d="M19 3H5a2 2 0 00-2 2v14l4-4h12a2 2 0 002-2V5a2 2 0 00-2-2z" />
-            </svg>
             반납 안내
           </Link>
           <Link to="/support" role="menuitem" className={s.menuItem}>
-            <svg viewBox="0 0 24 24" className={s.menuIcon}>
-              <path d="M3 3h18v2H3V3zm0 6h12v2H3V9zm0 6h18v2H3v-2z" />
-            </svg>
             고객 지원
           </Link>
+          <div
+            role="menuitem"
+            className={s.menuItem}
+            onClick={handleLogout}
+            aria-label="로그아웃"
+          >
+            로그아웃
+          </div>
         </div>
       )}
     </div>

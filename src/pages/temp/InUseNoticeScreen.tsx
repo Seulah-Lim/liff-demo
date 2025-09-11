@@ -1,5 +1,5 @@
 // InUseNoticeScreen.tsx
-import { useBidStore } from "../../app/store/bidStore.ts";
+import { useBidStore } from "@app/store/bidStore.ts";
 import * as s from "./inUseNoticieScreen.css.ts";
 
 export default function InUseNoticeScreen() {

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
-import { useLiffStore } from "../../app/store/liffStore";
+import { useLiffStore } from "@app/store/liffStore";
 import {
   accountCard,
   actionsRow,
@@ -25,7 +25,7 @@ import {
   subText,
   value,
 } from "./homehub.css";
-import { buildMainPermanentLink } from "../../app/lib/liff/buildLinks";
+import { buildMainPermanentLink } from "@app/lib/liff/buildLinks";
 
 const LIFF_DEEPLINK = "https://liff.line.me/2008002745-KgmzwRd4";
 declare const __BUILD_TIME__: string;

@@ -1,6 +1,6 @@
 import React from "react";
-import { useLiffStore } from "../../app/store/liffStore";
-import { useBidStore } from "../../app/store/bidStore";
+import { useLiffStore } from "@app/store/liffStore";
+import { useBidStore } from "@app/store/bidStore";
 
 export default function UserInfo() {
   const {

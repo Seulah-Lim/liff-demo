@@ -3,9 +3,11 @@ import { style, globalStyle } from "@vanilla-extract/css";
 
 const lightVars = {
   "--bg": "#f7f7f8",
+  "--bg-rgb": "247, 247, 248",
   "--card": "#ffffff",
   "--border": "#e5e7eb",
   "--fg": "#111827",
+  "--fg-rgb": "17, 24, 39",
   "--muted": "#6b7280",
   "--brand": "#111827",
   "--accent": "#10b981",
@@ -13,9 +15,11 @@ const lightVars = {
 
 const darkVars = {
   "--bg": "#0b0b0c",
+  "--bg-rgb": "11, 11, 12",
   "--card": "#111214",
   "--border": "#1f2937",
   "--fg": "#e5e7eb",
+  "--fg-rgb": "229, 231, 235",
   "--muted": "#9ca3af",
   "--brand": "#111827",
   "--accent": "#34d399",

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type HomeView = "homehub" | "rent" | "borrowed" | "return";
+export type HomeView = "homehub" | "rent" | "borrowed" | "return" | null;
 
 type State = {
   lastView: HomeView;
@@ -10,7 +10,7 @@ type Actions = {
 };
 
 export const useHomeViewStore = create<State & Actions>((set) => ({
-  lastView: "homehub",
+  lastView: null,
   setView: (v) => set({ lastView: v }),
 }));
 

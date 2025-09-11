@@ -1,8 +1,9 @@
 import React from "react";
 import * as s from "./errorScrren.css";
-import { useLiffStore } from "../../app/store/liffStore";
+import { useLiffStore } from "@app/store/liffStore";
 import Lottie from "lottie-react";
-import errorData from "../../shared/assets/lottie/error.json";
+import errorData from "@shared/assets/lottie/error.json";
+import { buildMainPermanentLink } from "@app/lib/liff/buildLinks";
 
 export type ErrorKind =
   | "NOT_LIFF"
@@ -42,10 +43,12 @@ function getDefaultConfig(kind: ErrorKind) {
       };
     case "NO_USER":
       return {
-        title: "사용자 정보가 없습니다",
-        message: "로그인이 필요합니다. 로그인 후 다시 이용해주세요.",
+        title: "로그인이 필요합니다.",
+        message:
+          "LINE 앱에서 실행하면 더 빠르고 편리하게 이용하실 수 있습니다.",
         primaryLabel: "로그인",
-        secondaryLabel: "다시 시도",
+        secondaryLabel: "LINE앱에서 사용",
+        retryLabel: "다시 시도",
       };
     case "MISSING_BID":
       return {
@@ -98,7 +101,11 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
       onPrimary: () => {
         login();
       },
-      onSecondary: () => window.location.reload(),
+      onSecondary: async () => {
+        const deep = await buildMainPermanentLink();
+
+        location.href = deep;
+      },
       onRetry: () => window.location.reload(),
     },
     MISSING_BID: {
@@ -124,7 +131,7 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
           autoplay={true}
           style={{
             width: "100%",
-            maxWidth: "250px", // 모바일 기준 최대 200px
+            maxWidth: "250px",
             height: "auto",
           }}
         />
