@@ -3,7 +3,7 @@ import * as s from "./errorScrren.css";
 import { useLiffStore } from "@app/store/liffStore";
 import Lottie from "lottie-react";
 import errorData from "@shared/assets/lottie/error.json";
-import { buildMainPermanentLink } from "@app/lib/liff/buildLinks";
+import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
 
 export type ErrorKind =
   | "NOT_LIFF"

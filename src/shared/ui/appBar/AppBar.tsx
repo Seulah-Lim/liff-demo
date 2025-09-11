@@ -1,11 +1,20 @@
 import { Link, useLocation, useSearchParams } from "react-router";
 import * as s from "./appBar.css";
 import lineLogo from "@shared/assets/img/line_logo.png";
+import { useEffect, useRef, useState } from "react";
+import { useLiffStore } from "@app/store/liffStore";
+import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
+import { parseHomeView, useHomeViewStore } from "@app/store/homeStore";
+import liff from "@line/liff";
 
 export default function AppBar() {
   const { pathname } = useLocation();
   const [sp] = useSearchParams();
   const { lastView } = useHomeViewStore();
+  const [showInfoButton, setShowInfoButton] = useState(false);
+  useEffect(() => {
+    setShowInfoButton(!liff.isInClient());
+  }, []);
 
   const isHome = pathname === "/";
 
@@ -33,52 +42,6 @@ export default function AppBar() {
   }
   return (
     <header className={s.root} role="banner">
-      <div className={s.title} aria-live="polite">
-        {title}
-      </div>
-
-      {showQuickMenu && <QuickMenuButton />}
-    </header>
-  );
-}
-
-export function AppBarSpacer() {
-  return <div className={s.spacer} aria-hidden="true" />;
-}
-
-// 퀵메뉴
-import { useState, useRef, useEffect } from "react";
-import { parseHomeView, useHomeViewStore } from "../store/homeStore";
-import liff from "@line/liff";
-import { buildMainPermanentLink } from "../lib/liff/buildLinks";
-import { useLiffStore } from "../store/liffStore";
-
-function QuickMenuButton() {
-  const { logout } = useLiffStore();
-
-  const [open, setOpen] = useState(false);
-
-  const [showInfoButton, setShowInfoButton] = useState(false);
-  useEffect(() => {
-    setShowInfoButton(!liff.isInClient());
-  }, []);
-
-  const ref = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const onDoc = (e: MouseEvent) => {
-      if (!ref.current) return;
-      if (!ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
-
-  const handleLogout = () => {
-    console.log("dd");
-    logout();
-  };
-  return (
-    <div className={s.actions} ref={ref}>
       {showInfoButton && (
         <button
           type="button"
@@ -91,10 +54,42 @@ function QuickMenuButton() {
             location.href = deep;
           }}
         >
-          <img src={lineLogo} alt="" width={24} height={24} />
+          <img src={lineLogo} alt="" width={24} />
         </button>
       )}
 
+      <div className={s.title} aria-live="polite">
+        {title}
+      </div>
+      {showQuickMenu && <QuickMenuButton />}
+    </header>
+  );
+}
+
+export function AppBarSpacer() {
+  return <div className={s.spacer} aria-hidden="true" />;
+}
+
+function QuickMenuButton() {
+  const { logout } = useLiffStore();
+
+  const [open, setOpen] = useState(false);
+
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const onDoc = (e: MouseEvent) => {
+      if (!ref.current) return;
+      if (!ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+  };
+  return (
+    <div className={s.actions} ref={ref}>
       <button
         className={s.iconBtn}
         aria-haspopup="menu"

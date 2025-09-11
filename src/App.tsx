@@ -1,5 +1,5 @@
 import { Routes, Route, useSearchParams } from "react-router";
-import MainLayout from "@app/ui/MainLayout";
+import MainLayout from "@app/layout/MainLayout";
 import {
   parseHomeView,
   useHomeViewStore,

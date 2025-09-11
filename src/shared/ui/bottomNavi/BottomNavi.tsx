@@ -1,7 +1,7 @@
 // app/ui/BottomNav/BottomNav.tsx
 import { NavLink } from "react-router";
 import * as s from "./bottomNavi.css";
-import { useHomeViewStore } from "../store/homeStore";
+import { useHomeViewStore } from "@app/store/homeStore";
 
 export function BottomNav() {
   const { lastView } = useHomeViewStore();

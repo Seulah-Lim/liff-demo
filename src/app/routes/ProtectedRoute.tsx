@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
-import { useLiffStore } from "../store/liffStore";
-import { useBidStore } from "../store/bidStore";
+import { useLiffStore } from "@app/store/liffStore";
+import { useBidStore } from "@app/store/bidStore";
 import LoadingScreen from "@pages/common/Loading";
 
 export default function ProtectedRoute() {

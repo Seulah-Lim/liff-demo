@@ -10,7 +10,7 @@ import {
   parseHomeView,
   useHomeViewStore,
   type HomeView,
-} from "../store/homeStore";
+} from "@app/store/homeStore";
 import { useEffect, useMemo } from "react";
 
 // 서버 미구현

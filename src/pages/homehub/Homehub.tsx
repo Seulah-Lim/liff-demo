@@ -25,7 +25,7 @@ import {
   subText,
   value,
 } from "./homehub.css";
-import { buildMainPermanentLink } from "@app/lib/liff/buildLinks";
+import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
 
 const LIFF_DEEPLINK = "https://liff.line.me/2008002745-KgmzwRd4";
 declare const __BUILD_TIME__: string;
