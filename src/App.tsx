@@ -1,10 +1,6 @@
 import { Routes, Route, useSearchParams } from "react-router";
 import MainLayout from "@app/layout/MainLayout";
-import {
-  parseHomeView,
-  useHomeViewStore,
-  type HomeView,
-} from "@app/store/homeStore";
+import { parseHomeView, useHomeViewStore } from "@app/store/homeStore";
 import { useEffect } from "react";
 import { ErrorScreen, type ErrorKind } from "@pages/error/ErrorScreen";
 import HomeHub from "@pages/homehub/Homehub";
@@ -25,12 +21,6 @@ function ErrorRoute() {
   return <ErrorScreen kind={kind} detail={detail} supportId={supportId} />;
 }
 
-function getHomeView(sp: URLSearchParams, fallback: HomeView): HomeView {
-  // const next: HomeView = apiStateToHomeView(serverState);
-  // useHomeViewStore.getState().setView(next);
-  return parseHomeView(sp.get("view")) ?? fallback;
-}
-
 function HomeSwitcher() {
   const [sp] = useSearchParams();
   const { lastView, setView } = useHomeViewStore();
@@ -42,11 +32,9 @@ function HomeSwitcher() {
   }, [fromQuery, setView]);
 
   // 2) URL 없으면 마지막 뷰 사용
-  const view = getHomeView(sp, lastView);
-
-  if (view === "rent") return <RentScreen />;
-  if (view === "borrowed") return <InUseNoticeScreen />;
-  if (view === "return") return <ReturnExtendScreen />;
+  if (lastView === "rent") return <RentScreen />;
+  if (lastView === "borrowed") return <InUseNoticeScreen />;
+  if (lastView === "return") return <ReturnExtendScreen />;
   return <HomeHub />;
 }
 export default function App() {
