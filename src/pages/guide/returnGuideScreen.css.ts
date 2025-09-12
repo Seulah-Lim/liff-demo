@@ -1,4 +1,5 @@
-// supportScreen.css.ts
+// returnExtendGuide.css.ts
+import { APP_BAR_HEIGHT } from "@shared/const/layout";
 import { style, globalStyle } from "@vanilla-extract/css";
 
 /* ---------- CSS Variables (라이트/다크) ---------- */
@@ -41,7 +42,8 @@ globalStyle("body", {
 
 /* ---------- Layout ---------- */
 export const container = style({
-  minHeight: "100dvh",
+  height: "100vh",
+  paddingTop: APP_BAR_HEIGHT,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -56,17 +58,6 @@ export const app = style({
   background: "var(--bg)",
 });
 
-export const appbar = style({
-  position: "sticky",
-  top: 0,
-  zIndex: 10,
-  background: "transparent",
-  borderBottom: 0,
-  padding: "calc(12px + env(safe-area-inset-top)) 16px 12px 16px",
-  textAlign: "center",
-  fontWeight: 600,
-});
-
 export const content = style({
   flex: 1,
   display: "grid",
@@ -75,9 +66,9 @@ export const content = style({
   padding: 12,
 });
 
-/* ---------- Card ---------- */
+/* ---------- Card / text ---------- */
 export const card = style({
-  background: "var(--card)",
+  background: "var(--card)", // ✅ 카드 배경 복원
   border: "1px solid var(--border)",
   borderRadius: 16,
   boxShadow: "0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04)",
@@ -86,16 +77,65 @@ export const card = style({
 
 globalStyle(`${card} h3`, { margin: "0 0 8px 0", fontSize: 16 });
 
+export const row = style({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: 8,
+  fontSize: 14,
+});
+
+export const meta = style({ color: "var(--muted)", fontSize: 12 });
+
 export const sep = style({
   height: 1,
   background: "var(--border)",
   margin: "12px 0",
 });
 
-export const meta = style({ color: "var(--muted)", fontSize: 12 });
+/* ---------- Buttons ---------- */
+export const buttons = style({
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: 10,
+  padding: 0,
+});
 
-/* ---------- Lists & Items ---------- */
-export const list = style({ display: "grid", gap: 10 });
+export const buttonsTwo = style([
+  buttons,
+  { gridTemplateColumns: "1fr 1fr", gap: 12 },
+]);
+
+export const btn = style({
+  display: "inline-flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "100%",
+  padding: "16px 14px",
+  borderRadius: 14,
+  border: "1px solid var(--border)",
+  background: "var(--brand)",
+  color: "#fff",
+  fontWeight: 700,
+  textDecoration: "none",
+});
+
+export const btnSecondary = style([
+  btn,
+  { background: "transparent", color: "var(--fg)" },
+]);
+
+export const btnDanger = style([
+  btn,
+  { background: "#ef4444", borderColor: "#ef4444", color: "#fff" },
+]);
+
+/* ---------- Lists / items ---------- */
+export const list = style({
+  display: "grid",
+  gap: 10,
+  // <ol className="list">을 지원해야 하므로 list-style은 건드리지 않음
+});
 
 export const item = style({
   display: "flex",
@@ -109,7 +149,7 @@ export const item = style({
 
 export const sub = style({ color: "var(--muted)", fontSize: 12 });
 
-/* ---------- Map Placeholder ---------- */
+/* ---------- Map placeholder ---------- */
 export const map = style({
   height: 140,
   border: "1px dashed var(--border)",
@@ -120,7 +160,7 @@ export const map = style({
   fontSize: 12,
 });
 
-/* ---------- Form ---------- */
+/* ---------- Form & helpers ---------- */
 export const label = style({
   fontSize: 13,
   color: "var(--muted)",
@@ -151,43 +191,7 @@ export const softHr = style({
   margin: "8px 0",
 });
 
-/* ---------- Buttons ---------- */
-export const buttons = style({
-  display: "grid",
-  gridTemplateColumns: "1fr",
-  gap: 10,
-  padding: 0,
-});
-export const buttonsTwo = style([
-  buttons,
-  { gridTemplateColumns: "1fr 1fr", gap: 12 },
-]);
-
-export const btn = style({
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-  padding: "16px 14px",
-  borderRadius: 14,
-  border: "1px solid var(--border)",
-  background: "var(--brand)",
-  color: "#fff",
-  fontWeight: 700,
-  textDecoration: "none",
-});
-
-export const btnSecondary = style([
-  btn,
-  { background: "transparent", color: "var(--fg)" },
-]);
-
-export const btnDanger = style([
-  btn,
-  { background: "#ef4444", borderColor: "#ef4444", color: "#fff" },
-]);
-
-/* ---------- Badge ---------- */
+/* ---------- Badge & Pill ---------- */
 export const badge = style({
   display: "inline-flex",
   alignItems: "center",
@@ -198,3 +202,32 @@ export const badge = style({
   color: "#3730a3",
   fontSize: 12,
 });
+
+export const pill = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  padding: "2px 8px",
+  borderRadius: 999,
+  fontSize: 12,
+  border: "1px solid var(--border)",
+  background: "#e0e7ff", // 기본: blue 톤
+  color: "#3730a3",
+});
+
+export const dot = style({
+  width: 6,
+  height: 6,
+  borderRadius: "50%",
+  background: "currentColor",
+  display: "inline-block",
+});
+
+/* ---------- KV grid ---------- */
+export const kv = style({
+  display: "grid",
+  gridTemplateColumns: "110px 1fr",
+  gap: 8,
+  fontSize: 15,
+});
+export const k = style({ color: "var(--muted)" });

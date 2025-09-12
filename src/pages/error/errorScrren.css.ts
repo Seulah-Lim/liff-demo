@@ -1,8 +1,10 @@
+import { APP_BAR_HEIGHT } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
 
 // 전체 배경
 export const main = style({
-  minHeight: "100vh",
+  height: "100vh",
+  paddingTop: APP_BAR_HEIGHT,
   width: "100vw",
   background: "var(--bg)",
   display: "flex",

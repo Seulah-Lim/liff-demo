@@ -1,20 +1,22 @@
-// rentScreen.css.ts
+// supportScreen.css.ts
+import { APP_BAR_HEIGHT } from "@shared/const/layout";
 import { style, globalStyle } from "@vanilla-extract/css";
 
 /* ---------- CSS Variables (라이트/다크) ---------- */
 const lightVars = {
   "--bg": "#f7f7f8",
-  "--card": "#ffffff",
+  "--card": "#ffffff", // 카드 배경 복원(라이트)
   "--border": "#e5e7eb",
   "--fg": "#111827",
   "--muted": "#6b7280",
-  "--brand": "#111827",
+  "--brand": "#111827", // 버튼/선택칩 배경은 어둡게
   "--accent": "#10b981",
+  "--danger": "#ef4444",
 } as const;
 
 const darkVars = {
   "--bg": "#0b0b0c",
-  "--card": "#111214",
+  "--card": "#111214", // 카드 배경 복원(다크)
   "--border": "#1f2937",
   "--fg": "#e5e7eb",
   "--muted": "#9ca3af",
@@ -22,16 +24,9 @@ const darkVars = {
   "--accent": "#34d399",
 } as const;
 
-// 기본(라이트)
 globalStyle(":root", { vars: lightVars });
-
-// 다크 모드는 @media 안쪽에
 globalStyle(":root", {
-  "@media": {
-    "(prefers-color-scheme: dark)": {
-      vars: darkVars,
-    },
-  },
+  "@media": { "(prefers-color-scheme: dark)": { vars: darkVars } },
 });
 
 /* ---------- Reset & Base ---------- */
@@ -47,7 +42,8 @@ globalStyle("body", {
 
 /* ---------- Layout ---------- */
 export const container = style({
-  minHeight: "100dvh",
+  height: "100vh",
+  paddingTop: APP_BAR_HEIGHT,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -60,17 +56,6 @@ export const app = style({
   display: "flex",
   flexDirection: "column",
   background: "var(--bg)",
-});
-
-export const appbar = style({
-  position: "sticky",
-  top: 0,
-  zIndex: 10,
-  background: "transparent",
-  borderBottom: 0,
-  padding: "calc(12px + env(safe-area-inset-top)) 16px 12px 16px",
-  textAlign: "center",
-  fontWeight: 600,
 });
 
 export const content = style({
@@ -90,10 +75,7 @@ export const card = style({
   padding: 16,
 });
 
-globalStyle(`${card} h3`, {
-  margin: "0 0 8px 0",
-  fontSize: 16,
-});
+globalStyle(`${card} h3`, { margin: "0 0 8px 0", fontSize: 16 });
 
 export const sep = style({
   height: 1,
@@ -101,15 +83,63 @@ export const sep = style({
   margin: "12px 0",
 });
 
-/* ---------- Image ---------- */
-export const imageCover = style({
+export const meta = style({ color: "var(--muted)", fontSize: 12 });
+
+/* ---------- Lists & Items ---------- */
+export const list = style({ display: "grid", gap: 10 });
+
+export const item = style({
+  display: "flex",
+  justifyContent: "space-between",
+  gap: 12,
+  padding: 12,
+  border: "1px solid var(--border)",
+  borderRadius: 12,
+  background: "transparent",
+});
+
+export const sub = style({ color: "var(--muted)", fontSize: 12 });
+
+/* ---------- Map Placeholder ---------- */
+export const map = style({
+  height: 140,
+  border: "1px dashed var(--border)",
+  borderRadius: 12,
+  display: "grid",
+  placeItems: "center",
+  color: "var(--muted)",
+  fontSize: 12,
+});
+
+/* ---------- Form ---------- */
+export const label = style({
+  fontSize: 13,
+  color: "var(--muted)",
+  marginBottom: 6,
+});
+
+export const input = style({
   width: "100%",
-  height: 120,
-  objectFit: "cover",
-  objectPosition: "center",
+  padding: 12,
   borderRadius: 12,
   border: "1px solid var(--border)",
-  marginTop: 8,
+  background: "transparent",
+  color: "var(--fg)",
+  fontSize: 14,
+});
+
+export const textarea = style([input, { minHeight: 120, resize: "vertical" }]);
+
+export const file = style({ display: "flex", gap: 10, alignItems: "center" });
+
+export const hint = style({ fontSize: 12, color: "var(--muted)" });
+export const small = style({ fontSize: 12, color: "var(--muted)" });
+
+export const softHr = style({
+  border: 0,
+  height: 1,
+  background: "var(--border)",
+  margin: "8px 0",
 });
 
 /* ---------- Buttons ---------- */
@@ -140,98 +170,22 @@ export const btn = style({
 
 export const btnSecondary = style([
   btn,
-  {
-    background: "transparent",
-    color: "var(--fg)",
-  },
+  { background: "transparent", color: "var(--fg)" },
 ]);
 
 export const btnDanger = style([
   btn,
-  {
-    background: "#ef4444",
-    borderColor: "#ef4444",
-    color: "#fff",
-  },
+  { background: "#ef4444", borderColor: "#ef4444", color: "#fff" },
 ]);
 
-/* ---------- Chips (Radio) ---------- */
-export const chips = style({
-  display: "flex",
-  flexWrap: "wrap",
-  gap: 10,
-});
-
-export const chip = style({ position: "relative" });
-
-export const chipInput = style({
-  position: "absolute",
-  opacity: 0,
-  inset: 0,
-});
-
-export const chipLabel = style({
+/* ---------- Badge ---------- */
+export const badge = style({
   display: "inline-flex",
   alignItems: "center",
   gap: 6,
-  padding: "10px 14px",
+  padding: "3px 8px",
   borderRadius: 999,
-  border: "1px solid var(--border)",
-  background: "transparent",
-  fontSize: 14,
-  cursor: "pointer",
-});
-
-// input:checked + label
-globalStyle(`${chipInput}:checked + label`, {
-  background: "var(--brand)",
-  color: "#fff",
-  borderColor: "var(--brand)",
-});
-
-/* ---------- Key-Value & Text utils ---------- */
-export const kv = style({
-  display: "grid",
-  gridTemplateColumns: "110px 1fr",
-  gap: 8,
-  fontSize: 15,
-});
-export const k = style({ color: "var(--muted)" });
-export const small = style({ fontSize: 12, color: "var(--muted)" });
-export const meta = style({ fontSize: 12, color: "var(--muted)" });
-
-/* ---------- Pills (status) ---------- */
-export const pill = style({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 6,
-  padding: "2px 8px",
-  borderRadius: 999,
-  fontSize: 12,
-  border: "1px solid var(--border)",
   background: "#eef2ff",
   color: "#3730a3",
-});
-
-export const pillGreen = style([
-  pill,
-  { background: "#ecfdf5", color: "#065f46", borderColor: "#a7f3d0" },
-]);
-
-export const pillBlue = style([
-  pill,
-  { background: "#e0e7ff", color: "#3730a3", borderColor: "#c7d2fe" },
-]);
-
-export const pillRed = style([
-  pill,
-  { background: "#fee2e2", color: "#991b1b", borderColor: "#fecaca" },
-]);
-
-export const dot = style({
-  width: 6,
-  height: 6,
-  borderRadius: "50%",
-  background: "currentColor",
-  display: "inline-block",
+  fontSize: 12,
 });

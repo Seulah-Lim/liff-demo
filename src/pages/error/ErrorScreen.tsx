@@ -1,17 +1,11 @@
 import * as s from "./errorScrren.css";
-import { useLiffStore } from "@app/store/liffStore";
 import Lottie from "lottie-react";
 import errorLottie from "@shared/assets/lottie/error.json";
-import noUserLottie from "@shared/assets/lottie/ghost.json";
 import noDataLottie from "@shared/assets/lottie/no_user.json";
-
-import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
-import liff from "@line/liff";
 
 export type ErrorKind =
   | "NOT_LIFF"
   | "MISSING_BID"
-  | "NO_USER"
   | "BATTERY_FETCH_FAILED"
   | "UNKNOWN";
 
@@ -26,11 +20,8 @@ export interface ErrorScreenProps {
   retryLabel?: string;
   onRetry?: () => void;
 }
-type Env = { inClient: boolean };
 
-function getDefaultConfig(kind: ErrorKind, env: Env) {
-  const { inClient } = env;
-
+function getDefaultConfig(kind: ErrorKind) {
   switch (kind) {
     case "NOT_LIFF":
       return {
@@ -48,18 +39,6 @@ function getDefaultConfig(kind: ErrorKind, env: Env) {
         message: "문제가 계속되면 고객센터로 문의해 주시기 바랍니다.",
         secondaryLabel: "다시 시도",
         animation: errorLottie,
-      };
-
-    case "NO_USER":
-      return {
-        title: "로그인이 필요합니다.",
-        message: inClient
-          ? "서비스 사용을 위해 로그인 해주세요."
-          : "LINE 앱에서 실행하면 더 빠르고 편리하게 이용하실 수 있습니다.",
-        primaryLabel: "로그인",
-        secondaryLabel: inClient ? undefined : "LINE앱에서 사용",
-        retryLabel: "다시 시도",
-        animation: noUserLottie,
       };
 
     case "MISSING_BID":
@@ -92,17 +71,11 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   retryLabel,
   onRetry,
 }) => {
-  const inClient =
-    typeof liff !== "undefined" && typeof liff.isInClient === "function"
-      ? liff.isInClient()
-      : false;
-
-  const cfg = getDefaultConfig(kind, { inClient });
+  const cfg = getDefaultConfig(kind);
 
   const _primaryLabel = primaryLabel ?? cfg.primaryLabel;
   const _secondaryLabel = secondaryLabel ?? cfg.secondaryLabel;
   const _retryLabel = retryLabel ?? cfg.retryLabel;
-  const { login } = useLiffStore();
 
   const defaultHandlers = {
     NOT_LIFF: {
@@ -115,17 +88,7 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
       onSecondary: () => window.location.reload(),
       onRetry: () => window.location.reload(),
     },
-    NO_USER: {
-      onPrimary: () => {
-        login();
-      },
-      onSecondary: async () => {
-        const deep = await buildMainPermanentLink();
 
-        location.href = deep;
-      },
-      onRetry: () => window.location.reload(),
-    },
     MISSING_BID: {
       onPrimary: () => {},
       onSecondary: () => {},

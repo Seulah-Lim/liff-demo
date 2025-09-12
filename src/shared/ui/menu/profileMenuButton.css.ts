@@ -1,0 +1,152 @@
+import { APP_BAR_HEIGHT } from "@shared/const/layout";
+import { style } from "@vanilla-extract/css";
+
+/** 오른쪽 아이콘 영역: 화면 오른쪽 끝 정렬 */
+export const actions = style({
+  marginLeft: "auto",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  gap: "8px",
+});
+
+export const icon = style({
+  width: "20px",
+  height: "20px",
+  display: "block",
+  fill: "var(--fg)",
+});
+
+export const iconBtn = style({
+  padding: "8px",
+  borderRadius: "12px",
+  border: "none",
+  background: "transparent",
+  cursor: "pointer",
+});
+
+export const menu = style({
+  position: "fixed",
+  right: 12,
+  top: APP_BAR_HEIGHT,
+  borderRadius: 14,
+  background: "rgba(var(--bg-rgb), 0.6)",
+  backdropFilter: "blur(10px)",
+
+  border: "1px solid rgba(0,0,0,0.08)",
+  boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
+  padding: 8,
+  zIndex: 20,
+  transformOrigin: "top right",
+  width: 160,
+  selectors: {
+    "&::before": {
+      content: "",
+      position: "absolute",
+      top: -6,
+      right: 18,
+      width: 12,
+      height: 12,
+      background: "inherit",
+      backdropFilter: "inherit",
+      borderLeft: "1px solid rgba(var(--fg-rgb), 0.08)",
+      borderTop: "1px solid rgba(var(--fg-rgb), 0.08)",
+      transform: "rotate(45deg)",
+      borderRadius: 2,
+    },
+  },
+});
+
+export const menuHeader = style({
+  padding: "6px 12px 4px",
+});
+
+export const greetingClamp = style({
+  margin: 0,
+  fontSize: 12,
+  lineHeight: 1.4,
+  opacity: 0.7,
+  display: "-webkit-box",
+  WebkitBoxOrient: "vertical",
+  WebkitLineClamp: 2, // ★ 2줄 제한
+  overflow: "hidden",
+  textOverflow: "ellipsis", // 보조용
+});
+
+export const nameInline = style({
+  fontWeight: 600,
+});
+
+export const divider = style({
+  height: 1,
+  background: "rgba(var(--fg-rgb), 0.1)",
+  margin: "6px 8px",
+});
+
+export const menuItem = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+  padding: "10px 12px",
+  borderRadius: 10,
+  color: "inherit",
+  textDecoration: "none",
+  userSelect: "none",
+  cursor: "pointer",
+  fontSize: 14,
+  lineHeight: 1.2,
+  transition: "background 120ms ease, transform 60ms ease",
+  selectors: {
+    "&:hover": { background: "rgba(var(--fg-rgb), 0.06)" },
+    "&:active": { background: "rgba(var(--fg-rgb), 0.10)" },
+    "&:focus-visible": {
+      outline: "2px solid rgba(var(--fg-rgb), 0.35)",
+      outlineOffset: 2,
+    },
+  },
+});
+
+export const destructive = style({
+  color: "rgb(220, 53, 69)",
+  selectors: {
+    "&:hover": { background: "rgba(var(--bg-rgb), 0.08)" },
+    "&:active": { background: "rgba(var(--bg-rgb), 0.14)" },
+    "&:focus-visible": {
+      outlineColor: "rgba(220,53,69,0.5)",
+    },
+  },
+});
+
+export const menuIcon = style({
+  width: 16,
+  height: 16,
+  display: "block",
+  opacity: 0.9,
+});
+
+export const avatarBtn = style({
+  padding: "8px",
+  borderRadius: "12px",
+  border: "none",
+  background: "transparent",
+  cursor: "pointer",
+});
+
+export const avatar = style({
+  width: 28,
+  height: 28,
+  borderRadius: "50%",
+  objectFit: "cover",
+});
+
+export const avatarFallback = style({
+  width: 28,
+  height: 28,
+  borderRadius: "50%",
+  display: "grid",
+  placeItems: "center",
+  background: "#f3f4f6",
+  color: "#6b7280",
+  fontWeight: 600,
+  border: "1px solid #e5e7eb",
+});

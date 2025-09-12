@@ -18,7 +18,7 @@ import { useEffect, useMemo } from "react";
 //   return null;
 // }
 
-export default function ViewGuard() {
+export default function HomeViewGuard() {
   const [sp] = useSearchParams();
   const loc = useLocation();
   const { lastView, setView } = useHomeViewStore();

@@ -1,4 +1,5 @@
 // inUseNotice.css.ts
+import { APP_BAR_HEIGHT } from "@shared/const/layout";
 import { style, globalStyle } from "@vanilla-extract/css";
 
 const lightVars = {
@@ -51,7 +52,8 @@ globalStyle("body", {
 
 /* ----- Layout ----- */
 export const container = style({
-  minHeight: "100dvh",
+  height: "100vh",
+  paddingTop: APP_BAR_HEIGHT,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -64,17 +66,6 @@ export const app = style({
   display: "flex",
   flexDirection: "column",
   background: "var(--bg)",
-});
-
-export const appbar = style({
-  position: "sticky",
-  top: 0,
-  zIndex: 10,
-  background: "transparent",
-  borderBottom: 0,
-  padding: "calc(12px + env(safe-area-inset-top)) 16px 12px 16px",
-  textAlign: "center",
-  fontWeight: 600,
 });
 
 export const content = style({

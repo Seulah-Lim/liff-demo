@@ -1,8 +1,8 @@
 // app/ui/AppBar/appBar.css.ts
+import { APP_BAR_HEIGHT } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
 
-const APP_BAR_HEIGHT = "56px";
-const SIDE_SAFE = 96; // 좌/우 아이콘 영역 안전폭(px)
+const SIDE_SAFE = 96;
 
 export const root = style({
   position: "fixed",
@@ -17,10 +17,6 @@ export const root = style({
   backgroundColor: " rgba(var(--bg-rgb), 0.1)",
   backdropFilter: "blur(10px)",
   zIndex: 10,
-});
-
-export const spacer = style({
-  height: APP_BAR_HEIGHT,
 });
 
 export const left = style({
@@ -47,67 +43,10 @@ export const title = style({
   // pointerEvents: "none",
 });
 
-/** 오른쪽 아이콘 영역: 화면 오른쪽 끝 정렬 */
-export const actions = style({
-  marginLeft: "auto",
-
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  gap: "8px",
-});
-
-export const icon = style({
-  width: "20px",
-  height: "20px",
-  display: "block",
-  fill: "var(--fg)",
-});
-
 export const iconBtn = style({
   padding: "8px",
   borderRadius: "12px",
   border: "none",
   background: "transparent",
   cursor: "pointer",
-});
-
-export const menu = style({
-  position: "fixed",
-  top: APP_BAR_HEIGHT,
-  right: 0,
-  borderRadius: "12px",
-  backgroundColor: " rgba(var(--bg-rgb), 0.8)",
-  backdropFilter: "blur(20px)",
-  boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-
-  padding: "4px 40px 4px 8px",
-  marginRight: "12px",
-  zIndex: 20,
-});
-
-export const menuItem = style({
-  display: "flex",
-  alignItems: "center",
-  gap: "8px",
-  padding: "8px 12px",
-  borderRadius: "10px",
-  color: "inherit",
-  textDecoration: "none",
-  userSelect: "none",
-  selectors: {
-    "&:hover": { background: "rgba(0,0,0,0.05)" },
-    "&:active": { background: "rgba(0,0,0,0.10)" },
-    "&:focus-visible": {
-      outline: "2px solid rgba(0,0,0,0.35)",
-      outlineOffset: "2px",
-    },
-  },
-});
-
-export const menuIcon = style({
-  width: "16px",
-  height: "16px",
-  display: "block",
-  fill: "white",
 });
