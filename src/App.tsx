@@ -23,19 +23,21 @@ export default function App() {
   }, [loc.search, ensureBidOnce, ensureViewOnce]);
 
   return (
-    <Routes>
-      <Route element={<SessionLayout />}>
-        <Route element={<BidGuard />}>
-          <Route path="/" element={<HomeViewGuard />}>
-            <Route index element={<HomeSwitcher />} />
-            <Route path="me" element={<UserInfo />} />
+    <>
+      <Routes>
+        <Route element={<SessionLayout />}>
+          <Route element={<BidGuard />}>
+            <Route path="/" element={<HomeViewGuard />}>
+              <Route index element={<HomeSwitcher />} />
+              <Route path="me" element={<UserInfo />} />
+            </Route>
+            <Route path="support" element={<SupportScreen />} />
+            <Route path="return-guide" element={<ReturnGuideScreen />} />
           </Route>
-          <Route path="support" element={<SupportScreen />} />
-          <Route path="return-guide" element={<ReturnGuideScreen />} />
+          <Route path="error" element={<ErrorRoute />} />
         </Route>
-        <Route path="error" element={<ErrorRoute />} />
-      </Route>
-      <Route path="login" element={<LoginRequiredScreen />} />
-    </Routes>
+        <Route path="login" element={<LoginRequiredScreen />} />
+      </Routes>
+    </>
   );
 }

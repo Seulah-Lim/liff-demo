@@ -2,7 +2,7 @@ import { useLocation, useSearchParams } from "react-router";
 import * as s from "./appBar.css";
 import lineLogo from "@shared/assets/img/line_logo.png";
 import { useEffect, useState } from "react";
-import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
+import { buildMainPermanentLink } from "@shared/lib/liff/buildLinks";
 import { parseHomeView, useHomeViewStore } from "@app/store/homeStore";
 import liff from "@line/liff";
 import { useModalByQuery } from "@shared/hooks/useModalByQuery";

@@ -14,7 +14,7 @@ export default defineConfig({
     __BUILD_TIME__: JSON.stringify(buildTime),
   },
   server: {
-    allowedHosts: ["successfully-scotia-fortune-stupid.trycloudflare.com"],
+    allowedHosts: ["priced-tasks-joy-death.trycloudflare.com"],
   },
   resolve: {
     alias: {

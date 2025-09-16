@@ -1,6 +1,5 @@
-// rentScreen.css.ts
-import { APP_BAR_HEIGHT } from "@shared/const/layout";
-import { style, globalStyle } from "@vanilla-extract/css";
+import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
+import { style, globalStyle, keyframes } from "@vanilla-extract/css";
 
 /* ---------- CSS Variables (라이트/다크) ---------- */
 const lightVars = {
@@ -26,7 +25,7 @@ const darkVars = {
 // 기본(라이트)
 globalStyle(":root", { vars: lightVars });
 
-// 다크 모드는 @media 안쪽에
+// 다크 모드
 globalStyle(":root", {
   "@media": {
     "(prefers-color-scheme: dark)": {
@@ -48,8 +47,8 @@ globalStyle("body", {
 
 /* ---------- Layout ---------- */
 export const container = style({
-  height: "100vh",
   paddingTop: APP_BAR_HEIGHT,
+  paddingBottom: CONTENT_BOTTOM_INSET,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -58,7 +57,6 @@ export const container = style({
 export const app = style({
   width: "100vw",
   maxWidth: "100vw",
-  minHeight: "100dvh",
   display: "flex",
   flexDirection: "column",
   background: "var(--bg)",
@@ -89,7 +87,7 @@ globalStyle(`${card} h3`, {
 export const sep = style({
   height: 1,
   background: "var(--border)",
-  margin: "12px 0",
+  margin: "16px 0",
 });
 
 /* ---------- Image ---------- */
@@ -128,22 +126,13 @@ export const btn = style({
   fontWeight: 700,
   textDecoration: "none",
 });
-
 export const btnSecondary = style([
   btn,
-  {
-    background: "transparent",
-    color: "var(--fg)",
-  },
+  { background: "transparent", color: "var(--fg)" },
 ]);
-
 export const btnDanger = style([
   btn,
-  {
-    background: "#ef4444",
-    borderColor: "#ef4444",
-    color: "#fff",
-  },
+  { background: "#ef4444", borderColor: "#ef4444", color: "#fff" },
 ]);
 
 /* ---------- Chips (Radio) ---------- */
@@ -173,7 +162,6 @@ export const chipLabel = style({
   cursor: "pointer",
 });
 
-// input:checked + label
 globalStyle(`${chipInput}:checked + label`, {
   background: "var(--brand)",
   color: "#fff",
@@ -203,17 +191,14 @@ export const pill = style({
   background: "#eef2ff",
   color: "#3730a3",
 });
-
 export const pillGreen = style([
   pill,
   { background: "#ecfdf5", color: "#065f46", borderColor: "#a7f3d0" },
 ]);
-
 export const pillBlue = style([
   pill,
   { background: "#e0e7ff", color: "#3730a3", borderColor: "#c7d2fe" },
 ]);
-
 export const pillRed = style([
   pill,
   { background: "#fee2e2", color: "#991b1b", borderColor: "#fecaca" },
@@ -225,4 +210,98 @@ export const dot = style({
   borderRadius: "50%",
   background: "currentColor",
   display: "inline-block",
+});
+
+/* ---------- Spinner ---------- */
+export const spin = keyframes({
+  "0%": { transform: "rotate(0deg)" },
+  "100%": { transform: "rotate(360deg)" },
+});
+export const spinner = style({
+  width: 16,
+  height: 16,
+  borderRadius: "50%",
+  border: "2px solid rgba(0,0,0,0.15)",
+  borderTopColor: "currentColor",
+  animation: `${spin} 1s linear infinite`,
+});
+
+export const customArea = style({
+  overflow: "hidden",
+  maxHeight: 0,
+  opacity: 0,
+  marginTop: 0,
+  transition:
+    "max-height 220ms ease, opacity 200ms ease, margin-top 200ms ease",
+});
+export const customAreaOpen = style({
+  maxHeight: 180,
+  opacity: 1,
+  marginTop: 10,
+});
+
+export const customRow = style({
+  display: "grid",
+  gridTemplateColumns: "auto 1fr auto 1fr",
+  alignItems: "center",
+  gap: 8,
+  marginTop: 4,
+});
+
+export const customLabel = style({
+  fontSize: 13,
+  color: "var(--muted)",
+});
+
+export const selectWrap = style({
+  position: "relative",
+});
+
+export const select = style({
+  width: "100%",
+  appearance: "none",
+  WebkitAppearance: "none",
+  MozAppearance: "none",
+  background: "transparent",
+  border: "1px solid var(--border)",
+  borderRadius: 10,
+  padding: "10px 12px",
+  fontSize: 14,
+  color: "var(--fg)",
+  selectors: {
+    "&:focus": {
+      outline: "none",
+      borderColor: "#93c5fd",
+    },
+  },
+});
+
+/* 약관 체크박스 행 */
+export const termsRow = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+  fontSize: 14,
+});
+
+/* ---------- Summary ---------- */
+export const summaryRow = style({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: 8,
+  marginTop: 10,
+});
+export const summaryValue = style({
+  fontSize: 14,
+  fontWeight: 700,
+  color: "var(--fg)",
+});
+
+export const fabSticky = style({
+  position: "fixed",
+  bottom: 12,
+  left: 12,
+  right: 12,
+  zIndex: 50,
 });

@@ -5,7 +5,7 @@ import Lottie from "lottie-react";
 import liff from "@line/liff";
 import noUserLottie from "@shared/assets/lottie/ghost.json";
 import { useLiffStore } from "@app/store/liffStore";
-import { buildMainPermanentLink } from "@shared/api/liff/buildLinks";
+import { buildMainPermanentLink } from "@shared/lib/liff/buildLinks";
 
 export const LoginRequiredScreen = () => {
   const { login } = useLiffStore();
@@ -29,7 +29,6 @@ export const LoginRequiredScreen = () => {
             alignSelf: "center",
           }}
         />
-
         <div className={s.head}>
           <div className={s.headText}>
             <h1 className={s.title}>로그인이 필요합니다.</h1>
