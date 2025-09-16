@@ -32,7 +32,7 @@ export const sheet = style({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
   boxShadow: "0 -8px 24px rgba(0,0,0,.2)",
-  padding: 16,
+  padding: "0px 16px 20px 16px",
   zIndex: 60,
   maxHeight: "80dvh",
   display: "grid",
@@ -44,13 +44,22 @@ export const sheetOpen = style({
   animation: `${slideUp} 200ms ease`,
 });
 
+export const sheetHandleArea = style({
+  width: "100%",
+  padding: "8px 0px 8px 0px ",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  touchAction: "none",
+});
+
 export const sheetHandle = style({
   width: 40,
   height: 4,
   borderRadius: 999,
   background: "var(--border)",
-  margin: "0 auto 8px",
 });
+
 export const sheetHeader = style({
   display: "grid",
   gap: 6,
