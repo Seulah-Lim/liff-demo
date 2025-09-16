@@ -2,11 +2,12 @@ import { useMemo, useRef, useState } from "react";
 import { useBidStore } from "@app/store/bidStore.ts";
 import * as s from "./rentScreen.css.ts";
 import { RentButton } from "@pages/home/RentButton.tsx";
-import { ConfirmRentSheet } from "@shared/ui/bottomsheet/ConfirmRentSheet.tsx";
+
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { showError } from "@shared/lib/toast/notify.ts";
 import { createSearchParams, useNavigate } from "react-router";
+import { BottomSheet } from "@shared/ui/bottomsheet/BottomSheet.tsx";
 
 type Preset = "30" | "60" | "120" | "custom";
 
@@ -260,12 +261,26 @@ export default function RentScreen() {
         </main>
       </div>
 
-      <ConfirmRentSheet
+      <BottomSheet
         open={open}
+        title="이용을 시작할까요?"
         onClose={() => setOpen(false)}
+        cancelLabel="취소"
+        confirmLabel="대여 시작하기"
         onConfirm={onRent}
-        dueLabel={formatAbs(estimatedDue)}
-      />
+      >
+        <div className={s.sheetRow}>
+          <div className={s.sheetKey}>반납 예정</div>
+          <div className={s.sheetVal}>{formatAbs(estimatedDue)}</div>
+        </div>
+
+        <div className={s.sheetNotes}>
+          <div className={s.sheetNote}>반납 전에 언제든 연장할 수 있어요.</div>
+          <div className={s.sheetNote}>
+            반납 방법은 프로필 &gt; 반납 안내에서 확인할 수 있어요
+          </div>
+        </div>
+      </BottomSheet>
     </div>
   );
 }

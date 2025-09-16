@@ -334,3 +334,49 @@ export const disclosureBtn = style({
     "&:focus-visible": { outline: "none", borderColor: "var(--border)" },
   },
 });
+
+//------ bottom sheet -----//
+
+export const sheetNotes = style({
+  marginTop: 4,
+  display: "grid",
+  gap: 6,
+  padding: 10,
+  border: "1px solid var(--border)",
+  borderRadius: 12,
+  background: "linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02))",
+});
+
+export const sheetNote = style({
+  position: "relative",
+  paddingLeft: 16,
+  fontSize: 12,
+  color: "var(--muted)",
+  lineHeight: "18px",
+  selectors: {
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      left: 6,
+      top: 8,
+      width: 4,
+      height: 4,
+      borderRadius: "50%",
+      background: "var(--brand)",
+      opacity: 0.6,
+    },
+  },
+});
+export const sheetRow = style({
+  display: "grid",
+  gridTemplateColumns: "100px 1fr",
+  fontSize: 14,
+  alignItems: "center",
+});
+export const sheetKey = style({ color: "var(--muted)" });
+export const sheetVal = style({
+  color: "var(--fg)",
+  textAlign: "right",
+  fontWeight: "bold",
+  fontSize: "20px",
+});

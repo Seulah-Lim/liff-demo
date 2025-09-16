@@ -1,21 +1,35 @@
-import { useEffect, useId } from "react";
+// BottomSheet.tsx
+import { type ReactNode, useEffect, useId } from "react";
 import { createPortal } from "react-dom";
-import * as s from "./confirmRentSheet.css";
+import * as s from "./bottomSheet.css";
 
-type SheetProps = {
+type BottomSheetProps = {
   open: boolean;
+  title: ReactNode | string;
   onClose: () => void;
-  onConfirm: () => void;
 
-  dueLabel: string;
+  // 버튼 라벨/액션
+  cancelLabel?: string; // 기본: "취소"
+  onCancel?: () => void; // 기본: onClose
+  confirmLabel: string;
+  onConfirm: () => void;
+  confirmAutoFocus?: boolean; // 기본: true
+
+  // 제목과 버튼 사이에 렌더할 콘텐츠
+  children?: ReactNode;
 };
 
-export function ConfirmRentSheet({
+export function BottomSheet({
   open,
+  title,
   onClose,
+  cancelLabel = "취소",
+  onCancel,
+  confirmLabel,
   onConfirm,
-  dueLabel,
-}: SheetProps) {
+  confirmAutoFocus = true,
+  children,
+}: BottomSheetProps) {
   const titleId = useId();
 
   useEffect(() => {
@@ -27,6 +41,7 @@ export function ConfirmRentSheet({
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    // 뒤로가기(popstate)로 닫힘
     const markerId = `__sheet_${titleId}`;
     history.pushState({ __sheet: markerId }, "");
     const onPop = () => onClose();
@@ -58,38 +73,27 @@ export function ConfirmRentSheet({
         <div className={s.sheetHandle} />
         <div className={s.sheetHeader}>
           <div id={titleId} className={s.sheetTitle}>
-            이용을 시작할까요?
+            {title}
           </div>
         </div>
 
-        <div className={s.sheetBody}>
-          {/* 반납 예정만 표시 */}
-          <div className={s.sheetRow}>
-            <div className={s.sheetKey}>반납 예정</div>
-            <div className={s.sheetVal}>{dueLabel}</div>
-          </div>
-
-          <div className={s.sheetNotes}>
-            <div className={s.sheetNote}>
-              반납 전에 언제든 연장할 수 있어요.
-            </div>
-            <div className={s.sheetNote}>
-              반납 방법은 프로필 &gt; 반납 안내에서 확인할 수 있어요
-            </div>
-          </div>
-        </div>
+        <div className={s.sheetBody}>{children}</div>
 
         <div className={s.sheetFooter}>
-          <button className={s.sheetBtnGhost} type="button" onClick={onClose}>
-            취소
+          <button
+            className={s.sheetBtnGhost}
+            type="button"
+            onClick={onCancel ?? onClose}
+          >
+            {cancelLabel}
           </button>
           <button
             className={s.sheetBtnPrimary}
             type="button"
             onClick={onConfirm}
-            autoFocus
+            autoFocus={confirmAutoFocus}
           >
-            대여 시작하기
+            {confirmLabel}
           </button>
         </div>
       </div>

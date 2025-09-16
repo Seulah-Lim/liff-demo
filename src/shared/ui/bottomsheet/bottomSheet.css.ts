@@ -1,6 +1,5 @@
 import { keyframes, style } from "@vanilla-extract/css";
 
-/* ---------- Bottom Sheet ---------- */
 const slideUp = keyframes({
   "0%": { transform: "translateY(100%)" },
   "100%": { transform: "translateY(0)" },
@@ -71,19 +70,6 @@ export const sheetBody = style({
   gap: 10,
   padding: "4px 0",
 });
-export const sheetRow = style({
-  display: "grid",
-  gridTemplateColumns: "100px 1fr",
-  fontSize: 14,
-  alignItems: "center",
-});
-export const sheetKey = style({ color: "var(--muted)" });
-export const sheetVal = style({
-  color: "var(--fg)",
-  textAlign: "right",
-  fontWeight: "bold",
-  fontSize: "20px",
-});
 
 export const sheetFooter = style({
   display: "grid",
@@ -112,35 +98,3 @@ export const sheetBtnGhost = style([
   sheetBtnBase,
   { background: "transparent", color: "var(--fg)" },
 ]);
-
-/* ----- Notes in sheet ----- */
-export const sheetNotes = style({
-  marginTop: 4,
-  display: "grid",
-  gap: 6,
-  padding: 10,
-  border: "1px solid var(--border)",
-  borderRadius: 12,
-  background: "linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02))",
-});
-
-export const sheetNote = style({
-  position: "relative",
-  paddingLeft: 16,
-  fontSize: 12,
-  color: "var(--muted)",
-  lineHeight: "18px",
-  selectors: {
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      left: 6,
-      top: 8,
-      width: 4,
-      height: 4,
-      borderRadius: "50%",
-      background: "var(--brand)",
-      opacity: 0.6,
-    },
-  },
-});

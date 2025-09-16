@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useBidStore } from "@app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
+import { BottomSheet } from "@shared/ui/bottomsheet/BottomSheet";
 
 export type Station = {
   id: string;
@@ -13,6 +14,7 @@ export type Station = {
 export default function ReturnExtendScreen() {
   const IMAGE_URL = "https://i.postimg.cc/rpkz8RHV/OC-Image-1-1536x1025.webp";
   const bid = useBidStore((s) => s.bid);
+  const [open, setOpen] = useState(false);
 
   // 더미 데이터
   const nearbyStations: Station[] = useMemo(
@@ -121,9 +123,9 @@ export default function ReturnExtendScreen() {
 
           <div className={s.fabSticky}>
             <div className={s.buttons}>
-              <a className={s.btn} href="#">
+              <div className={s.btn} onClick={() => setOpen(true)}>
                 반납하기
-              </a>
+              </div>
               <a className={s.btnSecondary} href="#">
                 연장하기
               </a>
@@ -131,6 +133,27 @@ export default function ReturnExtendScreen() {
           </div>
         </main>
       </div>
+      <BottomSheet
+        open={open}
+        title="지금 반납할까요?"
+        onClose={() => setOpen(false)}
+        cancelLabel="취소"
+        confirmLabel="반납하기"
+        onConfirm={() => {}}
+      >
+        <div className={s.sheetRow}>
+          <div className={s.sheetKey}>반납 기한</div>
+          <div className={s.sheetVal}>오늘 18:30</div>
+        </div>
+
+        <div className={s.sheetNotes}>
+          <div className={s.sheetNote}>스테이션에 배터리를 꽂아주세요.</div>
+          <div className={s.sheetNote}>지시등이 점등되었는지 확인해주세요.</div>
+          <div className={s.sheetNote}>
+            연장이 필요하면 반납 전에 ‘연장하기’를 이용하세요.
+          </div>
+        </div>
+      </BottomSheet>
     </div>
   );
 }
