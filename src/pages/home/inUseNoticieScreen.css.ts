@@ -52,8 +52,8 @@ globalStyle("body", {
 
 /* ----- Layout ----- */
 export const container = style({
-  height: "100vh",
   paddingTop: APP_BAR_HEIGHT,
+
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -62,7 +62,6 @@ export const container = style({
 export const app = style({
   width: "100vw",
   maxWidth: "100vw",
-  minHeight: "100dvh",
   display: "flex",
   flexDirection: "column",
   background: "var(--bg)",
@@ -218,48 +217,6 @@ export const iconCircle = style({
   fontWeight: 700,
 });
 
-/* ----- Stations list ----- */
-export const stations = style({
-  display: "grid",
-  gap: 10,
-});
-
-export const station = style({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  gap: 12,
-  padding: 12,
-  border: "1px solid var(--border)",
-  borderRadius: 12,
-  background: "transparent",
-});
-
-export const statLeft = style({ minWidth: 0 });
-export const statName = style({ fontWeight: 700 });
-export const statMeta = style({
-  color: "#6b7280",
-  fontSize: 12,
-  marginTop: 2,
-  display: "flex",
-  gap: 6,
-  alignItems: "center",
-  flexWrap: "wrap",
-});
-
-/* 재고 배지 */
-export const avail = style({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 6,
-  padding: "6px 10px",
-  borderRadius: 999,
-  fontSize: 12,
-  border: "1px solid var(--border)",
-});
-export const availGood = style([avail]); // 필요시 색상 변형 추가
-export const availMid = style([avail]);
-
 /* Image */
 export const imageCover = style({
   width: "100%",
@@ -269,4 +226,86 @@ export const imageCover = style({
   borderRadius: 12,
   border: "1px solid #e5e7eb",
   marginTop: 4,
+});
+
+/* ---------- Station list (minimal) ---------- */
+export const stationListMinimal = style({
+  listStyle: "none",
+  margin: 0,
+  padding: 0,
+  display: "grid",
+  gap: 8,
+});
+
+export const stationRow = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: 12,
+  padding: 12,
+  borderRadius: 12,
+  border: "1px solid var(--border)",
+  background: "var(--card)",
+  selectors: {
+    "&:hover": { background: "rgba(0,0,0,.03)" },
+    "&:active": { transform: "translateY(0.5px)" },
+  },
+  transition: "background .15s ease, transform .05s ease",
+});
+
+export const stationMain = style({
+  minWidth: 0,
+  display: "flex",
+  flexDirection: "column",
+  gap: 2,
+});
+
+export const stationName = style({
+  fontSize: 12,
+  fontWeight: 600,
+  color: "var(--fg)",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+});
+
+export const stationSub = style({
+  fontSize: 10,
+  color: "var(--muted)",
+});
+
+export const stationAside = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+});
+
+export const slotPill = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  padding: "2px 10px",
+  borderRadius: 999,
+  fontSize: 12,
+  fontVariantNumeric: "tabular-nums",
+  border: "1px solid var(--border)",
+  background: "transparent",
+  color: "var(--fg)",
+});
+
+export const disclosureBtn = style({
+  width: 28,
+  height: 28,
+  borderRadius: 999,
+  border: "1px solid transparent",
+  background: "transparent",
+  color: "var(--muted)",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "default",
+  selectors: {
+    "&:hover": { color: "var(--fg)" },
+    "&:focus-visible": { outline: "none", borderColor: "var(--border)" },
+  },
 });

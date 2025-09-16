@@ -1,5 +1,5 @@
 // returnExtend1.css.ts
-import { APP_BAR_HEIGHT } from "@shared/const/layout";
+import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
 import { style, globalStyle } from "@vanilla-extract/css";
 
 /* ---------- CSS Variables (라이트/다크) ---------- */
@@ -42,9 +42,8 @@ globalStyle("body", {
 
 /* ---------- Layout ---------- */
 export const container = style({
-  height: "100vh",
   paddingTop: APP_BAR_HEIGHT,
-
+  paddingBottom: CONTENT_BOTTOM_INSET,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -53,7 +52,6 @@ export const container = style({
 export const app = style({
   width: "100vw",
   maxWidth: "100vw",
-  minHeight: "100dvh",
   display: "flex",
   flexDirection: "column",
   background: "var(--bg)",
@@ -120,7 +118,7 @@ export const btn = style({
 
 export const btnSecondary = style([
   btn,
-  { background: "transparent", color: "var(--fg)" },
+  { background: "#fff", color: "var(--brand)" },
 ]);
 
 /* ---------- KV grid ---------- */
@@ -163,4 +161,176 @@ export const dot = style({
   borderRadius: "50%",
   background: "currentColor",
   display: "inline-block",
+});
+
+export const fabSticky = style({
+  position: "fixed",
+  bottom: 12,
+  left: 12,
+  right: 12,
+  zIndex: 50,
+});
+
+/* ---------- Banner (success) ---------- */
+export const bannerSuccess = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 12,
+  padding: 12,
+  borderRadius: 14,
+  border: "1px solid var(--border)",
+  background: "rgba(16,185,129,0.10)", // accent tint
+});
+
+export const bannerIcon = style({
+  width: 28,
+  height: 28,
+  borderRadius: 999,
+  background: "var(--accent)",
+  boxShadow: "0 0 0 2px rgba(16,185,129,0.18)",
+  flex: "0 0 auto",
+});
+
+export const bannerBody = style({
+  display: "flex",
+  flexDirection: "column",
+  gap: 2,
+  lineHeight: 1.25,
+});
+
+export const bannerSub = style({
+  margin: 0,
+  color: "var(--muted)",
+  fontSize: 12,
+});
+
+/* ---------- Rows / inline ---------- */
+export const rowBetween = style({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: 8,
+});
+
+export const rowInline = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 8,
+});
+
+/* ---------- Datetime ---------- */
+export const datetime = style({
+  fontVariantNumeric: "tabular-nums",
+});
+
+/* ---------- Battery meter ---------- */
+export const batteryWrap = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+});
+
+export const batteryBar = style({
+  position: "relative",
+  width: "100%",
+  height: 8,
+  borderRadius: 999,
+  background: "linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.02))",
+  border: "1px solid var(--border)",
+  overflow: "hidden",
+});
+
+export const batteryFill = style({
+  height: "100%",
+  borderRadius: 999,
+  background: "var(--accent)",
+  transition: "width .25s ease",
+});
+
+export const batteryPct = style({
+  fontSize: 12,
+  color: "var(--muted)",
+  fontVariantNumeric: "tabular-nums",
+});
+
+/* ---------- Station list (minimal) ---------- */
+export const stationListMinimal = style({
+  listStyle: "none",
+  margin: 0,
+  padding: 0,
+  display: "grid",
+  gap: 8,
+});
+
+export const stationRow = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: 12,
+  padding: 12,
+  borderRadius: 12,
+  border: "1px solid var(--border)",
+  background: "var(--card)",
+  selectors: {
+    "&:hover": { background: "rgba(0,0,0,.03)" },
+    "&:active": { transform: "translateY(0.5px)" },
+  },
+  transition: "background .15s ease, transform .05s ease",
+});
+
+export const stationMain = style({
+  minWidth: 0,
+  display: "flex",
+  flexDirection: "column",
+  gap: 2,
+});
+
+export const stationName = style({
+  fontSize: 12,
+  fontWeight: 600,
+  color: "var(--fg)",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+});
+
+export const stationSub = style({
+  fontSize: 10,
+  color: "var(--muted)",
+});
+
+export const stationAside = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+});
+
+export const slotPill = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  padding: "2px 10px",
+  borderRadius: 999,
+  fontSize: 12,
+  fontVariantNumeric: "tabular-nums",
+  border: "1px solid var(--border)",
+  background: "transparent",
+  color: "var(--fg)",
+});
+
+export const disclosureBtn = style({
+  width: 28,
+  height: 28,
+  borderRadius: 999,
+  border: "1px solid transparent",
+  background: "transparent",
+  color: "var(--muted)",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "default",
+  selectors: {
+    "&:hover": { color: "var(--fg)" },
+    "&:focus-visible": { outline: "none", borderColor: "var(--border)" },
+  },
 });

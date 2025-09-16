@@ -6,6 +6,7 @@ import { ConfirmRentSheet } from "@shared/ui/bottomsheet/ConfirmRentSheet.tsx";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { showError } from "@shared/lib/toast/notify.ts";
+import { createSearchParams, useNavigate } from "react-router";
 
 type Preset = "30" | "60" | "120" | "custom";
 
@@ -48,7 +49,7 @@ export default function RentScreen() {
   const IMAGE_URL =
     "https://www.okamura.com/wp-content/uploads/2025/04/OC_Image_1.webp";
   const bid = useBidStore((s) => s.bid);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // 시간 선택
   const [sel, setSel] = useState<Preset>("30");
@@ -109,7 +110,10 @@ export default function RentScreen() {
     try {
       await rent.mutateAsync(minutes);
 
-      window.location.replace(`${window.location.pathname}?view=return`);
+      navigate(
+        { search: createSearchParams({ view: "return" }).toString() },
+        { replace: true } //TODO 뒤로가기 막기
+      );
       toast.success("대여 완료! 이용을 시작할 수 있어요.");
     } catch {
       toast.dismiss();
@@ -121,9 +125,7 @@ export default function RentScreen() {
     <div className={s.container}>
       <div className={s.app}>
         <main className={s.content}>
-          {/* 배터리 정보 */}
           <section className={s.card}>
-            <h3>배터리 정보</h3>
             <img
               src={IMAGE_URL}
               alt="Battery preview"
@@ -142,9 +144,6 @@ export default function RentScreen() {
                   <span className={s.dot} /> Available
                 </span>
               </div>
-
-              <div className={s.k}>충전량</div>
-              <div>85%</div>
 
               <div className={s.k}>스테이션</div>
               <div>City Hall #12</div>

@@ -1,10 +1,39 @@
 // InUseNoticeScreen.tsx
 import { useBidStore } from "@app/store/bidStore.ts";
 import * as s from "./inUseNoticieScreen.css.ts";
+import { useMemo } from "react";
+import type { Station } from "@pages/home/ReturnExtendScreen.tsx";
 
 export default function InUseNoticeScreen() {
   const IMAGE_URL = "https://i.postimg.cc/rpkz8RHV/OC-Image-1-1536x1025.webp";
   const bid = useBidStore((s) => s.bid);
+  // 더미 데이터
+  const nearbyStations: Station[] = useMemo(
+    () => [
+      {
+        id: "ch-12",
+        name: "City Hall #12",
+        distance: "도보 2분",
+        freeSlots: 3,
+        totalSlots: 4,
+      },
+      {
+        id: "lib-03",
+        name: "Central Library #3",
+        distance: "450m",
+        freeSlots: 1,
+        totalSlots: 4,
+      },
+      {
+        id: "plz-07",
+        name: "Main Plaza #7",
+        distance: "도보 6분",
+        freeSlots: 4,
+        totalSlots: 4,
+      },
+    ],
+    []
+  );
 
   return (
     <div className={s.container}>
@@ -45,35 +74,34 @@ export default function InUseNoticeScreen() {
               <div>City Hall #12</div>
             </div>
           </section>
-
-          {/* 2) 근처 스테이션 */}
           <section className={s.card}>
             <h3 className={s.cardTitle}>근처 스테이션</h3>
-            <div className={s.stations}>
-              <div className={s.station}>
-                <div className={s.statLeft}>
-                  <div className={s.statName}>Library West</div>
-                  <div className={s.statMeta}>
-                    <span>240m</span>
-                    <span>·</span>
-                    <span>B1 스테이션</span>
+            <ul className={s.stationListMinimal} role="list">
+              {nearbyStations.map((st) => (
+                <li key={st.id} className={s.stationRow}>
+                  <div className={s.stationMain}>
+                    <div className={s.stationName}>{st.name}</div>
+                    <div className={s.stationSub}>{st.distance}</div>
                   </div>
-                </div>
-                <span className={s.availGood}>여유</span>
-              </div>
+                  <div className={s.stationAside}>
+                    <span
+                      className={s.slotPill}
+                      aria-label={`빈 슬롯 ${st.freeSlots}개 / 총 ${st.totalSlots}개`}
+                    >
+                      {st.freeSlots}/{st.totalSlots}
+                    </span>
 
-              <div className={s.station}>
-                <div className={s.statLeft}>
-                  <div className={s.statName}>Food Court</div>
-                  <div className={s.statMeta}>
-                    <span>350m</span>
-                    <span>·</span>
-                    <span>2층 중앙</span>
+                    <button
+                      className={s.disclosureBtn}
+                      aria-hidden
+                      tabIndex={-1}
+                    >
+                      <span aria-hidden>&gt;</span>
+                    </button>
                   </div>
-                </div>
-                <span className={s.availMid}>보통</span>
-              </div>
-            </div>
+                </li>
+              ))}
+            </ul>
           </section>
         </main>
       </div>
