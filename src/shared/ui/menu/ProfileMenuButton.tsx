@@ -11,11 +11,10 @@ export default function ProfileMenuButton() {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const { isOpen, open, close } = useModalByQuery("logout");
-  const { profile } = useLiffStore();
+  const { profile, friendFlag } = useLiffStore();
   const ref = useRef<HTMLDivElement | null>(null);
 
   const isHome = pathname === "/";
-
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
       if (!ref.current) return;
@@ -28,6 +27,23 @@ export default function ProfileMenuButton() {
   const handleNaviButton = (path: string) => {
     setMenuOpen(false);
     navigate(path);
+  };
+
+  const goFriend = async () => {
+    // const CHANNEL_ID = "2008073307";
+    // const redirectUri = await buildRedirectLink();
+    // const state = crypto.getRandomValues(new Uint32Array(1))[0].toString(16);
+    // const u = new URL("https://access.line.me/oauth2/v2.1/authorize");
+    // u.searchParams.set("response_type", "code");
+    // u.searchParams.set("client_id", CHANNEL_ID);
+    // u.searchParams.set("redirect_uri", redirectUri);
+    // u.searchParams.set("state", state);
+    // u.searchParams.set("scope", "openid profile email"); // 필요 스코프 추가
+    // u.searchParams.set("bot_prompt", "normal"); // normal | aggressive
+    // u.searchParams.set("prompt", "consent"); // 매번 동의 화면 강제 (선택)
+    // u.searchParams.set("code_challenge", codeChallenge);
+    // u.searchParams.set("code_challenge_method", "S256");
+    // window.location.href = u.toString();
   };
   return (
     <div className={s.actions} ref={ref}>
@@ -75,6 +91,17 @@ export default function ProfileMenuButton() {
           >
             로그아웃
           </div>
+          <div className={s.menuItem}>Friend : {friendFlag.toString()}</div>
+
+          <div
+            role="menuitem"
+            className={s.menuItem}
+            onClick={goFriend}
+            aria-label="로그아웃"
+          >
+            임시 초기화면
+          </div>
+
           {isHome && (
             <>
               <div

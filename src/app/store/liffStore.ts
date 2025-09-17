@@ -8,17 +8,29 @@ import { isTokenExpiredLike, now, toErrInfo } from "@shared/lib/liff/errors";
 import { seedMockLogin } from "@shared/lib/liff/seedMockLogin";
 import { initOnce } from "@shared/lib/liff/initOnce";
 import { installPlugins } from "@shared/lib/liff/installPlugins";
-import { buildRedirectLink } from "@shared/lib/liff/buildLinks";
-import type { LiffJWTPayload, LiffState } from "@shared/types/liff_types";
+import { buildLoginRedirectLink } from "@shared/lib/liff/buildLinks";
+import type { LiffJWTPayload } from "@shared/types/liff_types";
+import { getLiffId } from "@shared/const/liff_id";
 
-export type LiffActions = {
+type LiffActions = {
   init: () => Promise<void>;
   login: () => void;
   logout: () => void;
   refreshProfile: () => Promise<void>;
   appendLog: (msg: string) => void;
 };
-
+type LiffState = {
+  ready: boolean;
+  isLoggedIn: boolean;
+  profile: Profile | null;
+  idToken: string | null;
+  friendFlag: boolean;
+  decodedIdToken: LiffJWTPayload | null;
+  grantedScopes: string[];
+  scopes: ("profile" | "chat_message.write" | "openid" | "email")[];
+  error?: string;
+  debugLogs: string[];
+};
 const enableMock = import.meta.env.DEV;
 
 export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
@@ -26,6 +38,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
   isLoggedIn: false,
   profile: null,
   idToken: null,
+  friendFlag: false,
   decodedIdToken: null,
   grantedScopes: [],
   scopes: [],
@@ -38,9 +51,14 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
     const log = get().appendLog;
 
     try {
-      const liffId: string = import.meta.env.VITE_LIFF_ID!;
-      if (!liffId) throw new Error("VITE_LIFF_ID is empty");
+      const liffId = getLiffId();
+      console.log("liffID: ", liffId);
+      if (!liffId) throw new Error("LIFF ID not found.");
 
+      // TODO 안전장치
+      // if (ALLOW_LIFF_IDS.size && !ALLOW_LIFF_IDS.has(liffId)) {
+      //   throw new Error("LIFF ID not allowed.");
+      // }
       installPlugins(enableMock, log);
       await initOnce({ liffId, enableMock });
 
@@ -68,6 +86,7 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
       }
 
       log("getProfile:begin");
+      liff.getAccessToken();
       const p = await liff.getProfile();
 
       const profile: Profile = {
@@ -80,11 +99,14 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
 
       const c: Context | null = liff.getContext();
       const scopes = c?.scope ?? [];
+
+      const { friendFlag } = await liff.getFriendship(); //try-catch 분리
       set({
         ready: true,
         isLoggedIn: true,
         profile,
         idToken,
+        friendFlag,
         decodedIdToken,
         scopes,
       });
@@ -105,9 +127,9 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
     }
   },
 
-  login: async () => {
+  login: () => {
     try {
-      const redirect = await buildRedirectLink();
+      const redirect = buildLoginRedirectLink();
       liff.login({ redirectUri: redirect });
     } catch (e) {
       console.log(`login failed : ${e?.toString()}`);

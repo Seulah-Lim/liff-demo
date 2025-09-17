@@ -70,6 +70,7 @@ export default function AppBar() {
                 variant: "primary",
                 onClick: async () => {
                   const deep = await buildMainPermanentLink();
+
                   location.href = deep;
                   close();
                 },

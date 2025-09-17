@@ -11,6 +11,7 @@ export function seedMockLogin() {
       name: "Dev User",
       email: "dev@example.com",
     },
+    getFriendship: { friendFlag: true },
     getProfile: {
       userId: "U_mock_1234",
       displayName: "Dev User",

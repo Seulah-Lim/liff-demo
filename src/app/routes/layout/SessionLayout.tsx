@@ -1,8 +1,9 @@
 import { Navigate, Outlet, useNavigate } from "react-router";
-import AppBar from "@shared/ui/appBar/AppBar";
+
 import { useLiffStore } from "@app/store/liffStore";
 import LoadingScreen from "@pages/common/Loading";
 import { useEffect } from "react";
+import AppBar from "@shared/ui/appBar/AppBar";
 
 export default function SessionLayout() {
   const navigate = useNavigate();

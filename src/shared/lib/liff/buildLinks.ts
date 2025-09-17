@@ -1,53 +1,59 @@
 import liff from "@line/liff";
 import { useBidStore } from "@app/store/bidStore";
 import { useHomeViewStore } from "@app/store/homeStore";
+import { getLiffId } from "@shared/const/liff_id";
 
 const ENDPOINT = import.meta.env.VITE_LIFF_ENDPOINT_URL;
-const LIFF_ID = import.meta.env.VITE_LIFF_ID;
 
 const DEFAULT_KEEP_KEYS = ["bid", "view"] as const;
 type KeepKey = (typeof DEFAULT_KEEP_KEYS)[number];
 
-export async function buildRedirectLink(
+export function buildLoginRedirectLink(
   keepKeys: KeepKey[] = [...DEFAULT_KEEP_KEYS]
 ) {
-  const base = new URL(ENDPOINT);
-  const qs = keptParams(keepKeys);
-  base.search = qs;
-  console.log("[buildRedirectLink] result:", base.toString());
+  const base = new URL(ENDPOINT, location.origin);
 
-  return base.toString();
+  // 쿼리 전부 초기화하고 우리가 원하는 순서로 채움
+  const sp = new URLSearchParams();
+  const liffId = getLiffId();
+  if (liffId) sp.set("liffId", liffId);
+
+  const kept = keptParams(keepKeys); // "bid=1234&view=rent" 같은 문자열
+  if (kept) {
+    for (const [k, v] of new URLSearchParams(kept).entries()) {
+      sp.set(k, v);
+    }
+  }
+
+  base.search = sp.toString();
+
+  const result = base.toString();
+  console.log("liffId", liffId); //null찓림
+  console.log("[buildRedirectLink] result:", result);
+  return result;
 }
 
-/**
- * 메인(Endpoint) 기준으로 bid/view 쿼리를 붙여
- * LIFF 영구링크를 생성
- * - 기본 경로: VITE_LIFF_ENDPOINT_URL
- * - 우선 시도: liff.permanentLink.createUrlBy()
- * - 폴백:  직접 조립
- */
 export async function buildMainPermanentLink(
   keepKeys: KeepKey[] = [...DEFAULT_KEEP_KEYS]
 ) {
-  const base = new URL(ENDPOINT);
   const qs = keptParams(keepKeys);
+  const liffId = getLiffId();
 
-  base.search = qs;
-
-  try {
-    const res = await liff.permanentLink.createUrlBy(base.toString());
-    if (typeof res === "string" && res.length > 0) return res;
-  } catch {
-    // ignore
-  }
-
-  return fallbackLink();
+  const res = `https://liff.line.me/${liffId}?liffId=${liffId}${
+    qs ? `&${qs}` : ""
+  }`;
+  console.log("buildMainPermanentLink : ", res);
+  return res;
 }
 
-function fallbackLink(keepKeys: KeepKey[] = [...DEFAULT_KEEP_KEYS]) {
-  const qs = keptParams(keepKeys);
+export async function buildPermanentLink() {
+  const base = new URL(ENDPOINT);
 
-  return `https://liff.line.me/${LIFF_ID}${qs ? `?${qs}` : ""}`;
+  const res = await liff.permanentLink.createUrlBy(base.toString());
+  if (typeof res === "string" && res.length > 0) {
+    console.log("buildPermanentLink : ", res);
+    return res;
+  }
 }
 
 function keptParams(keepKeys: KeepKey[] = ["bid", "view"]) {

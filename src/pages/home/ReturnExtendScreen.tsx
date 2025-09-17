@@ -57,7 +57,6 @@ export default function ReturnExtendScreen() {
     <div className={s.container}>
       <div className={s.app}>
         <main className={s.content}>
-          {/* 배터리 정보 */}
           <section className={s.card}>
             <img
               src={IMAGE_URL}

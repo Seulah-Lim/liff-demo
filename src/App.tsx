@@ -12,11 +12,39 @@ import { useBidStore } from "@app/store/bidStore";
 import ErrorRoute from "@pages/error/ErrorRoutes";
 import HomeSwitcher from "@pages/home/HomeSwitcher";
 
+// const LIFF_ID_KEY = "__liff_id";
+
+// const ALLOW_LIFF_IDS = new Set<string>([
+//   "2008073307-WzV16bo0", // prod
+//   // "xxxx-xxxxx",       // staging 등 필요 시 추가
+// ]);
 export default function App() {
   const loc = useLocation();
   const ensureBidOnce = useBidStore((s) => s.ensureBidOnce);
   const ensureViewOnce = useHomeViewStore((s) => s.ensureViewOnce);
+  // const didCaptureRef = useRef(false);
+  // useEffect(() => {
+  //   if (didCaptureRef.current) return;
+  //   didCaptureRef.current = true;
 
+  //   const params = new URLSearchParams(window.location.search);
+  //   const q = params.get("liffId");
+
+  //   if (q && (!ALLOW_LIFF_IDS.size || ALLOW_LIFF_IDS.has(q))) {
+  //     sessionStorage.setItem(LIFF_ID_KEY, q);
+
+  //     // 다른 쿼리는 보존
+  //     params.delete("liffId");
+  //     const newQs = params.toString();
+  //     const newUrl =
+  //       window.location.pathname +
+  //       (newQs ? `?${newQs}` : "") +
+  //       window.location.hash;
+
+  //     // 주소창만 교체(리렌더/네비게이션 없음)
+  //     window.history.replaceState(null, "", newUrl);
+  //   }
+  // }, []);
   useEffect(() => {
     ensureBidOnce(loc.search);
     ensureViewOnce(loc.search);
