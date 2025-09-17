@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastHost } from "@app/providers/toast/ToastHost";
 
 declare const __BUILD_TIME__: string;
+
 function preInitCaptureLiffId() {
   const params = new URLSearchParams(window.location.search);
   const q = params.get("liffId");
@@ -20,10 +21,18 @@ function preInitCaptureLiffId() {
     window.location.hash;
   window.history.replaceState(null, "", newUrl);
 }
+
+const d = new Date(__BUILD_TIME__);
+const pad = (n: number) => String(n).padStart(2, "0");
+
+// MM-DD HH:mm
+const title =
+  `${pad(d.getMonth() + 1)}/${pad(d.getDate())} ` +
+  `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 if (import.meta.env.MODE === "development") {
-  document.title = `Dev ${new Date(__BUILD_TIME__).toLocaleString()}`;
+  document.title = `Dev ${title}`;
 } else {
-  document.title = `${new Date(__BUILD_TIME__).toLocaleString()}`;
+  document.title = `${title}`;
 }
 const queryClient = new QueryClient();
 preInitCaptureLiffId();

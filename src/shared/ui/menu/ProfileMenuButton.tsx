@@ -4,6 +4,7 @@ import Modal from "@shared/ui/modal/Modal";
 import * as s from "./profileMenuButton.css";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
+import liff from "@line/liff";
 
 export default function ProfileMenuButton() {
   const navigate = useNavigate();
@@ -29,22 +30,13 @@ export default function ProfileMenuButton() {
     navigate(path);
   };
 
-  const goFriend = async () => {
-    // const CHANNEL_ID = "2008073307";
-    // const redirectUri = await buildRedirectLink();
-    // const state = crypto.getRandomValues(new Uint32Array(1))[0].toString(16);
-    // const u = new URL("https://access.line.me/oauth2/v2.1/authorize");
-    // u.searchParams.set("response_type", "code");
-    // u.searchParams.set("client_id", CHANNEL_ID);
-    // u.searchParams.set("redirect_uri", redirectUri);
-    // u.searchParams.set("state", state);
-    // u.searchParams.set("scope", "openid profile email"); // 필요 스코프 추가
-    // u.searchParams.set("bot_prompt", "normal"); // normal | aggressive
-    // u.searchParams.set("prompt", "consent"); // 매번 동의 화면 강제 (선택)
-    // u.searchParams.set("code_challenge", codeChallenge);
-    // u.searchParams.set("code_challenge_method", "S256");
-    // window.location.href = u.toString();
-  };
+  function goAddFriendOnly() {
+    const url = `https://line.me/R/ti/p/${import.meta.env.VITE_BOT_ID}`;
+
+    console.log("url:", url);
+    liff.openWindow({ url, external: false });
+  }
+
   return (
     <div className={s.actions} ref={ref}>
       <button
@@ -73,14 +65,32 @@ export default function ProfileMenuButton() {
 
       {menuOpen && (
         <div className={s.menu} role="menu" aria-label="Quick actions">
-          {profile?.displayName && (
-            <div className={s.menuHeader} role="presentation">
+          <div className={s.menuHeader} role="presentation">
+            {profile?.displayName && (
               <p className={s.greetingClamp} title={`${profile.displayName}님`}>
                 <strong className={s.nameInline}>{profile.displayName}</strong>
                 님
               </p>
+            )}
+
+            <div className={s.statusRow}>
+              {friendFlag ? (
+                <span className={`${s.badge} ${s.badgeOk}`}>공식계정 친구</span>
+              ) : (
+                <>
+                  <span className={`${s.badge} ${s.badgeWarn}`}>친구 아님</span>
+                  <button
+                    type="button"
+                    className={s.inlineBtn}
+                    onClick={goAddFriendOnly}
+                  >
+                    친구 추가
+                  </button>
+                </>
+              )}
             </div>
-          )}
+          </div>
+
           <div className={s.divider} role="separator" />
 
           <div
@@ -90,16 +100,6 @@ export default function ProfileMenuButton() {
             aria-label="로그아웃"
           >
             로그아웃
-          </div>
-          <div className={s.menuItem}>Friend : {friendFlag.toString()}</div>
-
-          <div
-            role="menuitem"
-            className={s.menuItem}
-            onClick={goFriend}
-            aria-label="로그아웃"
-          >
-            임시 초기화면
           </div>
 
           {isHome && (

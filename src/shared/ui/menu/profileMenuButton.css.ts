@@ -57,21 +57,25 @@ export const menu = style({
   },
 });
 
-export const menuHeader = style({
-  padding: "6px 12px 4px",
-});
+// export const menuHeader = style({
+//   display: "flex",
+//   flexDirection: "column",
+//   gap: "6px",
+//   alignItems: "flex-start",
+//   margin: "0px 12px",
+// });
 
-export const greetingClamp = style({
-  margin: 0,
-  fontSize: 12,
-  lineHeight: 1.4,
-  opacity: 0.7,
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 2, // ★ 2줄 제한
-  overflow: "hidden",
-  textOverflow: "ellipsis", // 보조용
-});
+// export const greetingClamp = style({
+//   margin: 0,
+//   fontSize: 12,
+//   lineHeight: 1.4,
+//   opacity: 0.7,
+//   display: "-webkit-box",
+//   WebkitBoxOrient: "vertical",
+//   WebkitLineClamp: 2, // ★ 2줄 제한
+//   overflow: "hidden",
+//   textOverflow: "ellipsis", // 보조용
+// });
 
 export const nameInline = style({
   fontWeight: 600,
@@ -149,4 +153,54 @@ export const avatarFallback = style({
   color: "#6b7280",
   fontWeight: 600,
   border: "1px solid #e5e7eb",
+});
+
+export const menuHeader = style({
+  padding: "6px 12px 4px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: "6px",
+  textAlign: "left",
+});
+
+export const greetingClamp = style({
+  margin: 0, // <-- p 기본 margin 제거: 들뜸 방지
+  lineHeight: 1.35,
+});
+
+export const statusRow = style({
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+  alignSelf: "flex-start", // 부모 좌측 기준으로 딱 붙게
+});
+
+export const badge = style({
+  display: "inline-flex",
+  alignItems: "center",
+  padding: "2px 8px",
+  borderRadius: "12px",
+  fontSize: "11px",
+  lineHeight: 1.6,
+});
+
+export const badgeOk = style({
+  background: "rgba(16,185,129,.15)",
+  color: "#10b981",
+});
+
+export const badgeWarn = style({
+  background: "rgba(234,179,8,.15)",
+  color: "#eab308",
+});
+
+export const inlineBtn = style({
+  padding: 0,
+  background: "none",
+  border: "none",
+  textDecoration: "underline",
+  fontSize: "12px",
+  cursor: "pointer",
+  color: "var(--fg)",
 });

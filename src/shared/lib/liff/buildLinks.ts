@@ -28,7 +28,6 @@ export function buildLoginRedirectLink(
   base.search = sp.toString();
 
   const result = base.toString();
-  console.log("liffId", liffId); //null찓림
   console.log("[buildRedirectLink] result:", result);
   return result;
 }
