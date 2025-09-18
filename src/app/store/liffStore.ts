@@ -10,14 +10,14 @@ import { initOnce } from "@shared/lib/liff/initOnce";
 import { installPlugins } from "@shared/lib/liff/installPlugins";
 import { buildLoginRedirectLink } from "@shared/lib/liff/buildLinks";
 import type { LiffJWTPayload } from "@shared/types/liff_types";
-import { getLiffId } from "@shared/const/liff_id";
 
 type LiffActions = {
-  init: () => Promise<void>;
+  init: (liffId: string) => Promise<void>;
   login: () => void;
   logout: () => void;
   refreshProfile: () => Promise<void>;
   appendLog: (msg: string) => void;
+  setReady: (isReady: boolean) => void;
 };
 type LiffState = {
   ready: boolean;
@@ -44,21 +44,15 @@ export const useLiffStore = create<LiffState & LiffActions>((set, get) => ({
   scopes: [],
   debugLogs: [],
 
+  setReady: (isReady: boolean) => set({ ready: isReady }),
+
   appendLog: (msg: string) =>
     set((s) => ({ debugLogs: [...s.debugLogs, `[${now()}] ${msg}`] })),
 
-  init: async () => {
+  init: async (liffId: string) => {
     const log = get().appendLog;
 
     try {
-      const liffId = getLiffId();
-      console.log("liffID: ", liffId);
-      if (!liffId) throw new Error("LIFF ID not found.");
-
-      // TODO 안전장치
-      // if (ALLOW_LIFF_IDS.size && !ALLOW_LIFF_IDS.has(liffId)) {
-      //   throw new Error("LIFF ID not allowed.");
-      // }
       installPlugins(enableMock, log);
       await initOnce({ liffId, enableMock });
 

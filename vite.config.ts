@@ -18,7 +18,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "lottie-web": "lottie-web/build/player/lottie_light", // or lottie_light.min
+      "lottie-web": "lottie-web/build/player/lottie_light",
     },
   },
 });

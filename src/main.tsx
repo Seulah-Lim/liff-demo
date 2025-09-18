@@ -8,7 +8,7 @@ import { ToastHost } from "@app/providers/toast/ToastHost";
 declare const __BUILD_TIME__: string;
 
 function preInitCaptureLiffId() {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window.location.search); //endpoint에 추가 안하면 state형태로 들어옴
   const q = params.get("liffId");
   if (!q) return;
   sessionStorage.setItem("__liff_id", q);
@@ -29,6 +29,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 const title =
   `${pad(d.getMonth() + 1)}/${pad(d.getDate())} ` +
   `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+
 if (import.meta.env.MODE === "development") {
   document.title = `Dev ${title}`;
 } else {

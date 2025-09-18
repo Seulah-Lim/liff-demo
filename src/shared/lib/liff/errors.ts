@@ -30,14 +30,37 @@ export const toErrInfo = (e: LiffErrorLike) => {
   };
 };
 
-export const isTokenExpiredLike = (code?: string, message?: string) => {
-  if (code === "UNAUTHORIZED" || code === "INVALID_ID_TOKEN" || code === "401")
+// export const isTokenExpiredLike = (code?: string, message?: string) => {
+//   if (code === "UNAUTHORIZED" || code === "INVALID_ID_TOKEN" || code === "401")
+//     return true;
+//   if (!message) return false;
+//   const m = message.toLowerCase();
+//   return (
+//     m.includes("access token expired") ||
+//     m.includes("token expired") ||
+//     m.includes("jwt expired")
+//   );
+// };
+
+export function isTokenExpiredLike(code?: string, message?: string) {
+  const c = (code ?? "").toLowerCase();
+  const m = (message ?? "").toLowerCase();
+
+  // LINE에서 흔한 코드/문구들
+  if (
+    c === "invalid_request" &&
+    (m.includes("revoked") || m.includes("access token"))
+  )
     return true;
-  if (!message) return false;
-  const m = message.toLowerCase();
-  return (
-    m.includes("access token expired") ||
-    m.includes("token expired") ||
-    m.includes("jwt expired")
-  );
-};
+  if (c === "invalid_grant" || c === "unauthorized" || c === "e_auth")
+    return true;
+
+  // 메시지 기반 보강
+  if (
+    m.includes("token") &&
+    (m.includes("expired") || m.includes("invalid") || m.includes("revoked"))
+  )
+    return true;
+
+  return false;
+}

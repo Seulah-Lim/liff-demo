@@ -6,6 +6,8 @@ import noDataLottie from "@shared/assets/lottie/no_user.json";
 export type ErrorKind =
   | "NOT_LIFF"
   | "MISSING_BID"
+  | "MISSING_LIFF_ID"
+  | "INVALID_LIFF_ID"
   | "BATTERY_FETCH_FAILED"
   | "UNKNOWN";
 
@@ -46,6 +48,17 @@ function getDefaultConfig(kind: ErrorKind) {
         title: "잘못된 QR 코드입니다",
         message: "인식된 배터리 정보가 없거나 유효하지 않은 QR 코드입니다.",
         animation: noDataLottie,
+      };
+    case "MISSING_LIFF_ID":
+      return {
+        title: "LIFF ID가 누락되었습니다",
+        message: "앱 실행에 필요한 링크 정보가 없어 진행할 수 없어요.",
+      };
+
+    case "INVALID_LIFF_ID":
+      return {
+        title: "잘못된 LIFF ID입니다",
+        message: "유효하지 않은 LIFF 링크예요. 오래된 링크일 수 있어요.",
       };
 
     case "UNKNOWN":
@@ -90,6 +103,16 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
     },
 
     MISSING_BID: {
+      onPrimary: () => {},
+      onSecondary: () => {},
+      onRetry: () => window.location.reload(),
+    },
+    MISSING_LIFF_ID: {
+      onPrimary: () => {},
+      onSecondary: () => {},
+      onRetry: () => window.location.reload(),
+    },
+    INVALID_LIFF_ID: {
       onPrimary: () => {},
       onSecondary: () => {},
       onRetry: () => window.location.reload(),

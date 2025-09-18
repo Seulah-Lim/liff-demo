@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router";
-import SessionLayout from "@app/routes/layout/SessionLayout";
+import SessionGuard from "@app/routes/guards/SessionGuard";
 import { useHomeViewStore } from "@app/store/homeStore";
 import { useEffect } from "react";
 import SupportScreen from "@pages/support/SupportScreen";
@@ -25,7 +25,7 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route element={<SessionLayout />}>
+        <Route element={<SessionGuard />}>
           <Route element={<BidGuard />}>
             <Route path="/" element={<HomeViewGuard />}>
               <Route index element={<HomeSwitcher />} />
@@ -34,8 +34,8 @@ export default function App() {
             <Route path="support" element={<SupportScreen />} />
             <Route path="return-guide" element={<ReturnGuideScreen />} />
           </Route>
-          <Route path="error" element={<ErrorRoute />} />
         </Route>
+        <Route path="error" element={<ErrorRoute />} />
         <Route path="login" element={<LoginRequiredScreen />} />
       </Routes>
     </>
