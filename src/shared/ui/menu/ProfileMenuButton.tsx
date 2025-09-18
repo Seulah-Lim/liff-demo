@@ -32,8 +32,6 @@ export default function ProfileMenuButton() {
 
   function goAddFriendOnly() {
     const url = `https://line.me/R/ti/p/${import.meta.env.VITE_BOT_ID}`;
-
-    console.log("url:", url);
     liff.openWindow({ url, external: false });
   }
 

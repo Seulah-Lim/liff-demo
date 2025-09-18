@@ -56,7 +56,6 @@ export const LoginRequiredScreen = () => {
               type="button"
               onClick={async () => {
                 const deep = await buildMainPermanentLink();
-                console.log(deep, "으로 이동");
                 location.href = deep;
               }}
               className={s.btnSecondary}

@@ -35,7 +35,6 @@ export default function HomeViewGuard() {
     return fromQuery ?? lastView ?? null;
   }, [isHome, viewParam, lastView]);
 
-  // 스토어 동기화 훅 안에서 조건 처리
   useEffect(() => {
     if (isHome && next) setView(next);
   }, [isHome, next, setView]);

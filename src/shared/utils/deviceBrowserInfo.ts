@@ -6,7 +6,6 @@ type DeviceBrowserType =
 
 export function deviceBrowserInfo(): DeviceBrowserType {
   const userAgent = navigator.userAgent;
-  console.log("UserAgent:", userAgent); // 접속 시 UA 확인
 
   const ua = userAgent.toLowerCase();
 
