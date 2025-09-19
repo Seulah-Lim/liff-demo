@@ -3,7 +3,7 @@ import SessionGuard from "@app/routes/guards/SessionGuard";
 import { useHomeViewStore } from "@app/store/homeStore";
 import { useEffect } from "react";
 import SupportScreen from "@pages/support/SupportScreen";
-import UserInfo from "@pages/userInfo/UserInfo";
+import UserInfo from "@pages/archive/userInfo/UserInfo";
 import ReturnGuideScreen from "@pages/guide/ReturnGuideScreen";
 import BidGuard from "@app/routes/guards/BidGuard";
 import HomeViewGuard from "@app/routes/guards/HomeViewGuard";

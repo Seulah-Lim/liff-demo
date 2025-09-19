@@ -2,7 +2,7 @@ import { parseHomeView, useHomeViewStore } from "@app/store/homeStore";
 import InUseNoticeScreen from "@pages/home/InUseNoticeScreen";
 import RentScreen from "@pages/home/RentScreen";
 import ReturnExtendScreen from "@pages/home/ReturnExtendScreen";
-import HomeHub from "@pages/homehub/Homehub";
+import HomeHub from "@pages/archive/homehub/Homehub";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 
