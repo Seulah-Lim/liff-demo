@@ -126,7 +126,7 @@ export default function RentScreen() {
     <div className={s.container}>
       <div className={s.app}>
         <main className={s.content}>
-          <section className={s.card}>
+          <section className={s.cardAvailable}>
             <img
               src={IMAGE_URL}
               alt="Battery preview"

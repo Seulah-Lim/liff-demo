@@ -57,7 +57,7 @@ export default function ReturnExtendScreen() {
     <div className={s.container}>
       <div className={s.app}>
         <main className={s.content}>
-          <section className={s.card}>
+          <section className={s.cardInUse}>
             <img
               src={IMAGE_URL}
               alt="Battery preview"
@@ -65,6 +65,7 @@ export default function ReturnExtendScreen() {
             />
 
             <div className={s.sep} />
+
             <div className={s.kv}>
               <div className={s.k}>모델</div>
               <div>OC Portable Battery</div>
@@ -91,7 +92,7 @@ export default function ReturnExtendScreen() {
           </section>
 
           <section className={s.card}>
-            <h3 className={s.cardTitle}>가까운 반납 지점</h3>
+            <h3 className={s.cardTitle}>근처 스테이션</h3>
             <ul className={s.stationListMinimal} role="list">
               {nearbyStations.map((st) => (
                 <li key={st.id} className={s.stationRow}>

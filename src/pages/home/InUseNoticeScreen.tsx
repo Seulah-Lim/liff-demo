@@ -40,7 +40,7 @@ export default function InUseNoticeScreen() {
       <div className={s.app}>
         <main className={s.content}>
           {/* 1) 대여 불가 안내 + 배터리 정보 */}
-          <section className={s.card}>
+          <section className={s.cardBusy}>
             <div className={s.banner}>
               <div className={s.iconCircle}>!</div>
               <div>

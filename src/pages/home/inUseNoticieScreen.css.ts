@@ -88,7 +88,24 @@ export const cardTitle = style({
   margin: "0 0 8px 0",
   fontSize: 16,
 });
+export const cardTint = style([
+  card,
+  {
+    background: "linear-gradient(0deg, var(--tint), var(--tint)), var(--card)",
+  },
+]);
 
+export const cardBusy = style([
+  cardTint,
+  {
+    vars: { "--tint": "rgba(239,68,68,0.06)" },
+    "@media": {
+      "(prefers-color-scheme: dark)": {
+        vars: { "--tint": "rgba(239,68,68,0.10)" },
+      },
+    },
+  },
+]);
 /* key-value grid */
 export const kv = style({
   display: "grid",

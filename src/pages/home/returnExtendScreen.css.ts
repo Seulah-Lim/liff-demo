@@ -78,6 +78,25 @@ export const cardTitle = style({
   margin: "0 0 8px 0",
   fontSize: 16,
 });
+
+export const cardTint = style([
+  card,
+  {
+    background: "linear-gradient(0deg, var(--tint), var(--tint)), var(--card)",
+  },
+]);
+
+export const cardInUse = style([
+  cardTint,
+  {
+    vars: { "--tint": "rgba(99,102,241,0.06)" },
+    "@media": {
+      "(prefers-color-scheme: dark)": {
+        vars: { "--tint": "rgba(99,102,241,0.10)" },
+      },
+    },
+  },
+]);
 /* ---------- Rows / text ---------- */
 export const row = style({
   display: "flex",

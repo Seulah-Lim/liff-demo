@@ -9,8 +9,9 @@ import BidGuard from "@app/routes/guards/BidGuard";
 import HomeViewGuard from "@app/routes/guards/HomeViewGuard";
 import LoginRequiredScreen from "@pages/error/LoginRequiredScreen";
 import { useBidStore } from "@app/store/bidStore";
-import ErrorRoute from "@pages/error/ErrorRoutes";
+
 import HomeSwitcher from "@pages/home/HomeSwitcher";
+import { ErrorRoute } from "@app/routes/ErrorRoutes";
 
 export default function App() {
   const loc = useLocation();

@@ -79,16 +79,30 @@ export const card = style({
   padding: 16,
 });
 
-globalStyle(`${card} h3`, {
-  margin: "0 0 8px 0",
-  fontSize: 16,
-});
-
 export const sep = style({
   height: 1,
   background: "var(--border)",
   margin: "16px 0",
 });
+
+export const cardTint = style([
+  card,
+  {
+    background: "linear-gradient(0deg, var(--tint), var(--tint)), var(--card)",
+  },
+]);
+
+export const cardAvailable = style([
+  cardTint,
+  {
+    vars: { "--tint": "rgba(16,185,129,0.06)" },
+    "@media": {
+      "(prefers-color-scheme: dark)": {
+        vars: { "--tint": "rgba(16,185,129,0.10)" },
+      },
+    },
+  },
+]);
 
 /* ---------- Image ---------- */
 export const imageCover = style({
