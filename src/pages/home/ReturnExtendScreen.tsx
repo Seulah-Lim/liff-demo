@@ -64,8 +64,6 @@ export default function ReturnExtendScreen() {
               className={s.imageCover}
             />
 
-            <div className={s.sep} />
-
             <div className={s.kv}>
               <div className={s.k}>모델</div>
               <div>OC Portable Battery</div>

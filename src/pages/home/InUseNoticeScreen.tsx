@@ -57,7 +57,6 @@ export default function InUseNoticeScreen() {
               className={s.imageCover}
             />
 
-            <div className={s.sep} />
             <div className={s.kv}>
               <div className={s.keyText}>모델</div>
               <div>OC Portable Battery</div>
@@ -65,7 +64,7 @@ export default function InUseNoticeScreen() {
               <div className={s.keyText}>배터리ID</div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span>{bid ?? "-"}</span>
-                <span className={s.pillBlue}>
+                <span className={s.pill}>
                   <span className={s.dot} /> In use
                 </span>
               </div>

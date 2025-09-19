@@ -123,12 +123,6 @@ export const meta = style({
   fontSize: 12,
 });
 
-export const sep = style({
-  height: 1,
-  background: "var(--border)",
-  margin: "12px 0",
-});
-
 /* ----- Buttons (옵션) ----- */
 export const btn = style({
   display: "inline-flex",
@@ -174,33 +168,10 @@ export const pill = style({
   padding: "2px 8px",
   borderRadius: 999,
   fontSize: 12,
-  border: "1px solid #e5e7eb",
+  border: "1px solid #a5b4fc",
+  background: "#e0e7ff",
+  color: "#3730a3",
 });
-
-export const pillBlue = style([
-  pill,
-  {
-    background: "#e0e7ff",
-    color: "#3730a3",
-    borderColor: "#c7d2fe",
-  },
-]);
-export const pillGreen = style([
-  pill,
-  {
-    background: "#ecfdf5",
-    color: "#065f46",
-    borderColor: "#a7f3d0",
-  },
-]);
-export const pillRed = style([
-  pill,
-  {
-    background: "#fee2e2",
-    color: "#991b1b",
-    borderColor: "#fecaca",
-  },
-]);
 
 export const dot = style({
   width: 6,
@@ -211,16 +182,22 @@ export const dot = style({
 });
 
 /* ----- Banner ----- */
+
 export const banner = style({
   display: "flex",
   gap: 12,
   alignItems: "flex-start",
   padding: 12,
   borderRadius: 12,
-  background: "#fff7ed",
-  border: "1px solid #fed7aa",
-  color: "#9a3412",
-  margin: "8px 0 4px",
+  marginBottom: 12,
+  background: "rgba(239, 68, 68, 0.10)",
+  color: "var(--fg)",
+  "@media": {
+    "(prefers-color-scheme: dark)": {
+      background: "rgba(239, 68, 68, 0.16)",
+      border: "1px solid rgba(239,68,68,0.36)",
+    },
+  },
 });
 
 export const iconCircle = style({
@@ -229,12 +206,22 @@ export const iconCircle = style({
   borderRadius: 999,
   display: "grid",
   placeItems: "center",
-  background: "#fed7aa",
-  color: "#9a3412",
+  background: "rgba(239,68,68,0.16)",
+  color: "#b91c1c",
+  border: "1px solid rgba(239,68,68,0.30)",
+  boxShadow: "0 1px 0 rgba(0,0,0,0.04), inset 0 0 0 1px rgba(255,255,255,0.06)",
   fontWeight: 700,
+  "@media": {
+    "(prefers-color-scheme: dark)": {
+      background: "rgba(239,68,68,0.24)",
+      color: "#fecaca",
+      border: "1px solid rgba(239,68,68,0.38)",
+      boxShadow:
+        "0 1px 0 rgba(0,0,0,0.16), inset 0 0 0 1px rgba(255,255,255,0.04)",
+    },
+  },
 });
 
-/* Image */
 export const imageCover = style({
   width: "100%",
   height: 120,
@@ -242,7 +229,7 @@ export const imageCover = style({
   objectPosition: "center",
   borderRadius: 12,
   border: "1px solid #e5e7eb",
-  marginTop: 4,
+  marginBottom: 12,
 });
 
 /* ---------- Station list (minimal) ---------- */

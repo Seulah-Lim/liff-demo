@@ -78,7 +78,10 @@ export const card = style({
   boxShadow: "0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04)",
   padding: 16,
 });
-
+export const cardTitle = style({
+  margin: "0 0 8px 0",
+  fontSize: 16,
+});
 export const sep = style({
   height: 1,
   background: "var(--border)",
@@ -112,7 +115,7 @@ export const imageCover = style({
   objectPosition: "center",
   borderRadius: 12,
   border: "1px solid var(--border)",
-  marginTop: 8,
+  marginBottom: 12,
 });
 
 /* ---------- Buttons ---------- */

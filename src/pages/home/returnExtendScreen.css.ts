@@ -108,12 +108,6 @@ export const row = style({
 
 export const meta = style({ color: "var(--muted)", fontSize: 12 });
 
-export const sep = style({
-  height: 1,
-  background: "var(--border)",
-  margin: "12px 0",
-});
-
 /* ---------- Buttons ---------- */
 export const buttons = style({
   display: "grid",
@@ -158,7 +152,7 @@ export const imageCover = style({
   objectPosition: "center",
   borderRadius: 12,
   border: "1px solid var(--border)",
-  marginTop: 8,
+  marginBottom: 12,
 });
 
 /* ---------- Pill (status) ---------- */
@@ -169,8 +163,8 @@ export const pill = style({
   padding: "2px 8px",
   borderRadius: 999,
   fontSize: 12,
-  border: "1px solid var(--border)",
-  background: "#e0e7ff", // blue tone
+  border: "1px solid #a5b4fc",
+  background: "#e0e7ff",
   color: "#3730a3",
 });
 

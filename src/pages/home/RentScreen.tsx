@@ -133,7 +133,6 @@ export default function RentScreen() {
               className={s.imageCover}
             />
 
-            <div className={s.sep} />
             <div className={s.kv}>
               <div className={s.k}>모델</div>
               <div>OC Portable Battery</div>
@@ -153,7 +152,7 @@ export default function RentScreen() {
 
           {/* 시간 선택 */}
           <section className={s.card}>
-            <h3>시간 선택</h3>
+            <h3 className={s.cardTitle}>시간 선택</h3>
             <div className={s.chips}>
               {[
                 { id: "t30", label: "30분", value: "30" },
