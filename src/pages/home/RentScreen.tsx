@@ -115,10 +115,10 @@ export default function RentScreen() {
         { search: createSearchParams({ view: "return" }).toString() },
         { replace: true } //TODO 뒤로가기 막기
       );
-      toast.success("대여 완료! 이용을 시작할 수 있어요.");
+      toast.success("🎉 대여 완료! 이용을 시작할 수 있어요.", { icon: false });
     } catch {
       toast.dismiss();
-      showError("⚠️ 대여를 시작할 수 없어요. 다시 시도해주세요.");
+      showError("⚠️  대여를 시작할 수 없어요. 다시 시도해주세요.");
     }
   };
 

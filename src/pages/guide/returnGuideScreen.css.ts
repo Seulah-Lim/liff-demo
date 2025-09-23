@@ -1,44 +1,6 @@
 // returnExtendGuide.css.ts
 import { APP_BAR_HEIGHT } from "@shared/const/layout";
-import { style, globalStyle } from "@vanilla-extract/css";
-
-/* ---------- CSS Variables (라이트/다크) ---------- */
-const lightVars = {
-  "--bg": "#f7f7f8",
-  "--card": "#ffffff", // 카드 배경 복원(라이트)
-  "--border": "#e5e7eb",
-  "--fg": "#111827",
-  "--muted": "#6b7280",
-  "--brand": "#111827", // 버튼/선택칩 배경은 어둡게
-  "--accent": "#10b981",
-  "--danger": "#ef4444",
-} as const;
-
-const darkVars = {
-  "--bg": "#0b0b0c",
-  "--card": "#111214", // 카드 배경 복원(다크)
-  "--border": "#1f2937",
-  "--fg": "#e5e7eb",
-  "--muted": "#9ca3af",
-  "--brand": "#111827",
-  "--accent": "#34d399",
-} as const;
-
-globalStyle(":root", { vars: lightVars });
-globalStyle(":root", {
-  "@media": { "(prefers-color-scheme: dark)": { vars: darkVars } },
-});
-
-/* ---------- Reset & Base ---------- */
-globalStyle("*", { boxSizing: "border-box" });
-globalStyle("html, body, #root", { height: "100%" });
-globalStyle("body", {
-  margin: 0,
-  background: "var(--bg)",
-  color: "var(--fg)",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif',
-});
+import { style } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
 export const container = style({
@@ -68,14 +30,12 @@ export const content = style({
 
 /* ---------- Card / text ---------- */
 export const card = style({
-  background: "var(--card)", // ✅ 카드 배경 복원
+  background: "var(--card)",
   border: "1px solid var(--border)",
   borderRadius: 16,
   boxShadow: "0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04)",
   padding: 16,
 });
-
-globalStyle(`${card} h3`, { margin: "0 0 8px 0", fontSize: 16 });
 
 export const row = style({
   display: "flex",

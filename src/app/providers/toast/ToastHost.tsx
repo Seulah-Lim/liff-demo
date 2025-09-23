@@ -6,7 +6,7 @@ export function ToastHost() {
   return (
     <ToastContainer
       position="bottom-center"
-      autoClose={2500}
+      autoClose={2000}
       hideProgressBar
       closeButton={false}
       newestOnTop

@@ -1,46 +1,6 @@
-// returnExtend1.css.ts
 import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
-import { style, globalStyle } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
-/* ---------- CSS Variables (라이트/다크) ---------- */
-const lightVars = {
-  "--bg": "#f7f7f8",
-  "--card": "#ffffff",
-  "--border": "#e5e7eb",
-  "--fg": "#111827",
-  "--muted": "#6b7280",
-  "--brand": "#111827",
-  "--accent": "#10b981",
-  "--danger": "#ef4444",
-} as const;
-
-const darkVars = {
-  "--bg": "#0b0b0c",
-  "--card": "#111214",
-  "--border": "#1f2937",
-  "--fg": "#e5e7eb",
-  "--muted": "#9ca3af",
-  "--brand": "#111827",
-  "--accent": "#34d399",
-} as const;
-
-globalStyle(":root", { vars: lightVars });
-globalStyle(":root", {
-  "@media": { "(prefers-color-scheme: dark)": { vars: darkVars } },
-});
-
-/* ---------- Reset & Base ---------- */
-globalStyle("*", { boxSizing: "border-box" });
-globalStyle("html, body, #root", { height: "100%" });
-globalStyle("body", {
-  margin: 0,
-  background: "var(--bg)",
-  color: "var(--fg)",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif',
-});
-
-/* ---------- Layout ---------- */
 export const container = style({
   paddingTop: APP_BAR_HEIGHT,
   paddingBottom: CONTENT_BOTTOM_INSET,

@@ -1,54 +1,6 @@
 // inUseNotice.css.ts
 import { APP_BAR_HEIGHT } from "@shared/const/layout";
-import { style, globalStyle } from "@vanilla-extract/css";
-
-const lightVars = {
-  "--bg": "#f7f7f8",
-  "--bg-rgb": "247, 247, 248",
-  "--card": "#ffffff",
-  "--border": "#e5e7eb",
-  "--fg": "#111827",
-  "--fg-rgb": "17, 24, 39",
-  "--muted": "#6b7280",
-  "--brand": "#111827",
-  "--accent": "#10b981",
-} as const;
-
-const darkVars = {
-  "--bg": "#0b0b0c",
-  "--bg-rgb": "11, 11, 12",
-  "--card": "#111214",
-  "--border": "#1f2937",
-  "--fg": "#e5e7eb",
-  "--fg-rgb": "229, 231, 235",
-  "--muted": "#9ca3af",
-  "--brand": "#111827",
-  "--accent": "#34d399",
-} as const;
-
-// 기본(라이트)
-globalStyle(":root", { vars: lightVars });
-
-// 다크 모드는 @media 안쪽에
-globalStyle(":root", {
-  "@media": {
-    "(prefers-color-scheme: dark)": {
-      vars: darkVars,
-    },
-  },
-});
-
-/* ----- Global reset / base ----- */
-globalStyle("*", { boxSizing: "border-box" });
-globalStyle("html, body, #root", { height: "100%" });
-
-globalStyle("body", {
-  margin: 0,
-  background: "var(--bg)",
-  color: "var(--fg)",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif',
-});
+import { style } from "@vanilla-extract/css";
 
 /* ----- Layout ----- */
 export const container = style({

@@ -1,49 +1,5 @@
 import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
-import { style, globalStyle, keyframes } from "@vanilla-extract/css";
-
-/* ---------- CSS Variables (라이트/다크) ---------- */
-const lightVars = {
-  "--bg": "#f7f7f8",
-  "--card": "#ffffff",
-  "--border": "#e5e7eb",
-  "--fg": "#111827",
-  "--muted": "#6b7280",
-  "--brand": "#111827",
-  "--accent": "#10b981",
-} as const;
-
-const darkVars = {
-  "--bg": "#0b0b0c",
-  "--card": "#111214",
-  "--border": "#1f2937",
-  "--fg": "#e5e7eb",
-  "--muted": "#9ca3af",
-  "--brand": "#111827",
-  "--accent": "#34d399",
-} as const;
-
-// 기본(라이트)
-globalStyle(":root", { vars: lightVars });
-
-// 다크 모드
-globalStyle(":root", {
-  "@media": {
-    "(prefers-color-scheme: dark)": {
-      vars: darkVars,
-    },
-  },
-});
-
-/* ---------- Reset & Base ---------- */
-globalStyle("*", { boxSizing: "border-box" });
-globalStyle("html, body, #root", { height: "100%" });
-globalStyle("body", {
-  margin: 0,
-  background: "var(--bg)",
-  color: "var(--fg)",
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif',
-});
+import { style, keyframes } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
 export const container = style({
@@ -177,12 +133,6 @@ export const chipLabel = style({
   background: "transparent",
   fontSize: 14,
   cursor: "pointer",
-});
-
-globalStyle(`${chipInput}:checked + label`, {
-  background: "var(--brand)",
-  color: "#fff",
-  borderColor: "var(--brand)",
 });
 
 /* ---------- Key-Value & Text utils ---------- */

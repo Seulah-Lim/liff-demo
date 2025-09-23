@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastHost } from "@app/providers/toast/ToastHost";
+import "@app/css/global.css.ts";
 
 declare const __BUILD_TIME__: string;
 
