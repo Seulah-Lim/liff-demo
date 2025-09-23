@@ -94,7 +94,6 @@ export const btnDanger = style([
 export const list = style({
   display: "grid",
   gap: 10,
-  // <ol className="list">을 지원해야 하므로 list-style은 건드리지 않음
 });
 
 export const item = style({
