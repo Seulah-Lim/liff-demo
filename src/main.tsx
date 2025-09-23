@@ -40,7 +40,7 @@ const queryClient = new QueryClient();
 preInitCaptureLiffId();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/liff-demo/">
+    <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <App />
         <ToastHost />
