@@ -1,10 +1,15 @@
 // supportScreen.css.ts
-import { APP_BAR_HEIGHT, CTA_BOTTOM_GAP } from "@shared/const/layout";
+import {
+  APP_BAR_HEIGHT,
+  CTA_BOTTOM_GAP,
+  SAFE_AREA_BOTTOM,
+} from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
 export const container = style({
   paddingTop: APP_BAR_HEIGHT,
+  paddingBottom: SAFE_AREA_BOTTOM,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
