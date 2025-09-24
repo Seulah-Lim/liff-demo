@@ -58,8 +58,6 @@ export const cardInUse = style([
   },
 ]);
 
-export const hint = style({ fontSize: 12, color: "var(--muted)" });
-
 /* ---------- Rows / text ---------- */
 export const row = style({
   display: "flex",

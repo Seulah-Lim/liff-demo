@@ -81,11 +81,8 @@ export default function InUseNoticeScreen() {
             </div>
           </section>
           <section className={s.card}>
-            <h3 className={s.cardTitle}>가까운 반납 스테이션</h3>
+            <h3 className={s.cardTitle}>스테이션 정보</h3>
 
-            <div className={s.hint} style={{ marginBottom: 4 }}>
-              스테이션의 잔여 슬롯 정보를 제공
-            </div>
             <ul className={s.stationListMinimal} role="list">
               {nearbyStations.map((st) => {
                 const freeSlots = st.freeSlots;

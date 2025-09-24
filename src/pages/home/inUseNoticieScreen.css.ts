@@ -266,7 +266,6 @@ export const disclosureBtn = style({
   },
 });
 
-export const hint = style({ fontSize: 12, color: "var(--muted)" });
 // 상태 배지 색상 (여유/보통/혼잡/없음)
 export const status_여유 = style({
   borderColor: "rgba(20, 160, 80, .35)",
