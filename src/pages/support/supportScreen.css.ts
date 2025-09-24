@@ -1,11 +1,10 @@
 // supportScreen.css.ts
-import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
+import { APP_BAR_HEIGHT, CTA_BOTTOM_GAP } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
 export const container = style({
   paddingTop: APP_BAR_HEIGHT,
-  paddingBottom: CONTENT_BOTTOM_INSET,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -104,7 +103,7 @@ export const softHr = style({
 /* ---------- Buttons ---------- */
 export const fabSticky = style({
   position: "fixed",
-  bottom: 12,
+  bottom: CTA_BOTTOM_GAP,
   left: 12,
   right: 12,
   zIndex: 50,

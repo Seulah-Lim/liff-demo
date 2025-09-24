@@ -25,8 +25,8 @@ export const dots = style({
   display: "inline-flex",
   alignItems: "center",
   gap: 6,
-  color: "#fff", // 버튼이 어두운 배경이면 흰색; 필요시 inherit로 변경
-  minWidth: 54, // 레이아웃 점프 방지(“대여하기” 폭과 비슷)
+  color: "#fff",
+  minWidth: 54,
   justifyContent: "center",
 });
 

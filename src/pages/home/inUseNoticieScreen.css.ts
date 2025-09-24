@@ -5,7 +5,6 @@ import { style } from "@vanilla-extract/css";
 /* ----- Layout ----- */
 export const container = style({
   paddingTop: APP_BAR_HEIGHT,
-
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",

@@ -1,12 +1,12 @@
 // returnExtendGuide.css.ts
-import { APP_BAR_HEIGHT } from "@shared/const/layout";
+import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
 export const container = style({
   height: "100vh",
   paddingTop: APP_BAR_HEIGHT,
-
+  paddingBottom: CONTENT_BOTTOM_INSET,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",

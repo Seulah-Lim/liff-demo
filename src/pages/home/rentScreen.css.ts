@@ -1,4 +1,8 @@
-import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
+import {
+  APP_BAR_HEIGHT,
+  CONTENT_BOTTOM_INSET,
+  CTA_BOTTOM_GAP,
+} from "@shared/const/layout";
 import { style, keyframes } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
@@ -267,7 +271,7 @@ export const summaryValue = style({
 
 export const fabSticky = style({
   position: "fixed",
-  bottom: 12,
+  bottom: CTA_BOTTOM_GAP,
   left: 12,
   right: 12,
   zIndex: 50,
