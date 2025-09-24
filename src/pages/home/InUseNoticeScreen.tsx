@@ -11,17 +11,24 @@ export default function InUseNoticeScreen() {
   const nearbyStations: Station[] = useMemo(
     () => [
       {
+        id: "mtx-01",
+        name: "Motrex #1",
+        distance: "도보 6분",
+        freeSlots: 1,
+        totalSlots: 4,
+      },
+      {
         id: "ch-12",
         name: "City Hall #12",
         distance: "도보 2분",
-        freeSlots: 3,
+        freeSlots: 2,
         totalSlots: 4,
       },
       {
         id: "lib-03",
         name: "Central Library #3",
         distance: "450m",
-        freeSlots: 1,
+        freeSlots: 3,
         totalSlots: 4,
       },
       {
@@ -74,32 +81,41 @@ export default function InUseNoticeScreen() {
             </div>
           </section>
           <section className={s.card}>
-            <h3 className={s.cardTitle}>근처 스테이션</h3>
-            <ul className={s.stationListMinimal} role="list">
-              {nearbyStations.map((st) => (
-                <li key={st.id} className={s.stationRow}>
-                  <div className={s.stationMain}>
-                    <div className={s.stationName}>{st.name}</div>
-                    <div className={s.stationSub}>{st.distance}</div>
-                  </div>
-                  <div className={s.stationAside}>
-                    <span
-                      className={s.slotPill}
-                      aria-label={`빈 슬롯 ${st.freeSlots}개 / 총 ${st.totalSlots}개`}
-                    >
-                      {st.freeSlots}/{st.totalSlots}
-                    </span>
+            <h3 className={s.cardTitle}>가까운 반납 스테이션</h3>
 
-                    <button
-                      className={s.disclosureBtn}
-                      aria-hidden
-                      tabIndex={-1}
-                    >
-                      <span aria-hidden>&gt;</span>
-                    </button>
-                  </div>
-                </li>
-              ))}
+            <div className={s.hint} style={{ marginBottom: 4 }}>
+              스테이션의 잔여 슬롯 정보를 제공
+            </div>
+            <ul className={s.stationListMinimal} role="list">
+              {nearbyStations.map((st) => {
+                const freeSlots = st.freeSlots;
+                const status =
+                  freeSlots === 4
+                    ? "없음"
+                    : freeSlots === 3
+                    ? "혼잡"
+                    : freeSlots === 2
+                    ? "보통"
+                    : "여유";
+                return (
+                  <li key={st.id} className={s.stationRow}>
+                    <div className={s.stationMain}>
+                      <div className={s.stationName}>{st.name}</div>
+                      <div className={s.stationSub}>
+                        남은 자리 {st.freeSlots} / 전체 {st.totalSlots}
+                      </div>
+                    </div>
+                    <div className={s.stationAside}>
+                      <span
+                        className={`${s.slotPill} ${s[`status_${status}`]}`}
+                        aria-label={`남은 자리 ${st.freeSlots}개 / 전체 ${st.totalSlots}개 (${status})`}
+                      >
+                        {status}
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         </main>

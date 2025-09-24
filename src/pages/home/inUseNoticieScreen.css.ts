@@ -265,3 +265,29 @@ export const disclosureBtn = style({
     "&:focus-visible": { outline: "none", borderColor: "var(--border)" },
   },
 });
+
+export const hint = style({ fontSize: 12, color: "var(--muted)" });
+// 상태 배지 색상 (여유/보통/혼잡/없음)
+export const status_여유 = style({
+  borderColor: "rgba(20, 160, 80, .35)",
+  background: "rgba(20, 160, 80, .08)",
+  color: "rgb(20, 140, 80)",
+});
+
+export const status_보통 = style({
+  borderColor: "rgba(180, 140, 30, .35)",
+  background: "rgba(180, 140, 30, .08)",
+  color: "rgb(160, 120, 30)",
+});
+
+export const status_혼잡 = style({
+  borderColor: "rgba(200, 60, 60, .35)",
+  background: "rgba(200, 60, 60, .08)",
+  color: "rgb(180, 50, 50)",
+});
+
+export const status_없음 = style({
+  borderColor: "var(--border)",
+  background: "transparent",
+  color: "var(--muted)",
+});
