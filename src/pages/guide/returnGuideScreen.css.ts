@@ -6,6 +6,7 @@ import { style } from "@vanilla-extract/css";
 export const container = style({
   height: "100vh",
   paddingTop: APP_BAR_HEIGHT,
+
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -14,7 +15,6 @@ export const container = style({
 export const app = style({
   width: "100vw",
   maxWidth: "100vw",
-  minHeight: "100dvh",
   display: "flex",
   flexDirection: "column",
   background: "var(--bg)",
@@ -37,58 +37,10 @@ export const card = style({
   padding: 16,
 });
 
-export const row = style({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  gap: 8,
-  fontSize: 14,
+export const cardTitle = style({
+  margin: "0 0 8px 0",
+  fontSize: 16,
 });
-
-export const meta = style({ color: "var(--muted)", fontSize: 12 });
-
-export const sep = style({
-  height: 1,
-  background: "var(--border)",
-  margin: "12px 0",
-});
-
-/* ---------- Buttons ---------- */
-export const buttons = style({
-  display: "grid",
-  gridTemplateColumns: "1fr",
-  gap: 10,
-  padding: 0,
-});
-
-export const buttonsTwo = style([
-  buttons,
-  { gridTemplateColumns: "1fr 1fr", gap: 12 },
-]);
-
-export const btn = style({
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-  padding: "16px 14px",
-  borderRadius: 14,
-  border: "1px solid var(--border)",
-  background: "var(--brand)",
-  color: "#fff",
-  fontWeight: 700,
-  textDecoration: "none",
-});
-
-export const btnSecondary = style([
-  btn,
-  { background: "transparent", color: "var(--fg)" },
-]);
-
-export const btnDanger = style([
-  btn,
-  { background: "#ef4444", borderColor: "#ef4444", color: "#fff" },
-]);
 
 /* ---------- Lists / items ---------- */
 export const list = style({
@@ -96,90 +48,10 @@ export const list = style({
   gap: 10,
 });
 
-export const item = style({
-  display: "flex",
-  justifyContent: "space-between",
-  gap: 12,
-  padding: 12,
-  border: "1px solid var(--border)",
-  borderRadius: 12,
-  background: "transparent",
-});
-
-export const sub = style({ color: "var(--muted)", fontSize: 12 });
-
-/* ---------- Map placeholder ---------- */
-export const map = style({
-  height: 140,
-  border: "1px dashed var(--border)",
-  borderRadius: 12,
-  display: "grid",
-  placeItems: "center",
-  color: "var(--muted)",
-  fontSize: 12,
-});
-
-/* ---------- Form & helpers ---------- */
-export const label = style({
-  fontSize: 13,
-  color: "var(--muted)",
-  marginBottom: 6,
-});
-
-export const input = style({
-  width: "100%",
-  padding: 12,
-  borderRadius: 12,
-  border: "1px solid var(--border)",
-  background: "transparent",
-  color: "var(--fg)",
-  fontSize: 14,
-});
-
-export const textarea = style([input, { minHeight: 120, resize: "vertical" }]);
-
-export const file = style({ display: "flex", gap: 10, alignItems: "center" });
-
-export const hint = style({ fontSize: 12, color: "var(--muted)" });
-export const small = style({ fontSize: 12, color: "var(--muted)" });
-
-export const softHr = style({
-  border: 0,
+export const sep = style({
   height: 1,
   background: "var(--border)",
-  margin: "8px 0",
-});
-
-/* ---------- Badge & Pill ---------- */
-export const badge = style({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 6,
-  padding: "3px 8px",
-  borderRadius: 999,
-  background: "#eef2ff",
-  color: "#3730a3",
-  fontSize: 12,
-});
-
-export const pill = style({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 6,
-  padding: "2px 8px",
-  borderRadius: 999,
-  fontSize: 12,
-  border: "1px solid var(--border)",
-  background: "#e0e7ff", // 기본: blue 톤
-  color: "#3730a3",
-});
-
-export const dot = style({
-  width: 6,
-  height: 6,
-  borderRadius: "50%",
-  background: "currentColor",
-  display: "inline-block",
+  margin: "12px 0",
 });
 
 /* ---------- KV grid ---------- */
@@ -189,4 +61,131 @@ export const kv = style({
   gap: 8,
   fontSize: 15,
 });
+
 export const k = style({ color: "var(--muted)" });
+
+/* ---------- Map placeholder ---------- */
+export const map = style({
+  height: 140,
+  borderRadius: 12,
+  display: "grid",
+  placeItems: "center",
+  color: "var(--muted)",
+  fontSize: 12,
+
+  // 이미지용 공통 속성
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  // iOS 라운드 컷오프 보장
+  overflow: "hidden",
+});
+
+export const hint = style({ fontSize: 12, color: "var(--muted)" });
+
+/* ---------- Station list (minimal) ---------- */
+export const stationListMinimal = style({
+  listStyle: "none",
+  margin: 0,
+  padding: 0,
+  display: "grid",
+  gap: 8,
+});
+
+export const stationRow = style({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: 12,
+  padding: 12,
+  borderRadius: 12,
+  border: "1px solid var(--border)",
+  background: "var(--card)",
+  selectors: {
+    "&:hover": { background: "rgba(0,0,0,.03)" },
+    "&:active": { transform: "translateY(0.5px)" },
+  },
+  transition: "background .15s ease, transform .05s ease",
+});
+
+export const stationMain = style({
+  minWidth: 0,
+  display: "flex",
+  flexDirection: "column",
+  gap: 2,
+});
+
+export const stationName = style({
+  fontSize: 12,
+  fontWeight: 600,
+  color: "var(--fg)",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+});
+
+export const stationSub = style({
+  fontSize: 10,
+  color: "var(--muted)",
+});
+
+export const stationAside = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+});
+
+export const slotPill = style({
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  padding: "2px 10px",
+  borderRadius: 999,
+  fontSize: 12,
+  fontVariantNumeric: "tabular-nums",
+  border: "1px solid var(--border)",
+  background: "transparent",
+  color: "var(--fg)",
+});
+
+export const disclosureBtn = style({
+  width: 28,
+  height: 28,
+  borderRadius: 999,
+  border: "1px solid transparent",
+  background: "transparent",
+  color: "var(--muted)",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "default",
+  selectors: {
+    "&:hover": { color: "var(--fg)" },
+    "&:focus-visible": { outline: "none", borderColor: "var(--border)" },
+  },
+});
+
+// 상태 배지 색상 (여유/보통/혼잡/없음)
+export const status_여유 = style({
+  borderColor: "rgba(20, 160, 80, .35)",
+  background: "rgba(20, 160, 80, .08)",
+  color: "rgb(20, 140, 80)",
+});
+
+export const status_보통 = style({
+  borderColor: "rgba(180, 140, 30, .35)",
+  background: "rgba(180, 140, 30, .08)",
+  color: "rgb(160, 120, 30)",
+});
+
+export const status_혼잡 = style({
+  borderColor: "rgba(200, 60, 60, .35)",
+  background: "rgba(200, 60, 60, .08)",
+  color: "rgb(180, 50, 50)",
+});
+
+export const status_없음 = style({
+  borderColor: "var(--border)",
+  background: "transparent",
+  color: "var(--muted)",
+});
