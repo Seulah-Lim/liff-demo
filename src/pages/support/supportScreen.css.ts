@@ -1,11 +1,11 @@
 // supportScreen.css.ts
-import { APP_BAR_HEIGHT } from "@shared/const/layout";
+import { APP_BAR_HEIGHT, CONTENT_BOTTOM_INSET } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
 export const container = style({
-  height: "100vh",
   paddingTop: APP_BAR_HEIGHT,
+  paddingBottom: CONTENT_BOTTOM_INSET,
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -14,7 +14,6 @@ export const container = style({
 export const app = style({
   width: "100vw",
   maxWidth: "100vw",
-  minHeight: "100dvh",
   display: "flex",
   flexDirection: "column",
   background: "var(--bg)",
@@ -103,16 +102,19 @@ export const softHr = style({
 });
 
 /* ---------- Buttons ---------- */
+export const fabSticky = style({
+  position: "fixed",
+  bottom: 12,
+  left: 12,
+  right: 12,
+  zIndex: 50,
+});
+
 export const buttons = style({
   display: "grid",
-  gridTemplateColumns: "1fr",
-  gap: 10,
-  padding: 0,
+  gridTemplateColumns: "1fr 1fr",
+  gap: 12,
 });
-export const buttonsTwo = style([
-  buttons,
-  { gridTemplateColumns: "1fr 1fr", gap: 12 },
-]);
 
 export const btn = style({
   display: "inline-flex",
@@ -130,12 +132,7 @@ export const btn = style({
 
 export const btnSecondary = style([
   btn,
-  { background: "transparent", color: "var(--fg)" },
-]);
-
-export const btnDanger = style([
-  btn,
-  { background: "#ef4444", borderColor: "#ef4444", color: "#fff" },
+  { background: "#fff", color: "var(--brand)" },
 ]);
 
 /* ---------- Badge ---------- */

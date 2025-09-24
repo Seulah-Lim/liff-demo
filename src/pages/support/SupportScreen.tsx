@@ -29,16 +29,14 @@ export default function SupportScreen() {
             </div>
           </section>
 
-          <section className={s.card}>
-            <div className={s.buttonsTwo}>
-              <a className={s.btn} href="#">
-                제출
-              </a>
+          <div className={s.fabSticky}>
+            <div className={s.buttons}>
+              <div className={s.btn}>제출하기</div>
               <a className={s.btnSecondary} href="#">
                 고객센터 연결
               </a>
             </div>
-          </section>
+          </div>
         </main>
       </div>
     </div>
