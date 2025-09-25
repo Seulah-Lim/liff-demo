@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { useBidStore } from "@app/store/bidStore.ts";
 import * as s from "./rentScreen.css.ts";
-import { RentButton } from "@pages/home/RentButton.tsx";
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
@@ -9,7 +8,7 @@ import { toast } from "react-toastify";
 import { createSearchParams, useNavigate } from "react-router";
 
 import { showError } from "@shared/lib/toast/notify.ts";
-import { BottomSheet, Card } from "@shared/components/index.ts";
+import { BottomSheet, Button, Card } from "@shared/components/index.ts";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
 import { app, container, content } from "@shared/css";
 
@@ -237,12 +236,15 @@ export default function RentScreen() {
             </label>
           </Card>
           <div className={s.fabSticky}>
-            <RentButton
-              disabled={rent.isPending}
+            <Button
+              variant="primary"
+              isLoading={rent.isPending}
               onClick={() => {
                 setOpen(true);
               }}
-            />
+            >
+              대여하기
+            </Button>
           </div>
         </main>
       </div>

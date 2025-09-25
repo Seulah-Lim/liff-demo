@@ -89,22 +89,3 @@ export const sheetFooter = style({
   bottom: 0,
   background: "var(--card)",
 });
-
-export const sheetBtnBase = style({
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "14px 12px",
-  borderRadius: 12,
-  border: "1px solid var(--border)",
-  fontWeight: 700,
-  fontSize: 14,
-});
-export const sheetBtnPrimary = style([
-  sheetBtnBase,
-  { background: "var(--brand)", color: "#fff" },
-]);
-export const sheetBtnGhost = style([
-  sheetBtnBase,
-  { background: "transparent", color: "var(--fg)" },
-]);

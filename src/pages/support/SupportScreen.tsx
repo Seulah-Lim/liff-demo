@@ -1,4 +1,4 @@
-import { Card } from "@shared/components";
+import { Button, Card } from "@shared/components";
 import * as s from "./supportScreen.css";
 import { app, container, content } from "@shared/css";
 
@@ -32,11 +32,9 @@ export default function SupportScreen() {
           </Card>
 
           <div className={s.fabSticky}>
-            <div className={s.buttons}>
-              <div className={s.btn}>제출하기</div>
-              <a className={s.btnSecondary} href="#">
-                고객센터 연결
-              </a>
+            <div className={s.twoButtonsGrid}>
+              <Button variant="primary">제출하기</Button>
+              <Button variant="secondary">고객 센터 연결</Button>
             </div>
           </div>
         </main>

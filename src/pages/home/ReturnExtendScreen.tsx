@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useBidStore } from "@app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
-import { BottomSheet, Card } from "@shared/components";
+import { BottomSheet, Button, Card } from "@shared/components";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
 import { app, container, content } from "@shared/css";
 
@@ -139,13 +139,11 @@ export default function ReturnExtendScreen() {
             </ul>
           </Card>
           <div className={s.fabSticky}>
-            <div className={s.buttons}>
-              <div className={s.btn} onClick={() => setOpen(true)}>
+            <div className={s.twoButtonsGrid}>
+              <Button variant="primary" onClick={() => setOpen(true)}>
                 반납하기
-              </div>
-              <a className={s.btnSecondary} href="#">
-                연장하기
-              </a>
+              </Button>
+              <Button variant="secondary">연장하기</Button>
             </div>
           </div>
         </main>

@@ -2,6 +2,7 @@
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import * as s from "./bottomSheet.css";
+import { Button } from "@shared/components";
 
 type BottomSheetProps = {
   open: boolean;
@@ -13,7 +14,6 @@ type BottomSheetProps = {
   onCancel?: () => void; // 기본: onClose
   confirmLabel: string;
   onConfirm: () => void;
-  confirmAutoFocus?: boolean; // 기본: false
 
   // 스와이프(아래로 끌어 닫기)
   swipeToClose?: boolean; // 기본: true
@@ -32,7 +32,6 @@ export function BottomSheet({
   onCancel,
   confirmLabel,
   onConfirm,
-  confirmAutoFocus = false,
   swipeToClose = true,
   swipeCloseThreshold = 120,
   swipeVelocityThreshold = 0.5,
@@ -173,21 +172,16 @@ export function BottomSheet({
         <div className={s.sheetBody}>{children}</div>
 
         <div className={s.sheetFooter}>
-          <button
-            className={s.sheetBtnGhost}
-            type="button"
+          <Button
+            variant="secondary"
+            size="medium"
             onClick={onCancel ?? onClose}
           >
             {cancelLabel}
-          </button>
-          <button
-            className={s.sheetBtnPrimary}
-            type="button"
-            onClick={onConfirm}
-            autoFocus={confirmAutoFocus}
-          >
+          </Button>
+          <Button variant="primary" size="medium" onClick={onConfirm}>
             {confirmLabel}
-          </button>
+          </Button>
         </div>
       </div>
     </>,

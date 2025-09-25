@@ -13,30 +13,11 @@ export const row = style({
 export const meta = style({ color: "var(--muted)", fontSize: 12 });
 
 /* ---------- Buttons ---------- */
-export const buttons = style({
+export const twoButtonsGrid = style({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   gap: 12,
 });
-
-export const btn = style({
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-  padding: "16px 14px",
-  borderRadius: 14,
-  border: "1px solid var(--border)",
-  background: "var(--brand)",
-  color: "#fff",
-  fontWeight: 700,
-  textDecoration: "none",
-});
-
-export const btnSecondary = style([
-  btn,
-  { background: "#fff", color: "var(--brand)" },
-]);
 
 export const fabSticky = style({
   position: "fixed",
