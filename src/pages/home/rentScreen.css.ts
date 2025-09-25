@@ -1,4 +1,4 @@
-import { CTA_BOTTOM_GAP, SAFE_AREA_BOTTOM } from "@shared/const/layout";
+import { CTA_BOTTOM_GAP, SAFE_AREA_BOTTOM } from "@shared/const";
 import { style } from "@vanilla-extract/css";
 
 /* ---------- Card ---------- */

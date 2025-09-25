@@ -1,7 +1,7 @@
 import liff from "@line/liff";
 import { useBidStore } from "@app/store/bidStore";
 import { useHomeViewStore } from "@app/store/homeStore";
-import { getLiffId } from "@shared/const/liff_id";
+import { getLiffId } from "@shared/const";
 
 const ENDPOINT = import.meta.env.VITE_LIFF_ENDPOINT_URL;
 

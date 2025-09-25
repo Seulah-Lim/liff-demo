@@ -27,6 +27,7 @@
     "paths": {
       "@entities": ["src/entities/index.ts"],
       "@shared/components": ["src/shared/components/index.ts"],
+      "@shared/const": ["src/shared/const/index.ts"],
       "@shared/css": ["src/shared/css/index.ts"],
 
       "@app/*": ["src/app/*"],

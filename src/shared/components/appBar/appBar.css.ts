@@ -1,5 +1,5 @@
 // app/ui/AppBar/appBar.css.ts
-import { APP_BAR_HEIGHT } from "@shared/const/layout";
+import { APP_BAR_HEIGHT } from "@shared/const";
 import { style } from "@vanilla-extract/css";
 
 const SIDE_SAFE = 96;

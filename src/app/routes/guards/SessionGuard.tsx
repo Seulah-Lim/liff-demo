@@ -4,7 +4,7 @@ import { useLiffStore } from "@app/store/liffStore";
 import LoadingScreen from "@pages/common/Loading";
 import { useEffect } from "react";
 
-import { getLiffId, isAllowedLiffId } from "@shared/const/liff_id";
+import { getLiffId, isAllowedLiffId } from "@shared/const";
 import { AppBar } from "@shared/components";
 
 export default function SessionGuard() {

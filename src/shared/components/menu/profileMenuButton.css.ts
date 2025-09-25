@@ -1,4 +1,4 @@
-import { APP_BAR_HEIGHT } from "@shared/const/layout";
+import { APP_BAR_HEIGHT } from "@shared/const";
 import { style } from "@vanilla-extract/css";
 
 /** 오른쪽 아이콘 영역: 화면 오른쪽 끝 정렬 */

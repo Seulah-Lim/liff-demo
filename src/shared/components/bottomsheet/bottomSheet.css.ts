@@ -1,4 +1,4 @@
-import { SAFE_AREA_BOTTOM } from "@shared/const/layout";
+import { SAFE_AREA_BOTTOM } from "@shared/const";
 import { keyframes, style } from "@vanilla-extract/css";
 
 const slideUp = keyframes({

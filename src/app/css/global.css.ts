@@ -1,7 +1,7 @@
 /* ---------- CSS Variables (라이트/다크) ---------- */
 
 import { card, chipInput } from "@pages/home/rentScreen.css";
-import { CTA_AREA } from "@shared/const/layout";
+import { CTA_AREA } from "@shared/const";
 import { globalStyle } from "@vanilla-extract/css";
 
 const lightVars = {

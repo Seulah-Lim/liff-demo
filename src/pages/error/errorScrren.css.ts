@@ -1,4 +1,4 @@
-import { APP_BAR_HEIGHT } from "@shared/const/layout";
+import { APP_BAR_HEIGHT } from "@shared/const";
 import { style } from "@vanilla-extract/css";
 
 // 전체 배경

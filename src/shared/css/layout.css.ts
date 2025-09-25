@@ -1,8 +1,4 @@
-import {
-  APP_BAR_HEIGHT,
-  CTA_AREA,
-  SAFE_AREA_BOTTOM,
-} from "@shared/const/layout";
+import { APP_BAR_HEIGHT, CTA_AREA, SAFE_AREA_BOTTOM } from "@shared/const";
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
