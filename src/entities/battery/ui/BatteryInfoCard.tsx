@@ -1,4 +1,4 @@
-import { Card } from "@shared/ui";
+import { Card } from "@shared/components";
 import * as s from "./batteryInfoCard.css";
 
 export type BatteryHealth = "good" | "warn" | "poor";
@@ -74,7 +74,7 @@ export function BatteryInfoCard({ data }: Props) {
                   : "교체 권장"
               }`}
             >
-              ·{"성능 "}
+              ·{" 성능 "}
               {health === "good" ? "우수" : health === "warn" ? "보통" : "나쁨"}
             </span>
           )}

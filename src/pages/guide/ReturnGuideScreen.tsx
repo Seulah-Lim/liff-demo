@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import * as s from "./returnGuideScreen.css";
 import type { Station } from "@pages/home/ReturnExtendScreen";
+import { Card } from "@shared/components";
 
 export default function ReturnGuideScreen() {
   const IMAGE_URL =

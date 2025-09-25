@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { createSearchParams, useNavigate } from "react-router";
 
 import { showError } from "@shared/lib/toast/notify.ts";
-import { BottomSheet, Card } from "@shared/ui";
+import { BottomSheet, Card } from "@shared/components/index.ts";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
 
 type Preset = "30" | "60" | "120" | "custom";

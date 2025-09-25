@@ -5,7 +5,7 @@ import LoadingScreen from "@pages/common/Loading";
 import { useEffect } from "react";
 
 import { getLiffId, isAllowedLiffId } from "@shared/const/liff_id";
-import { AppBar } from "@shared/ui";
+import { AppBar } from "@shared/components";
 
 export default function SessionGuard() {
   const navigate = useNavigate();

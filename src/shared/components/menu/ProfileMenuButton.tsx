@@ -5,7 +5,7 @@ import * as s from "./profileMenuButton.css";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import liff from "@line/liff";
-import { Modal } from "@shared/ui";
+import { Modal } from "@shared/components";
 
 export function ProfileMenuButton() {
   const navigate = useNavigate();

@@ -9,8 +9,8 @@ import { useModalByQuery } from "@shared/hooks/useModalByQuery";
 
 import { useLiffStore } from "@app/store/liffStore";
 
-import { ProfileMenuButton } from "@shared/ui/menu/ProfileMenuButton";
-import { Modal } from "@shared/ui";
+import { ProfileMenuButton } from "@shared/components/menu/ProfileMenuButton";
+import { Modal } from "@shared/components";
 
 export function AppBar() {
   const { pathname } = useLocation();

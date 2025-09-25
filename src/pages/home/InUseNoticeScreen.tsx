@@ -3,7 +3,7 @@ import { useBidStore } from "@app/store/bidStore.ts";
 import * as s from "./inUseNoticieScreen.css.ts";
 import { useMemo } from "react";
 import type { Station } from "@pages/home/ReturnExtendScreen.tsx";
-import { Card } from "@shared/ui";
+import { Card } from "@shared/components/index.ts";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
 
 export default function InUseNoticeScreen() {

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useBidStore } from "@app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
-import { BottomSheet, Card } from "@shared/ui";
+import { BottomSheet, Card } from "@shared/components";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
 
 export type Station = {
