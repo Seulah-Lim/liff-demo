@@ -11,6 +11,7 @@ import { createSearchParams, useNavigate } from "react-router";
 import { showError } from "@shared/lib/toast/notify.ts";
 import { BottomSheet, Card } from "@shared/components/index.ts";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
+import { app, container, content } from "@shared/css";
 
 type Preset = "30" | "60" | "120" | "custom";
 
@@ -134,9 +135,9 @@ export default function RentScreen() {
   };
 
   return (
-    <div className={s.container}>
-      <div className={s.app}>
-        <main className={s.content}>
+    <div className={container({ cta: true })}>
+      <div className={app}>
+        <main className={content}>
           <BatteryInfoCard data={info} />
           <Card title="시간 선택">
             <div className={s.chips}>

@@ -3,6 +3,7 @@ import { useBidStore } from "@app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
 import { BottomSheet, Card } from "@shared/components";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
+import { app, container, content } from "@shared/css";
 
 export type Station = {
   id: string;
@@ -70,9 +71,9 @@ export default function ReturnExtendScreen() {
     ).padStart(2, "0")}`;
 
   return (
-    <div className={s.container}>
-      <div className={s.app}>
-        <main className={s.content}>
+    <div className={container({ cta: true })}>
+      <div className={app}>
+        <main className={content}>
           {/* <section className={s.cardInUse}>
             <img
               src={IMAGE_URL}

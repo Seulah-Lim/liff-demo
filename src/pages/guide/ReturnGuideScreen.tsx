@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import * as s from "./returnGuideScreen.css";
 import type { Station } from "@pages/home/ReturnExtendScreen";
 import { Card } from "@shared/components";
+import { app, container, content } from "@shared/css";
 
 export default function ReturnGuideScreen() {
   const IMAGE_URL =
@@ -52,12 +53,10 @@ export default function ReturnGuideScreen() {
   };
 
   return (
-    <div className={s.container}>
-      <div className={s.app}>
-        <main className={s.content}>
-          <section className={s.card}>
-            <h3 className={s.cardTitle}>반납 방법 안내</h3>
-
+    <div className={container()}>
+      <div className={app}>
+        <main className={content}>
+          <Card title="반납 방법 안내">
             <ol
               className={s.list}
               style={{ listStyle: "decimal", paddingLeft: 18 }}
@@ -69,9 +68,8 @@ export default function ReturnGuideScreen() {
             <div className={s.hint}>
               ※ 반납 후에는 앱 화면에서 ‘반납 완료’ 상태를 확인하세요.
             </div>
-          </section>
-          <section className={s.card}>
-            <h3 className={s.cardTitle}>반납 스테이션 안내</h3>
+          </Card>
+          <Card title="반납 스테이션 안내">
             <div className={s.hint} style={{ marginBottom: 4 }}>
               지점 내 스테이션들 위치
             </div>
@@ -145,9 +143,8 @@ export default function ReturnGuideScreen() {
                 )}
               </div>
             </div>
-          </section>
-          <section className={s.card}>
-            <h3 className={s.cardTitle}>스테이션 정보</h3>
+          </Card>
+          <Card title="스테이션 정보">
             <ul className={s.stationListMinimal} role="list">
               {nearbyStations.map((st) => {
                 const freeSlots = st.freeSlots;
@@ -179,7 +176,7 @@ export default function ReturnGuideScreen() {
                 );
               })}
             </ul>
-          </section>
+          </Card>
         </main>
       </div>
     </div>

@@ -1,44 +1,6 @@
 // supportScreen.css.ts
-import {
-  APP_BAR_HEIGHT,
-  CTA_BOTTOM_GAP,
-  SAFE_AREA_BOTTOM,
-} from "@shared/const/layout";
+import { CTA_BOTTOM_GAP, SAFE_AREA_BOTTOM } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
-
-/* ---------- Layout ---------- */
-export const container = style({
-  paddingTop: APP_BAR_HEIGHT,
-  paddingBottom: SAFE_AREA_BOTTOM,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "stretch",
-});
-
-export const app = style({
-  width: "100vw",
-  maxWidth: "100vw",
-  display: "flex",
-  flexDirection: "column",
-  background: "var(--bg)",
-});
-
-export const content = style({
-  flex: 1,
-  display: "grid",
-  gap: 12,
-  gridTemplateRows: "auto auto 1fr auto", // 정보 / 시간선택 / 가변 / 버튼
-  padding: 12,
-});
-
-/* ---------- Card ---------- */
-export const card = style({
-  background: "var(--card)",
-  border: "1px solid var(--border)",
-  borderRadius: 16,
-  boxShadow: "0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04)",
-  padding: 16,
-});
 
 export const sep = style({
   height: 1,
@@ -108,7 +70,7 @@ export const softHr = style({
 /* ---------- Buttons ---------- */
 export const fabSticky = style({
   position: "fixed",
-  bottom: CTA_BOTTOM_GAP,
+  bottom: `calc(${SAFE_AREA_BOTTOM} + ${CTA_BOTTOM_GAP})`,
   left: 12,
   right: 12,
   zIndex: 50,

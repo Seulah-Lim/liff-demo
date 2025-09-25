@@ -1,7 +1,7 @@
 /* ---------- CSS Variables (라이트/다크) ---------- */
 
 import { card, chipInput } from "@pages/home/rentScreen.css";
-import { TOAST_GAP } from "@shared/const/layout";
+import { CTA_AREA } from "@shared/const/layout";
 import { globalStyle } from "@vanilla-extract/css";
 
 const lightVars = {
@@ -47,7 +47,7 @@ globalStyle("body", {
 
 /** Used to define container behavior: width, position: fixed etc... **/
 globalStyle(".Toastify__toast-container", {
-  padding: `0px 12px calc(${TOAST_GAP} + 12px) 12px`,
+  padding: `0px 12px calc(${CTA_AREA} + 12px) 12px`,
 });
 
 /** Classes for the displayed toast **/

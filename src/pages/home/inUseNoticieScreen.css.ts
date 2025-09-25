@@ -1,31 +1,5 @@
 // inUseNotice.css.ts
-import { APP_BAR_HEIGHT, SAFE_AREA_BOTTOM } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
-
-/* ----- Layout ----- */
-export const container = style({
-  paddingTop: APP_BAR_HEIGHT,
-  paddingBottom: SAFE_AREA_BOTTOM,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "stretch",
-});
-
-export const app = style({
-  width: "100vw",
-  maxWidth: "100vw",
-  display: "flex",
-  flexDirection: "column",
-  background: "var(--bg)",
-});
-
-export const content = style({
-  flex: 1,
-  display: "grid",
-  gap: 12,
-  padding: 12,
-  gridTemplateRows: "auto auto",
-});
 
 export const meta = style({
   color: "#6b7280",

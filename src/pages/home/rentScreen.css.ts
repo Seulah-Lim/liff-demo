@@ -1,34 +1,5 @@
-import {
-  APP_BAR_HEIGHT,
-  CONTENT_BOTTOM_INSET,
-  CTA_BOTTOM_GAP,
-} from "@shared/const/layout";
+import { CTA_BOTTOM_GAP, SAFE_AREA_BOTTOM } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
-
-/* ---------- Layout ---------- */
-export const container = style({
-  paddingTop: APP_BAR_HEIGHT,
-  paddingBottom: CONTENT_BOTTOM_INSET,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "stretch",
-});
-
-export const app = style({
-  width: "100vw",
-  maxWidth: "100vw",
-  display: "flex",
-  flexDirection: "column",
-  background: "var(--bg)",
-});
-
-export const content = style({
-  flex: 1,
-  display: "grid",
-  gap: 12,
-  gridTemplateRows: "auto auto 1fr auto", // 정보 / 시간선택 / 가변 / 버튼
-  padding: 12,
-});
 
 /* ---------- Card ---------- */
 export const card = style({
@@ -203,7 +174,7 @@ export const summaryValue = style({
 
 export const fabSticky = style({
   position: "fixed",
-  bottom: CTA_BOTTOM_GAP,
+  bottom: `calc(${SAFE_AREA_BOTTOM} + ${CTA_BOTTOM_GAP})`,
   left: 12,
   right: 12,
   zIndex: 50,

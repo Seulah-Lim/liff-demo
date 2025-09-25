@@ -1,11 +1,13 @@
+import { Card } from "@shared/components";
 import * as s from "./supportScreen.css";
+import { app, container, content } from "@shared/css";
 
 export default function SupportScreen() {
   return (
-    <div className={s.container}>
-      <div className={s.app}>
-        <main className={s.content}>
-          <section className={s.card}>
+    <div className={container({ cta: true })}>
+      <div className={app}>
+        <main className={content}>
+          <Card>
             <div className={s.label}>사유</div>
             <textarea
               className={s.textarea}
@@ -27,7 +29,7 @@ export default function SupportScreen() {
             <div className={s.hint}>
               장소·상태가 보이도록 촬영해주세요. (개인정보 노출 주의)
             </div>
-          </section>
+          </Card>
 
           <div className={s.fabSticky}>
             <div className={s.buttons}>

@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import type { Station } from "@pages/home/ReturnExtendScreen.tsx";
 import { Card } from "@shared/components/index.ts";
 import { BatteryInfoCard, type BatteryInfo } from "@entities";
+import { app, container, content } from "@shared/css";
 
 export default function InUseNoticeScreen() {
   const IMAGE_URL = "https://i.postimg.cc/rpkz8RHV/OC-Image-1-1536x1025.webp";
@@ -54,9 +55,9 @@ export default function InUseNoticeScreen() {
   );
 
   return (
-    <div className={s.container}>
-      <div className={s.app}>
-        <main className={s.content}>
+    <div className={container()}>
+      <div className={app}>
+        <main className={content}>
           {/* 1) 대여 불가 안내 + 배터리 정보 */}
           <div className={s.banner}>
             <div className={s.iconCircle}>!</div>
