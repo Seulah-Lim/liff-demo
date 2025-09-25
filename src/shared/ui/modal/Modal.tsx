@@ -31,7 +31,7 @@ type ModalProps = {
   actions?: ModalAction[]; // 0~2개 권장
 };
 
-export default function Modal({
+export function Modal({
   open,
   onOpenChange,
   title,

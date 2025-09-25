@@ -1,12 +1,13 @@
 import { useLiffStore } from "@app/store/liffStore";
 import { useModalByQuery } from "@shared/hooks/useModalByQuery";
-import Modal from "@shared/ui/modal/Modal";
+
 import * as s from "./profileMenuButton.css";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import liff from "@line/liff";
+import { Modal } from "@shared/ui";
 
-export default function ProfileMenuButton() {
+export function ProfileMenuButton() {
   const navigate = useNavigate();
   const { logout } = useLiffStore();
   const { pathname } = useLocation();

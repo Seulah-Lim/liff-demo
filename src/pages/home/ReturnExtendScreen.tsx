@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useBidStore } from "@app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
-import { BottomSheet } from "@shared/ui/bottomsheet/BottomSheet";
+import { BottomSheet } from "@shared/ui";
 
 export type Station = {
   id: string;

@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { showError } from "@shared/lib/toast/notify.ts";
 import { createSearchParams, useNavigate } from "react-router";
-import { BottomSheet } from "@shared/ui/bottomsheet/BottomSheet.tsx";
+import { BottomSheet } from "@shared/ui/";
 
 type Preset = "30" | "60" | "120" | "custom";
 
@@ -142,6 +142,17 @@ export default function RentScreen() {
                 <span>{bid ?? "-"}</span>
                 <span className={`${s.pill} ${s.pillGreen}`}>
                   <span className={s.dot} /> Available
+                </span>
+              </div>
+
+              <div className={s.k}>잔여 배터리</div>
+              <div className={s.batteryValue}>
+                85%
+                <span
+                  className={`${s.metaHint} ${s.healthGood}`}
+                  aria-label="성능: 우수"
+                >
+                  · 성능 우수
                 </span>
               </div>
 

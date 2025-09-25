@@ -3,8 +3,9 @@ import { Navigate, Outlet, useNavigate } from "react-router";
 import { useLiffStore } from "@app/store/liffStore";
 import LoadingScreen from "@pages/common/Loading";
 import { useEffect } from "react";
-import AppBar from "@shared/ui/appBar/AppBar";
+
 import { getLiffId, isAllowedLiffId } from "@shared/const/liff_id";
+import { AppBar } from "@shared/ui";
 
 export default function SessionGuard() {
   const navigate = useNavigate();

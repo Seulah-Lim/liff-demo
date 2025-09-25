@@ -150,6 +150,39 @@ export const k = style({ color: "var(--muted)" });
 export const small = style({ fontSize: 12, color: "var(--muted)" });
 export const meta = style({ fontSize: 12, color: "var(--muted)" });
 
+export const batteryValue = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 6,
+});
+
+export const metaHint = style({
+  fontSize: 13,
+  color: "var(--muted)",
+  paddingLeft: 2,
+  opacity: 0.7,
+});
+export const healthGood = style({
+  color: "#16a34a", // green-600
+  "@media": {
+    "(prefers-color-scheme: dark)": { color: "#34d399" }, // emerald-400
+  },
+});
+
+export const healthWarn = style({
+  color: "#d97706", // amber-600
+  "@media": {
+    "(prefers-color-scheme: dark)": { color: "#fbbf24" }, // amber-400
+  },
+});
+
+export const healthPoor = style({
+  color: "#dc2626", // red-600
+  "@media": {
+    "(prefers-color-scheme: dark)": { color: "#f87171" }, // red-400
+  },
+});
+
 /* ---------- Pills (status) ---------- */
 export const pill = style({
   display: "inline-flex",

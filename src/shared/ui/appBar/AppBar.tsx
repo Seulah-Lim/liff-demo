@@ -6,11 +6,13 @@ import { buildMainPermanentLink } from "@shared/lib/liff/buildLinks";
 import { parseHomeView, useHomeViewStore } from "@app/store/homeStore";
 import liff from "@line/liff";
 import { useModalByQuery } from "@shared/hooks/useModalByQuery";
-import Modal from "@shared/ui/modal/Modal";
-import ProfileMenuButton from "@shared/ui/menu/ProfileMenuButton";
+
 import { useLiffStore } from "@app/store/liffStore";
 
-export default function AppBar() {
+import { ProfileMenuButton } from "@shared/ui/menu/ProfileMenuButton";
+import { Modal } from "@shared/ui";
+
+export function AppBar() {
   const { pathname } = useLocation();
   const [sp] = useSearchParams();
   const { lastView } = useHomeViewStore();

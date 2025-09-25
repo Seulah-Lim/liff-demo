@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import * as s from "./bottomNavi.css";
 import { useHomeViewStore } from "@app/store/homeStore";
 
-export function BottomNav() {
+export function BottomNavi() {
   const { lastView } = useHomeViewStore();
   const homeTo =
     lastView !== "homehub"
