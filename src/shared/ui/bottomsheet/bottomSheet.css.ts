@@ -1,3 +1,4 @@
+import { SAFE_AREA_BOTTOM } from "@shared/const/layout";
 import { keyframes, style } from "@vanilla-extract/css";
 
 const slideUp = keyframes({
@@ -32,7 +33,7 @@ export const sheet = style({
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
   boxShadow: "0 -8px 24px rgba(0,0,0,.2)",
-  padding: "0px 16px 20px 16px",
+  padding: `0px 16px calc(20px + ${SAFE_AREA_BOTTOM}) 16px`,
   zIndex: 60,
   maxHeight: "80dvh",
   display: "grid",

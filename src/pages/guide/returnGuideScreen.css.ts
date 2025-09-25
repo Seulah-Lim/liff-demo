@@ -1,10 +1,8 @@
-// returnExtendGuide.css.ts
 import { APP_BAR_HEIGHT, SAFE_AREA_BOTTOM } from "@shared/const/layout";
 import { style } from "@vanilla-extract/css";
 
 /* ---------- Layout ---------- */
 export const container = style({
-  height: "100vh",
   paddingTop: APP_BAR_HEIGHT,
   paddingBottom: SAFE_AREA_BOTTOM,
   display: "flex",
