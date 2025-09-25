@@ -5,9 +5,12 @@ import { RentButton } from "@pages/home/RentButton.tsx";
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { showError } from "@shared/lib/toast/notify.ts";
+
 import { createSearchParams, useNavigate } from "react-router";
-import { BottomSheet } from "@shared/ui/";
+
+import { showError } from "@shared/lib/toast/notify.ts";
+import { BottomSheet, Card } from "@shared/ui";
+import { BatteryInfoCard, type BatteryInfo } from "@entities";
 
 type Preset = "30" | "60" | "120" | "custom";
 
@@ -87,7 +90,15 @@ export default function RentScreen() {
     if (h === 12) h = 11;
     setCustomMin(clampToStep(h * 60 + m));
   };
-
+  const info: BatteryInfo = {
+    model: "OC Portable Battery",
+    bid,
+    status: "AVAILABLE",
+    socPercent: 85,
+    health: "good",
+    stationName: "City Hall #12",
+    imageUrl: IMAGE_URL,
+  };
   // 바텀시트
   const [open, setOpen] = useState(false);
   const NOW_TS = useRef<number>(Date.now()).current;
@@ -126,44 +137,8 @@ export default function RentScreen() {
     <div className={s.container}>
       <div className={s.app}>
         <main className={s.content}>
-          <section className={s.cardAvailable}>
-            <img
-              src={IMAGE_URL}
-              alt="Battery preview"
-              className={s.imageCover}
-            />
-
-            <div className={s.kv}>
-              <div className={s.k}>모델</div>
-              <div>OC Portable Battery</div>
-
-              <div className={s.k}>배터리ID</div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span>{bid ?? "-"}</span>
-                <span className={`${s.pill} ${s.pillGreen}`}>
-                  <span className={s.dot} /> Available
-                </span>
-              </div>
-
-              <div className={s.k}>잔여 배터리</div>
-              <div className={s.batteryValue}>
-                85%
-                <span
-                  className={`${s.metaHint} ${s.healthGood}`}
-                  aria-label="성능: 우수"
-                >
-                  · 성능 우수
-                </span>
-              </div>
-
-              <div className={s.k}>스테이션</div>
-              <div>City Hall #12</div>
-            </div>
-          </section>
-
-          {/* 시간 선택 */}
-          <section className={s.card}>
-            <h3 className={s.cardTitle}>시간 선택</h3>
+          <BatteryInfoCard data={info} />
+          <Card title="시간 선택">
             <div className={s.chips}>
               {[
                 { id: "t30", label: "30분", value: "30" },
@@ -259,7 +234,7 @@ export default function RentScreen() {
               <input type="checkbox" defaultChecked />
               <span className={s.small}>약관에 동의합니다</span>
             </label>
-          </section>
+          </Card>
           <div className={s.fabSticky}>
             <RentButton
               disabled={rent.isPending}

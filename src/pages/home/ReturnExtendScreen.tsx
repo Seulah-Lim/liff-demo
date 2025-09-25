@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { useBidStore } from "@app/store/bidStore";
 import * as s from "./returnExtendScreen.css";
-import { BottomSheet } from "@shared/ui";
+import { BottomSheet, Card } from "@shared/ui";
+import { BatteryInfoCard, type BatteryInfo } from "@entities";
 
 export type Station = {
   id: string;
@@ -17,6 +18,15 @@ export default function ReturnExtendScreen() {
   const [open, setOpen] = useState(false);
 
   // 더미 데이터
+  const info: BatteryInfo = {
+    model: "OC Portable Battery",
+    bid,
+    status: "RENTED_BY_ME",
+    socPercent: 75,
+    health: "warn",
+    stationName: "City Hall #12",
+    imageUrl: IMAGE_URL,
+  };
   const nearbyStations: Station[] = useMemo(
     () => [
       {
@@ -63,7 +73,7 @@ export default function ReturnExtendScreen() {
     <div className={s.container}>
       <div className={s.app}>
         <main className={s.content}>
-          <section className={s.cardInUse}>
+          {/* <section className={s.cardInUse}>
             <img
               src={IMAGE_URL}
               alt="Battery preview"
@@ -85,18 +95,16 @@ export default function ReturnExtendScreen() {
               <div className={s.k}>대여 지점</div>
               <div>City Hall #12</div>
             </div>
-          </section>
-
-          <section className={s.card}>
-            <h3 className={s.cardTitle}>반납 시간</h3>
+          </section> */}
+          <BatteryInfoCard data={info} />
+          <Card title="반납 시간">
             <div className={s.rowBetween}>
               <span className={s.meta}>만료 예정</span>
               <strong className={s.datetime}>{fmt(expiresAt)}</strong>
             </div>
-          </section>
+          </Card>
 
-          <section className={s.card}>
-            <h3 className={s.cardTitle}>스테이션 정보</h3>
+          <Card title="스테이션 정보">
             <ul className={s.stationListMinimal} role="list">
               {nearbyStations.map((st) => {
                 const freeSlots = st.freeSlots;
@@ -128,7 +136,7 @@ export default function ReturnExtendScreen() {
                 );
               })}
             </ul>
-          </section>
+          </Card>
           <div className={s.fabSticky}>
             <div className={s.buttons}>
               <div className={s.btn} onClick={() => setOpen(true)}>

@@ -25,6 +25,7 @@
 
     "baseUrl": ".",
     "paths": {
+      "@entities": ["src/entities/index.ts"],
       "@shared/ui": ["src/shared/ui/index.ts"],
 
       "@app/*": ["src/app/*"],

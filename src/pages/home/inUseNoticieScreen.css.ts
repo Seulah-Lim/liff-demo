@@ -27,49 +27,6 @@ export const content = style({
   gridTemplateRows: "auto auto",
 });
 
-/* ----- Card / blocks ----- */
-export const card = style({
-  background: "var(--card)",
-  border: "1px solid var(--border)",
-  borderRadius: 16,
-  boxShadow: "0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04)",
-  padding: 16,
-});
-
-export const cardTitle = style({
-  margin: "0 0 8px 0",
-  fontSize: 16,
-});
-export const cardTint = style([
-  card,
-  {
-    background: "linear-gradient(0deg, var(--tint), var(--tint)), var(--card)",
-  },
-]);
-
-export const cardBusy = style([
-  cardTint,
-  {
-    vars: { "--tint": "rgba(239,68,68,0.06)" },
-    "@media": {
-      "(prefers-color-scheme: dark)": {
-        vars: { "--tint": "rgba(239,68,68,0.10)" },
-      },
-    },
-  },
-]);
-/* key-value grid */
-export const kv = style({
-  display: "grid",
-  gridTemplateColumns: "110px 1fr",
-  gap: 8,
-  fontSize: 15,
-});
-
-export const keyText = style({
-  color: "#6b7280",
-});
-
 export const meta = style({
   color: "#6b7280",
   fontSize: 12,
@@ -112,27 +69,6 @@ export const buttons = style({
   gap: 12,
 });
 
-/* ----- Pill badges ----- */
-export const pill = style({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 6,
-  padding: "2px 8px",
-  borderRadius: 999,
-  fontSize: 12,
-  border: "1px solid #a5b4fc",
-  background: "#e0e7ff",
-  color: "#3730a3",
-});
-
-export const dot = style({
-  width: 6,
-  height: 6,
-  borderRadius: "50%",
-  background: "currentColor",
-  display: "inline-block",
-});
-
 /* ----- Banner ----- */
 
 export const banner = style({
@@ -141,7 +77,6 @@ export const banner = style({
   alignItems: "flex-start",
   padding: 12,
   borderRadius: 12,
-  marginBottom: 12,
   background: "rgba(239, 68, 68, 0.10)",
   color: "var(--fg)",
   "@media": {
@@ -172,16 +107,6 @@ export const iconCircle = style({
         "0 1px 0 rgba(0,0,0,0.16), inset 0 0 0 1px rgba(255,255,255,0.04)",
     },
   },
-});
-
-export const imageCover = style({
-  width: "100%",
-  height: 120,
-  objectFit: "cover",
-  objectPosition: "center",
-  borderRadius: 12,
-  border: "1px solid #e5e7eb",
-  marginBottom: 12,
 });
 
 /* ---------- Station list (minimal) ---------- */

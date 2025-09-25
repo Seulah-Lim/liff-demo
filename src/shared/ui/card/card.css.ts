@@ -9,3 +9,19 @@ export const card = style({
   boxShadow: "0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04)",
   padding: 16,
 });
+
+export const withAdaptiveTint = style({
+  vars: {
+    "--tint": "var(--tint-light, transparent)",
+  },
+  "@media": {
+    "(prefers-color-scheme: dark)": {
+      vars: { "--tint": "var(--tint-dark, transparent)" },
+    },
+  },
+});
+
+export const cardTitle = style({
+  margin: "0 0 8px 0",
+  fontSize: 16,
+});

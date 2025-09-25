@@ -3,11 +3,22 @@ import { useBidStore } from "@app/store/bidStore.ts";
 import * as s from "./inUseNoticieScreen.css.ts";
 import { useMemo } from "react";
 import type { Station } from "@pages/home/ReturnExtendScreen.tsx";
+import { Card } from "@shared/ui";
+import { BatteryInfoCard, type BatteryInfo } from "@entities";
 
 export default function InUseNoticeScreen() {
   const IMAGE_URL = "https://i.postimg.cc/rpkz8RHV/OC-Image-1-1536x1025.webp";
   const bid = useBidStore((s) => s.bid);
   // 더미 데이터
+  const info: BatteryInfo = {
+    model: "OC Portable Battery",
+    bid,
+    status: "RENTED_BY_OTHER",
+    socPercent: 30,
+    health: "poor",
+    stationName: "City Hall #12",
+    imageUrl: IMAGE_URL,
+  };
   const nearbyStations: Station[] = useMemo(
     () => [
       {
@@ -47,42 +58,19 @@ export default function InUseNoticeScreen() {
       <div className={s.app}>
         <main className={s.content}>
           {/* 1) 대여 불가 안내 + 배터리 정보 */}
-          <section className={s.cardBusy}>
-            <div className={s.banner}>
-              <div className={s.iconCircle}>!</div>
-              <div>
-                <div style={{ fontWeight: 700 }}>지금은 대여할 수 없어요</div>
-                <div className={s.meta}>
-                  다른 사용자가 이 배터리를 사용 중입니다.
-                </div>
+          <div className={s.banner}>
+            <div className={s.iconCircle}>!</div>
+            <div>
+              <div style={{ fontWeight: 700 }}>지금은 대여할 수 없어요</div>
+              <div className={s.meta}>
+                다른 사용자가 이 배터리를 사용 중입니다.
               </div>
             </div>
+          </div>
 
-            <img
-              src={IMAGE_URL}
-              alt="Battery preview"
-              className={s.imageCover}
-            />
+          <BatteryInfoCard data={info} />
 
-            <div className={s.kv}>
-              <div className={s.keyText}>모델</div>
-              <div>OC Portable Battery</div>
-
-              <div className={s.keyText}>배터리ID</div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span>{bid ?? "-"}</span>
-                <span className={s.pill}>
-                  <span className={s.dot} /> In use
-                </span>
-              </div>
-
-              <div className={s.keyText}>스테이션</div>
-              <div>City Hall #12</div>
-            </div>
-          </section>
-          <section className={s.card}>
-            <h3 className={s.cardTitle}>스테이션 정보</h3>
-
+          <Card title="스테이션 정보">
             <ul className={s.stationListMinimal} role="list">
               {nearbyStations.map((st) => {
                 const freeSlots = st.freeSlots;
@@ -114,7 +102,7 @@ export default function InUseNoticeScreen() {
                 );
               })}
             </ul>
-          </section>
+          </Card>
         </main>
       </div>
     </div>

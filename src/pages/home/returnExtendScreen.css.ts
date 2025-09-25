@@ -29,39 +29,6 @@ export const content = style({
   padding: 12,
 });
 
-/* ---------- Card ---------- */
-export const card = style({
-  background: "var(--card)",
-  border: "1px solid var(--border)",
-  borderRadius: 16,
-  boxShadow: "0 1px 0 rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04)",
-  padding: 16,
-});
-
-export const cardTitle = style({
-  margin: "0 0 8px 0",
-  fontSize: 16,
-});
-
-export const cardTint = style([
-  card,
-  {
-    background: "linear-gradient(0deg, var(--tint), var(--tint)), var(--card)",
-  },
-]);
-
-export const cardInUse = style([
-  cardTint,
-  {
-    vars: { "--tint": "rgba(99,102,241,0.06)" },
-    "@media": {
-      "(prefers-color-scheme: dark)": {
-        vars: { "--tint": "rgba(99,102,241,0.10)" },
-      },
-    },
-  },
-]);
-
 /* ---------- Rows / text ---------- */
 export const row = style({
   display: "flex",
@@ -98,48 +65,6 @@ export const btnSecondary = style([
   btn,
   { background: "#fff", color: "var(--brand)" },
 ]);
-
-/* ---------- KV grid ---------- */
-export const kv = style({
-  display: "grid",
-  gridTemplateColumns: "110px 1fr",
-  gap: 8,
-  fontSize: 15,
-});
-
-export const k = style({ color: "var(--muted)" });
-
-/* ---------- Image ---------- */
-export const imageCover = style({
-  width: "100%",
-  height: 120,
-  objectFit: "cover",
-  objectPosition: "center",
-  borderRadius: 12,
-  border: "1px solid var(--border)",
-  marginBottom: 12,
-});
-
-/* ---------- Pill (status) ---------- */
-export const pill = style({
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 6,
-  padding: "2px 8px",
-  borderRadius: 999,
-  fontSize: 12,
-  border: "1px solid #a5b4fc",
-  background: "#e0e7ff",
-  color: "#3730a3",
-});
-
-export const dot = style({
-  width: 6,
-  height: 6,
-  borderRadius: "50%",
-  background: "currentColor",
-  display: "inline-block",
-});
 
 export const fabSticky = style({
   position: "fixed",
@@ -198,36 +123,6 @@ export const rowInline = style({
 
 /* ---------- Datetime ---------- */
 export const datetime = style({
-  fontVariantNumeric: "tabular-nums",
-});
-
-/* ---------- Battery meter ---------- */
-export const batteryWrap = style({
-  display: "flex",
-  alignItems: "center",
-  gap: 8,
-});
-
-export const batteryBar = style({
-  position: "relative",
-  width: "100%",
-  height: 8,
-  borderRadius: 999,
-  background: "linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.02))",
-  border: "1px solid var(--border)",
-  overflow: "hidden",
-});
-
-export const batteryFill = style({
-  height: "100%",
-  borderRadius: 999,
-  background: "var(--accent)",
-  transition: "width .25s ease",
-});
-
-export const batteryPct = style({
-  fontSize: 12,
-  color: "var(--muted)",
   fontVariantNumeric: "tabular-nums",
 });
 
