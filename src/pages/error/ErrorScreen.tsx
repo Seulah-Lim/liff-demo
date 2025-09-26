@@ -2,6 +2,7 @@ import * as s from "./errorScrren.css";
 import Lottie from "lottie-react";
 import errorLottie from "@shared/assets/lottie/error.json";
 import noDataLottie from "@shared/assets/lottie/no_user.json";
+import { Button } from "@shared/components";
 
 export type ErrorKind =
   | "NOT_LIFF"
@@ -76,7 +77,6 @@ function getDefaultConfig(kind: ErrorKind) {
 
 export const ErrorScreen: React.FC<ErrorScreenProps> = ({
   kind,
-
   primaryLabel,
   onPrimary,
   secondaryLabel,
@@ -150,34 +150,34 @@ export const ErrorScreen: React.FC<ErrorScreenProps> = ({
           </div>
         </div>
 
-        <div className={s.actions}>
-          {cfg.primaryLabel && (
-            <button
-              type="button"
+        <div className={s.buttonsWrapperStyle}>
+          {_primaryLabel && (
+            <Button
+              variant="primary"
+              size="large"
               onClick={onPrimary ?? handlers.onPrimary}
-              className={s.btnPrimary}
             >
               {_primaryLabel}
-            </button>
+            </Button>
           )}
 
-          {cfg.secondaryLabel && (
-            <button
-              type="button"
+          {_secondaryLabel && (
+            <Button
+              variant="secondary"
+              size="large"
               onClick={onSecondary ?? handlers.onSecondary}
-              className={s.btnSecondary}
             >
               {_secondaryLabel}
-            </button>
+            </Button>
           )}
-          {cfg.retryLabel && (
-            <button
-              type="button"
+          {_retryLabel && (
+            <Button
+              variant="ghost"
+              size="large"
               onClick={onRetry ?? handlers.onRetry}
-              className={s.btnGhost}
             >
               {_retryLabel}
-            </button>
+            </Button>
           )}
         </div>
       </section>

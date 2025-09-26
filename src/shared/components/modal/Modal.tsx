@@ -9,17 +9,13 @@ import {
   bodyStyle,
   footerStyle,
   actionsStyle,
-  actionBtnStyle,
-  primaryBtnStyle,
-  secondaryBtnStyle,
-  dangerBtnStyle,
 } from "./modal.css";
+import { Button } from "@shared/components";
 
 type ModalAction = {
   label: string;
   onClick: () => void;
-  variant?: "primary" | "secondary" | "danger";
-  autoFocus?: boolean;
+  variant?: "primary" | "secondary" | "ghost";
 };
 
 type ModalProps = {
@@ -39,7 +35,6 @@ export function Modal({
   closeOnOverlayClick = true,
   actions = [],
 }: ModalProps) {
-  // 접근성: title/body 참조 ID
   const titleId = useId();
   const bodyId = useId();
 
@@ -64,23 +59,15 @@ export function Modal({
   if (!open) return null;
 
   const renderAction = (action: ModalAction, idx: number) => {
-    const variantClass =
-      action.variant === "danger"
-        ? dangerBtnStyle
-        : action.variant === "secondary"
-        ? secondaryBtnStyle
-        : primaryBtnStyle;
-
     return (
-      <button
+      <Button
         key={`${action.label}-${idx}`}
-        className={`${actionBtnStyle} ${variantClass}`}
+        variant={action.variant}
+        size="medium"
         onClick={action.onClick}
-        autoFocus={action.autoFocus}
-        type="button"
       >
         {action.label}
-      </button>
+      </Button>
     );
   };
 

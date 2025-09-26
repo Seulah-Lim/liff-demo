@@ -74,29 +74,6 @@ export default function ReturnExtendScreen() {
     <div className={container({ cta: true })}>
       <div className={app}>
         <main className={content}>
-          {/* <section className={s.cardInUse}>
-            <img
-              src={IMAGE_URL}
-              alt="Battery preview"
-              className={s.imageCover}
-            />
-
-            <div className={s.kv}>
-              <div className={s.k}>모델</div>
-              <div>OC Portable Battery</div>
-
-              <div className={s.k}>배터리 ID</div>
-              <div className={s.rowInline}>
-                <span>{bid ?? "-"}</span>
-                <span className={s.pill}>
-                  <span className={s.dot} /> In use
-                </span>
-              </div>
-
-              <div className={s.k}>대여 지점</div>
-              <div>City Hall #12</div>
-            </div>
-          </section> */}
           <BatteryInfoCard data={info} />
           <Card title="반납 시간">
             <div className={s.rowBetween}>

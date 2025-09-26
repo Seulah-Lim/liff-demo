@@ -6,43 +6,6 @@ export const meta = style({
   fontSize: 12,
 });
 
-/* ----- Buttons (옵션) ----- */
-export const btn = style({
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-  padding: "16px 14px",
-  borderRadius: 14,
-  border: "1px solid #e5e7eb",
-  background: "#111827",
-  color: "#fff",
-  fontWeight: 700,
-  textDecoration: "none",
-});
-export const btnSecondary = style([
-  btn,
-  {
-    background: "transparent",
-    color: "inherit",
-  },
-]);
-export const btnDisabled = style([
-  btn,
-  {
-    background: "#f3f4f6",
-    color: "#9ca3af",
-    borderColor: "#e5e7eb",
-    cursor: "not-allowed",
-  },
-]);
-
-export const buttons = style({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: 12,
-});
-
 /* ----- Banner ----- */
 
 export const banner = style({

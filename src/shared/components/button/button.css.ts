@@ -41,10 +41,17 @@ export const button = recipe({
       primary: {
         background: "var(--brand)",
         color: "#fff",
+        ":hover": { background: "#1f2937" },
       },
       secondary: {
         background: "#fff",
         color: "var(--brand)",
+        ":hover": { background: "#e2e8f0" },
+      },
+      ghost: {
+        background: "transparent",
+        color: "#475569",
+        ":hover": { color: "#111827" },
       },
     },
     size: {

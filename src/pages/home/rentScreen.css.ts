@@ -35,40 +35,6 @@ export const cardAvailable = style([
   },
 ]);
 
-/* ---------- Buttons ---------- */
-export const buttons = style({
-  display: "grid",
-  gridTemplateColumns: "1fr",
-  gap: 10,
-  padding: 0,
-});
-export const buttonsTwo = style([
-  buttons,
-  { gridTemplateColumns: "1fr 1fr", gap: 12 },
-]);
-
-export const btn = style({
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-  padding: "16px 14px",
-  borderRadius: 14,
-  border: "1px solid var(--border)",
-  background: "var(--brand)",
-  color: "#fff",
-  fontWeight: 700,
-  textDecoration: "none",
-});
-export const btnSecondary = style([
-  btn,
-  { background: "transparent", color: "var(--fg)" },
-]);
-export const btnDanger = style([
-  btn,
-  { background: "#ef4444", borderColor: "#ef4444", color: "#fff" },
-]);
-
 /* ---------- Chips (Radio) ---------- */
 export const chips = style({
   display: "flex",

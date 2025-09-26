@@ -6,6 +6,7 @@ import liff from "@line/liff";
 import noUserLottie from "@shared/assets/lottie/ghost.json";
 import { useLiffStore } from "@app/store/liffStore";
 import { buildMainPermanentLink } from "@shared/lib/liff/buildLinks";
+import { Button } from "@shared/components";
 
 export const LoginRequiredScreen = () => {
   const { login } = useLiffStore();
@@ -40,38 +41,38 @@ export const LoginRequiredScreen = () => {
           </div>
         </div>
 
-        <div className={s.actions}>
-          <button
-            type="button"
+        <div className={s.buttonsWrapperStyle}>
+          <Button
+            variant="primary"
+            size="large"
             onClick={() => {
               login();
             }}
-            className={s.btnPrimary}
           >
             로그인
-          </button>
+          </Button>
 
           {!inClient && (
-            <button
-              type="button"
+            <Button
+              variant="secondary"
+              size="large"
               onClick={async () => {
                 const deep = await buildMainPermanentLink();
                 location.href = deep;
               }}
-              className={s.btnSecondary}
             >
               LINE앱에서 사용
-            </button>
+            </Button>
           )}
-          <button
-            type="button"
+          <Button
+            variant="ghost"
+            size="large"
             onClick={() => {
               window.location.reload();
             }}
-            className={s.btnGhost}
           >
             다시 시도
-          </button>
+          </Button>
         </div>
       </section>
     </main>

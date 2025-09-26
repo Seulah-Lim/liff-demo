@@ -1,7 +1,7 @@
 import React from "react";
 import * as s from "./button.css";
 
-type ButtonVariant = "primary" | "secondary";
+type ButtonVariant = "primary" | "secondary" | "ghost";
 type ButtonSize = "large" | "medium" | "small";
 
 type BaseProps = {

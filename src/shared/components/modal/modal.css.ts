@@ -56,33 +56,3 @@ export const actionsStyle = style({
     },
   },
 });
-
-export const actionBtnStyle = style({
-  appearance: "none",
-  border: "1px solid transparent",
-  borderRadius: 10,
-  padding: "12px 14px",
-  fontSize: 15,
-  fontWeight: 600,
-  cursor: "pointer",
-  lineHeight: 1.2,
-});
-
-export const primaryBtnStyle = style({
-  background: "#111",
-  color: "#fff",
-  ":active": { transform: "translateY(0.5px)" },
-});
-
-export const secondaryBtnStyle = style({
-  background: "#f3f4f6",
-  color: "#111",
-  borderColor: "rgba(0,0,0,0.08)",
-  ":active": { transform: "translateY(0.5px)" },
-});
-
-export const dangerBtnStyle = style({
-  background: "#ef4444",
-  color: "#fff",
-  ":active": { transform: "translateY(0.5px)" },
-});
