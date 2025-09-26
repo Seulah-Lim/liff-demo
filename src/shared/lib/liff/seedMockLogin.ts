@@ -21,7 +21,7 @@ export function seedMockLogin() {
     getContext: {
       type: "external",
       viewType: "full",
-      endpointUrl: "https://seulah-lim.github.io/liff-demo/",
+      endpointUrl: import.meta.env.VITE_LIFF_ENDPOINT_URL,
       groupId: "",
       availability: {
         shareTargetPicker: {
