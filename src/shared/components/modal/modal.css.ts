@@ -1,4 +1,3 @@
-// src/shared/ui/modal/Modal.css.ts
 import { style } from "@vanilla-extract/css";
 
 export const overlayStyle = style({
@@ -40,6 +39,7 @@ export const bodyStyle = style({
   color: "#333",
   overflow: "auto",
   textAlign: "center",
+  fontSize: 14,
 });
 
 export const footerStyle = style({});

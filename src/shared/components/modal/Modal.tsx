@@ -1,4 +1,3 @@
-// src/shared/ui/modal/Modal.tsx
 import { useEffect, useId, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -22,7 +21,7 @@ type ModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title?: string;
-  children: ReactNode;
+  children?: ReactNode;
   closeOnOverlayClick?: boolean;
   actions?: ModalAction[]; // 0~2개 권장
 };

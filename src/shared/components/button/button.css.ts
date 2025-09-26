@@ -39,13 +39,13 @@ export const button = recipe({
   variants: {
     variant: {
       primary: {
-        background: "var(--brand)",
-        color: "#fff",
+        background: "var(--fg)",
+        color: "var(--card)",
         ":hover": { background: "#1f2937" },
       },
       secondary: {
-        background: "#fff",
-        color: "var(--brand)",
+        background: "var(--card)",
+        color: "var(--fg)",
         ":hover": { background: "#e2e8f0" },
       },
       ghost: {
