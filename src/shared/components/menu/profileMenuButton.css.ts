@@ -30,31 +30,13 @@ export const menu = style({
   right: 12,
   top: APP_BAR_HEIGHT,
   borderRadius: 14,
-  background: "rgba(var(--bg-rgb), 0.6)",
+  backgroundColor: "rgba(var(--bg-rgb), 0.5)",
   backdropFilter: "blur(10px)",
-
-  border: "1px solid rgba(0,0,0,0.08)",
-  boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
+  border: "1px solid rgba(var(--fg-rgb),0.08)",
+  boxShadow: "0 12px 32px rgba(var(--fg-rgb),0.18)",
   padding: 8,
-  zIndex: 20,
   transformOrigin: "top right",
   width: 160,
-  selectors: {
-    "&::before": {
-      content: "",
-      position: "absolute",
-      top: -6,
-      right: 18,
-      width: 12,
-      height: 12,
-      background: "inherit",
-      backdropFilter: "inherit",
-      borderLeft: "1px solid rgba(var(--fg-rgb), 0.08)",
-      borderTop: "1px solid rgba(var(--fg-rgb), 0.08)",
-      transform: "rotate(45deg)",
-      borderRadius: 2,
-    },
-  },
 });
 
 // export const menuHeader = style({

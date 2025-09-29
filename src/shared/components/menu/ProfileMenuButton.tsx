@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import liff from "@line/liff";
 import { Modal } from "@shared/components";
+import { createPortal } from "react-dom";
 
 export function ProfileMenuButton() {
   const navigate = useNavigate();
@@ -62,67 +63,78 @@ export function ProfileMenuButton() {
         )}
       </button>
 
-      {menuOpen && (
-        <div className={s.menu} role="menu" aria-label="Quick actions">
-          <div className={s.menuHeader} role="presentation">
-            {profile?.displayName && (
-              <p className={s.greetingClamp} title={`${profile.displayName}님`}>
-                <strong className={s.nameInline}>{profile.displayName}</strong>
-                님
-              </p>
-            )}
-
-            <div className={s.statusRow}>
-              {friendFlag ? (
-                <span className={`${s.badge} ${s.badgeOk}`}>공식계정 친구</span>
-              ) : (
-                <>
-                  <span className={`${s.badge} ${s.badgeWarn}`}>친구 아님</span>
-                  <button
-                    type="button"
-                    className={s.inlineBtn}
-                    onClick={goAddFriendOnly}
-                  >
-                    친구 추가
-                  </button>
-                </>
+      {menuOpen &&
+        createPortal(
+          <div className={s.menu} role="menu" aria-label="Quick actions">
+            <div className={s.menuHeader} role="presentation">
+              {profile?.displayName && (
+                <p
+                  className={s.greetingClamp}
+                  title={`${profile.displayName}님`}
+                >
+                  <strong className={s.nameInline}>
+                    {profile.displayName}
+                  </strong>
+                  님
+                </p>
               )}
+
+              <div className={s.statusRow}>
+                {friendFlag ? (
+                  <span className={`${s.badge} ${s.badgeOk}`}>
+                    공식계정 친구
+                  </span>
+                ) : (
+                  <>
+                    <span className={`${s.badge} ${s.badgeWarn}`}>
+                      친구 아님
+                    </span>
+                    <button
+                      type="button"
+                      className={s.inlineBtn}
+                      onClick={goAddFriendOnly}
+                    >
+                      친구 추가
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className={s.divider} role="separator" />
+            <div className={s.divider} role="separator" />
 
-          <div
-            role="menuitem"
-            className={s.menuItem}
-            onClick={open}
-            aria-label="로그아웃"
-          >
-            로그아웃
-          </div>
+            <div
+              role="menuitem"
+              className={s.menuItem}
+              onClick={open}
+              aria-label="로그아웃"
+            >
+              로그아웃
+            </div>
 
-          {isHome && (
-            <>
-              <div
-                className={s.menuItem}
-                onClick={() => {
-                  handleNaviButton("/return-guide");
-                }}
-              >
-                반납 안내
-              </div>
-              <div
-                className={s.menuItem}
-                onClick={() => {
-                  handleNaviButton("/support");
-                }}
-              >
-                고객 지원
-              </div>
-            </>
-          )}
-        </div>
-      )}
+            {isHome && (
+              <>
+                <div
+                  className={s.menuItem}
+                  onClick={() => {
+                    handleNaviButton("/return-guide");
+                  }}
+                >
+                  반납 안내
+                </div>
+                <div
+                  className={s.menuItem}
+                  onClick={() => {
+                    handleNaviButton("/support");
+                  }}
+                >
+                  고객 지원
+                </div>
+              </>
+            )}
+          </div>,
+          document.body
+        )}
 
       <Modal
         open={isOpen}
