@@ -105,7 +105,7 @@ export function ProfileMenuButton() {
             <div
               role="menuitem"
               className={s.menuItem}
-              onClick={open}
+              onMouseDown={open}
               aria-label="로그아웃"
             >
               로그아웃
