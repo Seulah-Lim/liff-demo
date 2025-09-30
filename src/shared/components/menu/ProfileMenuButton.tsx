@@ -28,10 +28,9 @@ export function ProfileMenuButton() {
   }, []);
 
   const handleNaviButton = (path: string) => {
-    setMenuOpen(false);
     navigate(path);
+    setMenuOpen(false);
   };
-
   function goAddFriendOnly() {
     const url = `https://line.me/R/ti/p/${import.meta.env.VITE_BOT_ID}`;
     liff.openWindow({ url, external: false });
@@ -116,7 +115,7 @@ export function ProfileMenuButton() {
               <>
                 <div
                   className={s.menuItem}
-                  onClick={() => {
+                  onMouseDown={() => {
                     handleNaviButton("/return-guide");
                   }}
                 >
@@ -124,7 +123,7 @@ export function ProfileMenuButton() {
                 </div>
                 <div
                   className={s.menuItem}
-                  onClick={() => {
+                  onMouseDown={() => {
                     handleNaviButton("/support");
                   }}
                 >

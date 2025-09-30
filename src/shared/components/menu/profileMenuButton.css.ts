@@ -30,34 +30,14 @@ export const menu = style({
   right: 12,
   top: APP_BAR_HEIGHT,
   borderRadius: 14,
-  backgroundColor: "rgba(var(--bg-rgb), 0.5)",
-  backdropFilter: "blur(10px)",
+  backgroundColor: "rgba(var(--bg-rgb), 0.3)",
+  backdropFilter: "blur(4px)",
   border: "1px solid rgba(var(--fg-rgb),0.08)",
   boxShadow: "0 12px 32px rgba(var(--fg-rgb),0.18)",
   padding: 8,
   transformOrigin: "top right",
   width: 160,
 });
-
-// export const menuHeader = style({
-//   display: "flex",
-//   flexDirection: "column",
-//   gap: "6px",
-//   alignItems: "flex-start",
-//   margin: "0px 12px",
-// });
-
-// export const greetingClamp = style({
-//   margin: 0,
-//   fontSize: 12,
-//   lineHeight: 1.4,
-//   opacity: 0.7,
-//   display: "-webkit-box",
-//   WebkitBoxOrient: "vertical",
-//   WebkitLineClamp: 2, // ★ 2줄 제한
-//   overflow: "hidden",
-//   textOverflow: "ellipsis", // 보조용
-// });
 
 export const nameInline = style({
   fontWeight: 600,
