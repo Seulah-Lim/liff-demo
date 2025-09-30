@@ -91,7 +91,7 @@ export function ProfileMenuButton() {
                     <button
                       type="button"
                       className={s.inlineBtn}
-                      onClick={goAddFriendOnly}
+                      onMouseDown={goAddFriendOnly}
                     >
                       친구 추가
                     </button>
